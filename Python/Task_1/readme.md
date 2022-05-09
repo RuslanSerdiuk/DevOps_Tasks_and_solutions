@@ -1,6 +1,6 @@
-# Python Module 3
-
-## Password Generator
+# Python: Password Generator
+##TASK:
+![]()
 
 ### Default mode
 By running the script without any arguments, we will get a ten-character password, that contains all listed tokens.
