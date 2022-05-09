@@ -114,7 +114,7 @@ if __name__ == '__main__':
 Screenshot work program:
 ![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-3.png)
 ___
-#### Task-05b-4:
+#### Task-4-4:
 ```
 import re
 from datetime import datetime, timedelta
@@ -137,16 +137,17 @@ def main(start_time, time_period, log_file):
 
 
 if __name__ == '__main__':
-    our_file = input(r"Please enter path your file (for example C:\Users\Ruslan_Serdiuk\Desktop\Task-05b\access_log): ")
+    our_file = input(r"Please enter path your file (for example C:\Users\Ruslan_Serdiuk\your path\access_log): ")
     start_time = input("Please enter date and time in format:'08/Oct/2015:09:01:41' - ")
     time_period = int(input("Please enter the period in sec - "))
     number = main(start_time, time_period, our_file)
     print("Searched = " + str(number))
 ```
-[Link on the screenshot work program](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m2-Python-Task-05b/Module-02_Python/Task-05b/Screenshots/Task-05b-4.png)
+Screenshot work program
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-4.png)
 ___
 
-#### Task-05b-5:
+#### Task-4-5:
 ```
 import re
 
@@ -168,10 +169,11 @@ if __name__ == '__main__':
     top_clear_list = reader(r'access_log', requests=req)
     print("The most popular " + str(req) + " requests:\n" + str(top_clear_list))
 ```
-[Link on the screenshot work program](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m2-Python-Task-05b/Module-02_Python/Task-05b/Screenshots/Task-05b-5.png)
+Screenshot work program:
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-5.png)
 ___
 
-#### Task-05b-6:
+#### Task-4-6:
 ```
 import re
 from collections import Counter
@@ -205,7 +207,8 @@ if __name__ == '__main__':
     top = count(reader(r'access_log'))
     print(top)
 ```
-[Link on the screenshot work program](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m2-Python-Task-05b/Module-02_Python/Task-05b/Screenshots/Task-05b-6.png)
+Screenshot work program:
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-6.png)
 ___
 
 #### Task-05b-7:
