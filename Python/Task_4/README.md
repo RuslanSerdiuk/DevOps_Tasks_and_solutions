@@ -1,4 +1,7 @@
-# **TASK-05b** (Python - Parsing access.log)
+# Python: Parsing access.log
+
+## TASK:
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Task_4.png)
 
 > **Here only code of the solution.**    
 > **The tasks and screenshots located in the .py files and folder "Screensots"**
