@@ -47,7 +47,8 @@ def count(ip_list):
 if __name__ == '__main__':
     count(reader(r'access_log'))
 ```
-![Screenshot work program](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-1.png)
+Screenshot work program:
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-1.png)
 ___
 
 #### Task-4-2:
@@ -72,16 +73,17 @@ def main(start_time, time_period, log_file):
 
 
 if __name__ == '__main__':
-    our_file = input(r"Please enter path your file (for example C:\Users\Ruslan_Serdiuk\Desktop\Task-05b\access_log): ")
+    our_file = input(r"Please enter path your file (for example C:\Users\Ruslan_Serdiuk\your path\access_log): ")
     start_time = input("Please enter date and time in format:'08/Oct/2015:09:01:41' - ")
     time_period = int(input("Please enter the period in sec - "))
     number = main(start_time, time_period, our_file)
     print("Searched = " + str(number))
 ```
-![Screenshot work program](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-2.png)
+Screenshot work program:
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-2.png)
 ___
 
-#### Task-05b-3:
+#### Task-4-3:
 ```
 import re
 from collections import Counter
@@ -109,7 +111,8 @@ def count(user_agents):
 if __name__ == '__main__':
     count(reader(r'access_log'))
 ```
-[Link on the screenshot work program](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m2-Python-Task-05b/Module-02_Python/Task-05b/Screenshots/Task-05b-3.png)
+Screenshot work program:
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-3.png)
 ___
 #### Task-05b-4:
 ```
