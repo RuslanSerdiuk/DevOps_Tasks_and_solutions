@@ -211,7 +211,7 @@ Screenshot work program:
 ![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-6.png)
 ___
 
-#### Task-05b-7:
+#### Task-4-7:
 ```
 import re
 from collections import Counter
@@ -237,10 +237,11 @@ if __name__ == '__main__':
     for i in count:
         print("The worker: " + i[0] + " found = " + str(i[1]) + '')
 ```
-[Link on the screenshot work program](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m2-Python-Task-05b/Module-02_Python/Task-05b/Screenshots/Task-05b-7.png)
+Screenshot work program
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-7.png)
 ___
 
-#### Task-05b-8:
+#### Task-4-8:
 ```
 import re
 from collections import Counter
@@ -272,10 +273,11 @@ if __name__ == '__main__':
     if req > len(count):
         print("\t\tSORRY!\n\t\tThese all referer domains that have access_log file(")
 ```
-[Link on the screenshot work program](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m2-Python-Task-05b/Module-02_Python/Task-05b/Screenshots/Task-05b-8.png)
+Screenshot work program:
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-8.png)
 ___
 
-#### Task-05b-9:
+#### Task-4-9:
 ```
 import re
 from datetime import datetime, timedelta
@@ -301,7 +303,7 @@ def main(start_time, time_period, log_file):
 
 
 if __name__ == '__main__':
-    our_file = input(r"Please enter path your file (for example C:\Users\Ruslan_Serdiuk\Desktop\Task-05b\access_log): ")
+    our_file = input(r"Please enter path your file (for example C:\Users\Ruslan_Serdiuk\your path\access_log): ")
     start_time = input("Please enter date and time in format:'08/Oct/2015:09:01:41' - ")
     time_period = 0
     count = 0
@@ -316,10 +318,11 @@ if __name__ == '__main__':
         number = main(start_time, time_period, our_file)
         print("In " + str(time_period) + " sec searched = " + str(number))
 ```
-[Link on the screenshot work program](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m2-Python-Task-05b/Module-02_Python/Task-05b/Screenshots/Task-05b-9.png)
+Screenshot work program:
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-9.png)
 ___
 
-#### Task-05b-10:
+#### Task-4-10:
 ```
 import re
 from datetime import datetime, timedelta
@@ -350,7 +353,8 @@ if __name__ == '__main__':
         number = main(start_time, time_period, our_file)
         print("In " + str(time_period) + " sec searched = " + str(number))
 ```
-[Link on the screenshot work program](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m2-Python-Task-05b/Module-02_Python/Task-05b/Screenshots/Task-05b-10.png)
+Screenshot work program:
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-10.png)
 ___
 _**Additional sources of information were used:**_
 - [ ] https://www.sentinelone.com/blog/detailed-introduction-apache-access-log/
