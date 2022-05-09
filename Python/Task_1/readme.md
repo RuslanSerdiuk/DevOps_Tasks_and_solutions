@@ -1,6 +1,6 @@
 # Python: Password Generator
 ## TASK:
-![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_1/Tas_1.png)
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_1/Task_1.png)
 
 ### Default mode
 By running the script without any arguments, we will get a ten-character password, that contains all listed tokens.
