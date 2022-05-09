@@ -15,7 +15,7 @@
 3. Write filtered information to an array or print on the display
 
 
-#### Task-05b-1:
+#### Task-4-1:
 ```
 import re
 from collections import Counter
@@ -47,7 +47,7 @@ def count(ip_list):
 if __name__ == '__main__':
     count(reader(r'access_log'))
 ```
-[Link on the screenshot work program]https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m2-Python-Task-05b/Module-02_Python/Task-05b/Screenshots/Task-05b-1.png)
+[Link on the screenshot work program](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m2-Python-Task-05b/Module-02_Python/Task-05b/Screenshots/Task-05b-1.png)
 ___
 
 #### Task-05b-2:
