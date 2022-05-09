@@ -1,4 +1,11 @@
+# Python: regex
+
+## TASK:
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_3/Task_3.png)
+
+
 1) IPv4 address (special address: private network, CIDR notation):
+
 
 - Any IP address - ```(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9]?)``` 
 
