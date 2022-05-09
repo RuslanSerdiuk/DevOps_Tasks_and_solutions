@@ -47,10 +47,10 @@ def count(ip_list):
 if __name__ == '__main__':
     count(reader(r'access_log'))
 ```
-[Link on the screenshot work program](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m2-Python-Task-05b/Module-02_Python/Task-05b/Screenshots/Task-05b-1.png)
+![Screenshot work program](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-1.png)
 ___
 
-#### Task-05b-2:
+#### Task-4-2:
 ```
 import re
 from datetime import datetime, timedelta
@@ -78,7 +78,7 @@ if __name__ == '__main__':
     number = main(start_time, time_period, our_file)
     print("Searched = " + str(number))
 ```
-[Link on the screenshot work program](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m2-Python-Task-05b/Module-02_Python/Task-05b/Screenshots/Task-05b-2.png)
+![Screenshot work program](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_4/Screenshots/Task-4-2.png)
 ___
 
 #### Task-05b-3:
