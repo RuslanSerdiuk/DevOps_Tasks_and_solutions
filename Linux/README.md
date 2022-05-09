@@ -1,0 +1,1 @@
+# Tasks 1-2, these are only several tutorial commands that I was trained on from zero)
