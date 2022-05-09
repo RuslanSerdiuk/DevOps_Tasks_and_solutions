@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
   
     config.vm.define "#{PROJECT_NAME}_NAT" do |conf| 
     conf.vm.box = "ubuntu/focal64"
-    conf.vm.hostname = "EPAMKHAW-NAT-#{PROJECT_NAME}.local"
+    conf.vm.hostname = "MYHOST-NAT-#{PROJECT_NAME}.local"
     conf.vm.network "private_network", ip: "172.16.14.3", netmask: "255.255.255.0", virtualbox__intnet: "net-2"
     conf.vm.network "public_network"
 
@@ -34,7 +34,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "#{PROJECT_NAME}_DNS" do |conf| 
     conf.vm.box = "ubuntu/focal64"
-    conf.vm.hostname = "EPAMKHAW-DNS-#{PROJECT_NAME}.local"
+    conf.vm.hostname = "MYHOST-DNS-#{PROJECT_NAME}.local"
     conf.vm.network "private_network", ip: "172.16.14.4", netmask: "255.255.255.0", virtualbox__intnet: "net-2"
 
     conf.vm.provider "virtualbox" do |vb|
@@ -53,7 +53,7 @@ Vagrant.configure("2") do |config|
 
     config.vm.define "#{PROJECT_NAME}_DHCP" do |conf|
     conf.vm.box = "ubuntu/focal64"
-    conf.vm.hostname = "EPAMKHAW-DHCP-#{PROJECT_NAME}.local"
+    conf.vm.hostname = "MYHOST-DHCP-#{PROJECT_NAME}.local"
     conf.vm.network "private_network", ip: "172.16.14.2", netmask: "255.255.255.0", virtualbox__intnet: "net-2"
 
     conf.vm.provider "virtualbox" do |vb|
@@ -73,7 +73,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "#{PROJECT_NAME}_R12" do |conf|
   conf.vm.box = "ubuntu/focal64"
   config.vm.box_version = "20210210.0"
-  conf.vm.hostname = "EPUAKHAW1543#{PREFIX}-R12-#{PROJECT_NAME}.local"
+  conf.vm.hostname = "MYHOST#{PREFIX}-R12-#{PROJECT_NAME}.local"
   conf.vm.network "private_network", ip: "172.16.13.254", netmask: "255.255.255.0", virtualbox__intnet: "net-1" #, auto_config: false
   conf.vm.network "private_network", ip: "172.16.14.254", netmask: "255.255.255.0", virtualbox__intnet: "net-2" #, auto_config: false
 
@@ -118,7 +118,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "#{PROJECT_NAME}_R23" do |conf|
   # conf.vbguest.auto_update = false
   config.vm.box = "ubuntu/focal64"
-  conf.vm.hostname = "EPUAKHAW1543#{PREFIX}--R23-#{PROJECT_NAME}.local"
+  conf.vm.hostname = "MYHOST#{PREFIX}--R23-#{PROJECT_NAME}.local"
   conf.vm.network "private_network", ip: "172.16.15.254", netmask: "255.255.255.0", virtualbox__intnet: "net-3"
   conf.vm.network "private_network", ip: "172.16.14.253", netmask: "255.255.255.0", virtualbox__intnet: "net-2"
 
@@ -161,7 +161,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "#{PROJECT_NAME}_R.DMZ" do |conf|
   conf.vm.box = "ubuntu/focal64"
   config.vm.box_version = "20210210.0"
-  conf.vm.hostname = "EPUAKHAW1543#{PREFIX}-R.DMZ-#{PROJECT_NAME}.local"
+  conf.vm.hostname = "MYHOST#{PREFIX}-R.DMZ-#{PROJECT_NAME}.local"
   conf.vm.network "private_network", ip: "172.16.14.252", netmask: "255.255.255.0", virtualbox__intnet: "net-2" #, auto_config: false
   conf.vm.network "private_network", ip: "172.16.16.254", netmask: "255.255.255.0", virtualbox__intnet: "DMZ-Zone" #, auto_config: false
   
@@ -214,7 +214,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "#{PROJECT_NAME}_N1H1" do |conf|
   # conf.vm.vbguest.auto_update = false
   config.vm.box = "ubuntu/focal64"
-  conf.vm.hostname = "EPUAKHAW1543#{PREFIX}--N1H1-#{PROJECT_NAME}.local"
+  conf.vm.hostname = "MYHOST#{PREFIX}--N1H1-#{PROJECT_NAME}.local"
   conf.vm.network "private_network", type: "dhcp", netmask: "255.255.255.0", virtualbox__intnet: "net-1"
     
     conf.vm.provider "virtualbox" do |vb|
@@ -250,7 +250,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "#{PROJECT_NAME}_N1H2" do |conf|
   # conf.vm.vbguest.auto_update = false
   config.vm.box = "ubuntu/focal64"
-  conf.vm.hostname = "EPUAKHAW1543#{PREFIX}--N1H2-#{PROJECT_NAME}.local"
+  conf.vm.hostname = "MYHOST#{PREFIX}--N1H2-#{PROJECT_NAME}.local"
   conf.vm.network "private_network", type: "dhcp", netmask: "255.255.255.0", virtualbox__intnet: "net-1"
     
     conf.vm.provider "virtualbox" do |vb|
@@ -285,7 +285,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "#{PROJECT_NAME}_N2H1" do |conf|
   conf.vm.box = "ubuntu/focal64"
-  conf.vm.hostname = "EPUAKHAW1543#{PREFIX}--N2H1-#{PROJECT_NAME}.local"
+  conf.vm.hostname = "MYHOST#{PREFIX}--N2H1-#{PROJECT_NAME}.local"
   conf.vm.network "private_network", type: "dhcp", virtualbox__intnet: "net-2"
 
     conf.vm.provider "virtualbox" do |vb|
@@ -320,7 +320,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "#{PROJECT_NAME}_N3H1" do |conf|
   conf.vm.box = "ubuntu/focal64"
-  conf.vm.hostname = "EPUAKHAW1543#{PREFIX}--N3H1-#{PROJECT_NAME}.local"
+  conf.vm.hostname = "MYHOST#{PREFIX}--N3H1-#{PROJECT_NAME}.local"
   conf.vm.network "private_network", type: "dhcp", netmask: "255.255.255.0", virtualbox__intnet: "net-3"
 
     conf.vm.provider "virtualbox" do |vb|
@@ -347,7 +347,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "#{PROJECT_NAME}_DMZ-H1" do |conf|
   conf.vm.box = "ubuntu/focal64"
-  conf.vm.hostname = "EPUAKHAW1543#{PREFIX}--DMZ-H1-#{PROJECT_NAME}.local"
+  conf.vm.hostname = "MYHOST#{PREFIX}--DMZ-H1-#{PROJECT_NAME}.local"
   conf.vm.network "private_network", type: "dhcp", netmask: "255.255.255.0", virtualbox__intnet: "DMZ-Zone"
 
     conf.vm.provider "virtualbox" do |vb|
@@ -381,7 +381,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define "#{PROJECT_NAME}_DMZ-H2" do |conf|
   conf.vm.box = "ubuntu/focal64"
-  conf.vm.hostname = "EPUAKHAW1543#{PREFIX}--DMZ-H2-#{PROJECT_NAME}.local"
+  conf.vm.hostname = "MYHOST#{PREFIX}--DMZ-H2-#{PROJECT_NAME}.local"
   conf.vm.network "private_network", type: "dhcp", netmask: "255.255.255.0", virtualbox__intnet: "DMZ-Zone"
 
     conf.vm.provider "virtualbox" do |vb|
