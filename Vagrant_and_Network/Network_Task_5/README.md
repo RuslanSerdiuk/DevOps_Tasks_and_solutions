@@ -2,7 +2,7 @@
 > This is a very short readme, because this task was done quite a long time ago
 
 #### _TASK:_
-- [ ] check Network_Task_5.pdf
+- [ ] [check Network_Task_5.pdf](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Network_Task_5/Vagrant_and_Network/Network_Task_5/Network_Task_5.pdf)
 
 #### _Solution Scheme:_
 ![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Network_Task_5/Vagrant_and_Network/Network_Task_5/Solution%20scheme.png)
