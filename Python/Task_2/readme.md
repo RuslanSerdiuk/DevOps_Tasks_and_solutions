@@ -1,5 +1,8 @@
 # Python: CSV Formatter
 
+## TASK:
+![](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Python/Python/Task_2/Task_2.png)
+
 ### Read .xsv file with csv library and without
 
 ```    
