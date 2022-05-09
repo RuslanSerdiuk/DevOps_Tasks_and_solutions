@@ -1,4 +1,4 @@
-# Task-05b-2:
+# Task-4-2:
 # Найти частоту запросов в интервал времени dT (минут)
 
 import re
@@ -21,7 +21,7 @@ def main(start_time, time_period, log_file):
 
 
 if __name__ == '__main__':
-    our_file = input(r"Please enter path your file (for example C:\Users\Ruslan_Serdiuk\Desktop\Task-05b\access_log): ")
+    our_file = input(r"Please enter path your file (for example C:\Users\Ruslan_Serdiuk\tour path\access_log): ")
     start_time = input("Please enter date and time in format:'08/Oct/2015:09:01:41' - ")
     time_period = int(input("Please enter the period in sec - "))
     number = main(start_time, time_period, our_file)

@@ -1,4 +1,4 @@
-# Task-05b-6:
+# Task-4-6:
 # N самых частых запросов до K-го слеша, т.е. 2-го слеша
 # если запрос "GET /merlin-service-search/rest/vehiclefamilyvalueslookup/117341 HTTP/1.1",
 # то статистику собирать по /merlin-service-search

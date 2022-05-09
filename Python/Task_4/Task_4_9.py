@@ -1,4 +1,4 @@
-# Task-05b-9:
+# Task-4-9:
 # К-во запросов по апстримам (воркерам) в dT (30 сек, 1 минуту, 5 мин)
 # По лог файлу должно находить за 30 сек - 3249 запросов; за 60 сек - 6268 запросов; за 300 сек - 31226 запросов.
 
@@ -26,7 +26,7 @@ def main(start_time, time_period, log_file):
 
 
 if __name__ == '__main__':
-    our_file = input(r"Please enter path your file (for example C:\Users\Ruslan_Serdiuk\Desktop\Task-05b\access_log): ")
+    our_file = input(r"Please enter path your file (for example C:\Users\Ruslan_Serdiuk\your path\access_log): ")
     start_time = input("Please enter date and time in format:'08/Oct/2015:09:01:41' - ")
     time_period = 0
     count = 0
