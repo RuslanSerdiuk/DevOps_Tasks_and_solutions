@@ -57,9 +57,9 @@ services:
 #### 1. Have Docker Desktop on the windows)
 #### 1. Open disk C: and create folder "test"
 #### 2. Open folder "test" with cmd and clone my repository to yourself with command: 
-> git clone -b m5-Docker-Task-01 --single-branch https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan.git
+> git clone -b Docker --single-branch https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git
 #### 3. Navigate to the copied repository using command:
-> cd C:\test\devops-21q4-22q1-serdiuk-ruslan\Module-05_Docker\Task-01
+> cd C:\test\DevOps_Tasks_and_solutions\Docker\Task_1_(docker-compose)
 #### 4. Run the command: *"docker-compose up"*
 ### After that open http://localhost:8100/ in browser.
 
