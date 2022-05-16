@@ -1,1 +1,1 @@
-# Here are just a few examples of pipelines 
+# Here are just a few examples of pipelines. Plus [Task_1](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/CI/CD/CICD/Task_1) - configure Jenkins Server and writing basic pipelines
