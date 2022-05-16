@@ -1,4 +1,4 @@
-## Theme 2. HTTP&curl. Working with GitLab API
+## Network Task 2. HTTP&curl. Working with GitLab API
 
 1. Найти в интернете 8 различных status code HTTP. В запросе и ответе должно содержаться не
 менее 5 header’s атрибутов.

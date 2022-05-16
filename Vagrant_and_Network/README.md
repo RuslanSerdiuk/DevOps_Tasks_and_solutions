@@ -1,1 +1,1 @@
-# _These are only test problems for initial familiarization and introduction_
+# _These are only test tasks for initial familiarization and introduction_

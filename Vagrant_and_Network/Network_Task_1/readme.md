@@ -1,6 +1,6 @@
 # Network
 
-## Theme 1. Traffic analysis
+## Network Task 1. Traffic analysis
 ### Explore network configuration
 Исследовать сетевые настройки на вашем компьютере. Выполнить проверку относительно всех доступных сетевых интерфейсов в системе. (ipconfig / ifconfig / ip)
 ```
