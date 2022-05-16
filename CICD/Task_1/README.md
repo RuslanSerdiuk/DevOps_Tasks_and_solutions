@@ -4,8 +4,8 @@
 > #### *This task was only done to demonstrate some of the capabilities of the Jenkins server and config it. Plus writing some standard pipelines.*
 
 ### Preparation:
-- I used Vagrant to quickly get a Jenkins server machine up and running + automated jdk installation and doker
-
+- I used [Vagrant](https://www.vagrantup.com/downloads) and [VirtuaBox](https://www.virtualbox.org/wiki/Downloads) to quickly get a Jenkins server machine up and running + automated jdk installation and doker
+- Just run `vagrant init` and `vagrant up` and that's it. You can practice!
 
 
 ## Task Desription
