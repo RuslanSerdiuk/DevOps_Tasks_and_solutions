@@ -1,1 +1,1 @@
-# Tasks 1-4, these are strictly tutorial tasks that I was trained on from zero)
+# Tasks 1-4, here are examples of some useful assignments to get you started learning python
