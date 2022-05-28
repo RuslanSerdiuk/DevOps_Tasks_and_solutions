@@ -233,4 +233,4 @@ systemctl restart httpd
 + https://www.youtube.com/watch?v=AP6H3ZG7LGM&list=PLg5SS_4L6LYsxrZ_4xE_U95AtGsIB96k9&index=60
 
 
-### _Also you can find all screenshots [HERE](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/tree/m7-AWS-Task-01/Module-07_AWS/Task-01/Screenshots)_
+### _Also you can find all screenshots [HERE](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/AWS/Task_1_Simple_Application/Screenshots)_
