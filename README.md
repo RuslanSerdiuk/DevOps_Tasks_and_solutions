@@ -7,6 +7,6 @@
 4. [Vagrant and Network](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Vagrant_and_Network) - contains examples of basic tasks, commands, and utilities for introducing and understanding the basics of networks in practice
 5. [Docker](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Docker) - contains examples of real-world tasks (basic and not only) that may be encountered in the work of a devops engineer
 6. [CI/CD](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/CICD) - contains examples of test tasks, pipelines, which were used in the study and daily tasks
-7. AWS - 
+7. [AWS]() - different solutions that have helped me in my work with optimization and build infrastructure in AWS
 8. Terraform - 
 9. Ansible - 
