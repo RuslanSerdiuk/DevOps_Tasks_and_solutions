@@ -1,1 +1,3 @@
-# Here are just a few examples of pipelines. Plus [Task_1](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/CI/CD/CICD/Task_1) - configure Jenkins Server and writing basic pipelines
+# In this module, there will be different solutions that have helped me in my work with optimization in AWS.
+
+## [Task_1_Simple_Application](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS/Task_1_Simple_Application) - test task to understand how some services work and how they relate to each other
