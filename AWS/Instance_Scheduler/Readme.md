@@ -7,28 +7,32 @@
 > Click **Launch solution in the AWS Console.**
 <img src ='Screenshots/Scheduler_main_page.png'>
 
-In the CloudFormation console, enter a name for our CloudFormation stack.
+> In the CloudFormation console, enter a name for our CloudFormation stack.
+> 
 > Add tags:
-started-by=InstanceScheduler
-stopped-by=InstanceScheduler
+> 
+> **started-by=InstanceScheduler**
+> 
+> **stopped-by=InstanceScheduler**
 <img src ='Screenshots/Tags.png'>
 
 > Check Parameters Stack:
 <img src ='Screenshots/Stack_parameters.png'>
-And click **Create Stack**
+> And click **Create Stack**
 
 > Wait until it is time for the stack to finish creating all the resources!
 <img src ='Screenshots/Stack_completed.png'>
-Congratulation!
-It's success)
+> Congratulation!
+> It's success)
 
 ### Edit the DynamoDB Tables
 
-Navigate to **DynamoDB** > **Tables**.
-
-Select the **ConfigTable**. 
-
-Select the **uk-office-hours** item.
+> Navigate to **DynamoDB** > **Tables**.
+> 
+> Select the **ConfigTable**. 
+> 
+> Select the **uk-office-hours** item.
+> 
 > Click Actions > Duplicate.
 <img src ='Screenshots/DynamoDB_create_office_hours.png'>
 
@@ -38,7 +42,7 @@ Select the **uk-office-hours** item.
 > 
 > Change the time zone to **"US/Eastern"**.
 <img src ='Screenshots/Config_office_hours.png'>
-Click **Create item** and then refresh the table.
+> Click **Create item** and then refresh the table.
 
 
 ### Add Tag to EC2 Instance
@@ -53,7 +57,7 @@ Click **Create item** and then refresh the table.
 > 
 > Value: **us-office-hours**
 <img src ='Screenshots/Add_instance_tag.png'>
-Click Save.
+> Click Save.
 
 ### Update Amazon EventBridge Events Rule
 
@@ -66,8 +70,7 @@ Click Save.
 
 > Then next change the* 0/5 minutes* to 1 minute.
 <img src ='Screenshots/Correct_CloudWatch_rule.png'>
-> Click Next, Next, Next.
-> 
+> Click Next, Next, Next. 
 > Click Update rule.
 
 ### Update DynamoDB Config Table
@@ -78,7 +81,7 @@ Click Save.
 > 
 > Update the **begintime** and **endtime**
 <img src ='Screenshots/Config_period.png'>
-Click Save.
+> Click Save.
 
 ### Verify EC2 Instance Stopped
 > Navigate to **EC2** > **Instances**.
