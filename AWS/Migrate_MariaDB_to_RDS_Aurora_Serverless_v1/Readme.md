@@ -112,7 +112,7 @@ In utf8 (utf8mb3) encoding, one character takes 3 bytes, i.e. 3 * 255 gives us o
 In utf8mb4 encoding one character takes 4 bytes, that is 4 * 191 we get our 767 bytes limit.
 ```
 ### :warning: Backup all data :bangbang:
-### Solution:
+### Solution: :point_down:
 
 Since MySQL 5.6.3 there is an InnoDB_large_prefix option, which increases the limit from 767 bytes to 3072 bytes, but only for tables with DYNAMIC and COMPRESSED format rows and only for Barracuda file format (innodb_file_format=Barracuda) and only when the innodb_file_per_table=ON option is enabled. For COMPACT and REDUNDANT format strings the 767 bytes limit remains.
 
@@ -144,7 +144,7 @@ Ok. Let's check ROW_FORMAT in our database:
 ```ALTER TABLE `our_table` ROW_FORMAT=DYNAMIC;```
 
 :white_medium_square: **But what if there are thousands of such tables?**
->Just use this script: `change_row_format.sh`
+Just use this script: [change_row_format.sh](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/AWS/AWS/Migrate_MariaDB_to_RDS_Aurora_Serverless_v1/change_row_format.sh) :point_left:
 
 
 ### :green_circle: Congratulations! You have successfully change ROW_FORMAT in all tables in your database. Now, you can create new dump and migrate/restoring a MySQL database from a dump.
