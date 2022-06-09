@@ -45,7 +45,7 @@ Check:
 
 - `lsblk`
 
-### Partition the disk using the parted command 
+### Partition the disk using the `parted`:
 
 #### Open dick:
 - `parted /dev/nvme1n1`
@@ -158,14 +158,13 @@ Check:
 #### First, you need to specify the UUID of the corresponding volume
 - `blkid`
 
+<img src ='Screenshots/Change_UUID_1.png'>
+
 #### You can see that the uuid of the root partition of the old large volume:           
 - EBS — 8fee2a17-de2a-4336-9a82-68be6e435b44 
 #### And the uuid of the new small volume:           
 - EBS — 35954a93-0e7b-42fb-a7e8-f5735379e6ea
 - swap — f609944a-b580-4ddd-b803-031564a5ca85
-
-<img src ='Screenshots/Change_UUID_1.png'>
-
 
 #### Use the `sed` command to replace:
 - `sed 's/8fee2a17-de2a-4336-9a82-68be6e435b44/35954a93-0e7b-42fb-a7e8-f5735379e6ea/g' /mnt/myroot/boot/grub/grub.cfg >> /mnt/myroot/boot/grub/grub2.cfg`
