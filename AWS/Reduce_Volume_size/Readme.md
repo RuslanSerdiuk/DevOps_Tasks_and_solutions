@@ -19,7 +19,7 @@
 
 =========================================================================================
 ## _Create a new EBS volume_
-In our example we will create a smaller volume of 100 GB, not 1 TB. Since I only use 1-2% of the total space
+In our example we will create a smaller volume of 100 GB, not 1 TB, **in the same availability zone as your instance**. Since I only use 1-2% of the total space
 
 <img src ='Screenshots/Create_new_volume_1.png'>
 
@@ -207,4 +207,9 @@ tmpfs                                     /tmp tmpfs defaults,noatime,nodev,noex
 <img src ='Screenshots/Success_2.png'>
 
 ## _Links:_
-- r
+- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-using-volumes.html
+- https://serverfault.com/questions/673048/how-to-reduce-aws-ebs-root-volume-size
+- https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-booting-from-wrong-volume.html
+- https://medium.com/@m.yunan.helmy/decrease-the-size-of-ebs-volume-in-your-ec2-instance-ea326e951bce#:~:text=You%20might%20be%20wondering%2C%20can,only%20be%20increased%2C%20not%20decreased%20.
+- https://www.daniloaz.com/en/partitioning-and-resizing-the-ebs-root-volume-of-an-aws-ec2-instance/
+- https://www.daniloaz.com/en/the-importance-of-properly-partitioning-a-disk-in-linux/
