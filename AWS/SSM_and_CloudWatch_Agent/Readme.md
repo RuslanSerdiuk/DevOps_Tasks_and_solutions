@@ -1,111 +1,117 @@
-# Implement SSM + CloudWatch Agent to your instance
+# :infinity: Implement SSM + CloudWatch Agent to your instance :computer:
 
-#### SSM is needed in case you lose access to your instance. For example, you lost your ssh key.
-#### CloudWatch Agent is needed to get metrics from your volum. such as free space
+#### :purple_square: SSM is needed in case you lose access to your instance. For example, you lost your ssh key.
+#### :purple_square: CloudWatch Agent is needed to get metrics from your volum. such as free space
 
 ## _Part 1 - [Create role]_
 
-First of all we need create Role for our agents. 
+First of all we need create Role for our agents :exclamation:
 
-> Click **IAM** > **Roles** > **Create Role** and Select **EC2**
-> <img src ='Screenshots/Create_role.png'>
+:white_medium_square: Click **IAM** > **Roles** > **Create Role** and Select **EC2**
+<img src ='Screenshots/Create_role.png'>
 
-> Next add **AmazonSSMManagedInstanceCore**
-> <img src ='Screenshots/SSM_role.png'>
+:white_medium_square: Next add **AmazonSSMManagedInstanceCore**
+<img src ='Screenshots/SSM_role.png'>
 
-> and add **CloudWatchAgentAdminPolicy** and **CloudWatchAgentServerPolicy**
-> <img src ='Screenshots/CloudWatch_Agent_role.png'>
+:white_medium_square: and add **CloudWatchAgentAdminPolicy** and **CloudWatchAgentServerPolicy**
+<img src ='Screenshots/CloudWatch_Agent_role.png'>
 
-> So, give name **"SSM_CloudWatch_role"** for your role:
-> <img src ='Screenshots/Add_name_role.png'>
+:white_medium_square: So, give name **"SSM_CloudWatch_role"** for your role:
+<img src ='Screenshots/Add_name_role.png'>
 
-> And check all permitions:
-> <img src ='Screenshots/All_permition_role.png'>
-> Now just click **Create role**
+:white_medium_square: And check all permitions:
+<img src ='Screenshots/All_permition_role.png'>
+Now just click **Create role**
 
-> Next attach your role to your instance:
-> 
-> Select your instance
-> 
-> right-click on it
-> 
-> Select **Security**
-> 
-> and Select **Modify IAM Role**
-> <img src ='Screenshots/Modify_role.png'>
+:white_medium_square: Next attach your role to your instance:
 
-> Now just select your role from list:
-> <img src ='Screenshots/Modify_role_2.png'>
+:white_small_square: Select your instance
 
-> Congratulations! Your role has been attached.
-> <img src ='Screenshots/Modify_role_successfully.png'>
+:white_small_square: right-click on it
+
+:white_small_square: Select **Security**
+
+:white_small_square: and Select **Modify IAM Role**
+<img src ='Screenshots/Modify_role.png'>
+
+:white_medium_square: Now just select your role from list:
+<img src ='Screenshots/Modify_role_2.png'>
+
+:white_medium_square: Congratulations! Your role has been attached.
+<img src ='Screenshots/Modify_role_successfully.png'>
 
 ## _PART 2 - [Install SSM Agent to your instance]_
 
-> WARNING! 
-> 
+:bangbang: WARNING :warning:
+
 > **If you don't have access to your instance, the ssm agent can only be implemented by creating a new instance!**
 > 
 > You should already have access to your instance. For example ssh.
 
-> In most cases, SSM Agent is preinstalled on AMIs provided by AWS for the following operating systems (OSs):
-> 
-> - Amazon Linux Base AMIs dated 2017.09 and later 
->
-> - Amazon Linux 2 
-> 
-> - Amazon Linux 2 ECS-Optimized Base AMIs 
-> 
-> - macOS 10.14.x (Mojave), 10.15.x (Catalina), and 11.x (Big Sur)
-> 
-> - SUSE Linux Enterprise Server (SLES) 12 and 15 
-> 
-> - Ubuntu Server 16.04, 18.04, and 20.04 
-> 
-> - Windows Server 2008-2012 R2 AMIs published in November 2016 or later 
-> 
-> - Windows Server 2016, 2019, and 2022
+:white_medium_square: In most cases, SSM Agent is preinstalled on AMIs provided by AWS for the following operating systems (OSs):
 
-> I using [AWS documentation](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-manual-agent-install.html) and choosing my  version OS.
-> <img src ='Screenshots/Install_SSM_1.png'>
+	- Amazon Linux Base AMIs dated 2017.09 and later 
 
-> I Have Ubuntu Server 20.10 STR 64-bit (Snap package installation).
-> 
-> So, I just Run the following command to determine if SSM Agent is running: `sudo systemctl status snap.amazon-ssm-agent.amazon-ssm-agent.service`
-> <img src ='Screenshots/Install_SSM_3.png'>
->  
-> and a few other commands:
-> 
-> <img src ='Screenshots/Install_SSM_2.png'>
+	- Amazon Linux 2 
 
-#### So, SSM Agent is installed and running. Ok, run the SSM Session.
+	- Amazon Linux 2 ECS-Optimized Base AMIs 
 
-> Select **AWS Systems Manager** > **Session Manager**
-> <img src ='Screenshots/Start_SSM_Session.png'>
-> Select your instance and click **Start session**
+	- macOS 10.14.x (Mojave), 10.15.x (Catalina), and 11.x (Big Sur)
 
-> Congratulations!
-> <img src ='Screenshots/SSM_user.png'>
+	- SUSE Linux Enterprise Server (SLES) 12 and 15 
 
-## PART 3 - [Install CloudWatch Agent to your instance]
+	- Ubuntu Server 16.04, 18.04, and 20.04 
 
-> I using [AWS documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/download-cloudwatch-agent-commandline.html) too.
-> Select your version OS and copy link for download:
-> <img src ='Screenshots/Install_CloudWatch_Agent_1.png'>
+	- Windows Server 2008-2012 R2 AMIs published in November 2016 or later 
 
-> Run the command: `wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb`
-> <img src ='Screenshots/Install_CloudWatch_Agent_2.png'>
+	- Windows Server 2016, 2019, and 2022
 
-> If you downloaded a DEB package on a Linux server, change to the directory containing the package and enter the following: `sudo dpkg -i -E ./amazon-cloudwatch-agent.deb`
-> <img src ='Screenshots/Install_CloudWatch_Agent_3.png'>
+:white_medium_square: I using [AWS documentation](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-manual-agent-install.html) and choosing my  version OS.
+<img src ='Screenshots/Install_SSM_1.png'>
+
+:white_medium_square: I Have Ubuntu Server 20.10 STR 64-bit (Snap package installation).
+
+:white_medium_small_square: So, I just Run the following command to determine if SSM Agent is running: `sudo systemctl status snap.amazon-ssm-agent.amazon-ssm-agent.service`
+
+<img src ='Screenshots/Install_SSM_3.png'>
+
+:white_medium_small_square: and a few other commands:
+
+<img src ='Screenshots/Install_SSM_2.png'>
+
+#### So, SSM Agent is installed and running. Ok, run the SSM Session. (before it wait 5-10 minutes)
+
+:white_medium_square: Select **AWS Systems Manager** > **Session Manager**
+<img src ='Screenshots/Start_SSM_Session.png'>
+:white_medium_small_square: Select your instance and click **Start session**
+
+:green_circle: Congratulations!
+<img src ='Screenshots/SSM_user.png'>
+
+## _PART 3 - [Install CloudWatch Agent to your instance]_
+
+:white_medium_square: I using [AWS documentation](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/download-cloudwatch-agent-commandline.html) too.
+
+:white_medium_small_square: Select your version OS and copy link for download:
+<img src ='Screenshots/Install_CloudWatch_Agent_1.png'>
+
+:white_medium_square: Run the command: 
+`wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb`
+<img src ='Screenshots/Install_CloudWatch_Agent_2.png'>
+
+:white_medium_square: If you downloaded a DEB package on a Linux server, change to the directory containing the package and enter the following: 
+`sudo dpkg -i -E ./amazon-cloudwatch-agent.deb`
+<img src ='Screenshots/Install_CloudWatch_Agent_3.png'>
+
 
 #### Ok, now create the [CloudWatch agent configuration file](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/create-cloudwatch-agent-configuration-file-wizard.html) with the wizard!
 
-> Start the CloudWatch agent configuration wizard by entering the following: `sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard`
-> <img src ='Screenshots/CloudWatch_config_file.png'>
-> <img src ='Screenshots/CloudWatch_config_file_2.png'>
-> <img src ='Screenshots/CloudWatch_config_file_3.png'>
-> <img src ='Screenshots/CloudWatch_config_file_4.png'>
+:white_medium_square: Start the CloudWatch agent configuration wizard by entering the following: `sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard`
+
+<img src ='Screenshots/CloudWatch_config_file.png'>
+<img src ='Screenshots/CloudWatch_config_file_2.png'>
+<img src ='Screenshots/CloudWatch_config_file_3.png'>
+<img src ='Screenshots/CloudWatch_config_file_4.png'>
 
 #### So, we got the json configuration file:
 ```
@@ -180,14 +186,14 @@ First of all we need create Role for our agents.
         }
 ```
 
-> Let's to store the config in the SSM parameter store:
-> <img src ='Screenshots/CloudWatch_config_file_done.png'>
+:white_medium_square: Let's to store the config in the SSM parameter store:
+<img src ='Screenshots/CloudWatch_config_file_done.png'>
 
-> And check our file in Parameter Store:
-> <img src ='Screenshots/Check_Parameter_Store.png'>
+:white_medium_square: And check our file in Parameter Store:
+<img src ='Screenshots/Check_Parameter_Store.png'>
 
 
-Let's replace the configuration file with our custom configuration file: `sudo vim /opt/aws/amazon-cloudwatch-agent/bin/config.json`
+:brown_square: Let's replace the configuration file with our custom configuration file: `sudo vim /opt/aws/amazon-cloudwatch-agent/bin/config.json`
 ```
 {
         "agent": {
@@ -268,70 +274,70 @@ Let's replace the configuration file with our custom configuration file: `sudo v
 }
 ```
 
-> And in Parameter Store, just click **Edit**
-> <img src ='Screenshots/Cusctom_config_file.png'>
+:white_medium_square: And in Parameter Store, just click **Edit**
+<img src ='Screenshots/Cusctom_config_file.png'>
 
-> And paste your custom configuration code here:
-> <img src ='Screenshots/Cusctom_config_file_2.png'>
-> And click **Save changes**
-
-
-> Next you need Select **AWS Systems Manager** > **Run Command** > and click **Run Command**
-> 
-> Search **AmazonCloudWatch-ManageAgent**
-> <img src ='Screenshots/Run_Command_1.png'>
-
-#### Command parameters:
-> Action: **configure**
-> 
-> Optional Configuration Location: **AmazonCloudWatch-linux** from Parameter Store
-> <img src ='Screenshots/Run_Command_2.png'>
-> <img src ='Screenshots/Run_Command_3.png'>
-
-> Targets:
-> <img src ='Screenshots/Run_Command_4.png'>
-
-> And click **Run**
-> <img src ='Screenshots/Run_Command_5.png'>
-
-> Failed. Hmm...
-> 
-> Let's check the output:
-> <img src ='Screenshots/Run_Command_6.png'>
-
-> **Just install CollectD: `sudo apt install collectd`:**
-> 
-> <img src ='Screenshots/Run_Command_7.png'>
-> 
-> **Or choose "no" at this point:**
-> 
-> <img src ='Screenshots/CloudWatch_config_file_3 - Copy.png'>
-
-> Now click **Return**
-> <img src ='Screenshots/Run_Command_8.png'>
+:white_medium_square: And paste your custom configuration code here:
+<img src ='Screenshots/Cusctom_config_file_2.png'>
+:white_medium_small_square: And click **Save changes**
 
 
-> **YES!**
-> <img src ='Screenshots/Run_Command_9.png'>
+:white_medium_square: Next you need Select **AWS Systems Manager** > **Run Command** > and click **Run Command**
+
+:white_medium_small_square: Search **AmazonCloudWatch-ManageAgent**
+<img src ='Screenshots/Run_command_1.png'>
+
+#### 	:white_large_square: Command parameters:
+:black_medium_small_square: Action: **configure**
+
+:black_medium_small_square: Optional Configuration Location: **AmazonCloudWatch-linux** from Parameter Store
+<img src ='Screenshots/Run_command_2.png'>
+<img src ='Screenshots/Run_command_3.png'>
+
+:black_medium_small_square: Targets:
+<img src ='Screenshots/Run_command_4.png'>
+
+:white_medium_small_square: And click **Run**
+<img src ='Screenshots/Run_command_5.png'>
+
+:red_circle: Failed. Hmm...
+
+:yellow_square: Let's check the output:
+<img src ='Screenshots/Run_command_6.png'>
+
+:large_orange_diamond: **Just install CollectD: `sudo apt install collectd`:**
+
+<img src ='Screenshots/Run_command_7.png'>
+
+:small_orange_diamond: **Or choose "no" at this point:**
+
+<img src ='Screenshots/CloudWatch_config_file_3 - Copy.png'>
+
+:white_medium_square: Now click **Return**
+<img src ='Screenshots/Run_command_8.png'>
+
+
+:green_circle: **YES!**
+<img src ='Screenshots/Run_command_9.png'>
 
 ## _PART 4 - [Config Cloud Watch Dashboard]_
 
-> Go to the Cloud Watch and create my own dashboard and add widget:
-> <img src ='Screenshots/Check_metrics_0.5.png'>
-> <img src ='Screenshots/Check_metrics_0.7.png'>
-> <img src ='Screenshots/Check_metrics_1.png'>
-> <img src ='Screenshots/Check_metrics_2.png'>
-> 
-> **Adding used disk space**
-> <img src ='Screenshots/Check_metrics_3.png'>
-> <img src ='Screenshots/Check_metrics_4.png'>
-> 
-> And some more metrics
-> <img src ='Screenshots/Check_metrics_5.png'>
-> and click **Save dashboard**
+:white_medium_square: Go to the Cloud Watch and create my own dashboard and add widget:
+<img src ='Screenshots/Check_metrics_0.5.png'>
+<img src ='Screenshots/Check_metrics_0.7.png'>
+<img src ='Screenshots/Check_metrics_1.png'>
+<img src ='Screenshots/Check_metrics_2.png'>
 
-## _Useful links:_
-- https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-EC2-Instance.html
-- https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/download-cloudwatch-agent-commandline.html
-- https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/create-cloudwatch-agent-configuration-file-wizard.html
-- https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html
+:white_medium_square: **Adding used disk space**
+<img src ='Screenshots/Check_metrics_3.png'>
+<img src ='Screenshots/Check_metrics_4.png'>
+
+:white_medium_square: And some more metrics
+<img src ='Screenshots/Check_metrics_5.png'>
+:white_medium_small_square: and click **Save dashboard**
+
+## :purple_circle: _Useful links:_
+- _https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/install-CloudWatch-Agent-on-EC2-Instance.html_
+- _https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/download-cloudwatch-agent-commandline.html_
+- _https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/create-cloudwatch-agent-configuration-file-wizard.html_
+- _https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html_
