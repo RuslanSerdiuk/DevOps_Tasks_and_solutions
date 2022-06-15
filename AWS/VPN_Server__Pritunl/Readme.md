@@ -129,6 +129,7 @@ Great! Now our server will always be on the same IP Address.
 
 3. Go to the **Servers** > click **Add Server**. Enter the **Name** and **Port UDP (this UDP port must be open in the Security Group in the AWS Account)**:
 <img src ='Screenshots/Configurating_server_13_v1.png'>
+
 + Enable **"Allow Multiple Devices"**
 + Disable **"Inter-client Routing"**
 
