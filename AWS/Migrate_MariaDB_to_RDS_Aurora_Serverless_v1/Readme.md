@@ -8,38 +8,38 @@
 
 #### One of the most important aspects of any migration of data to the cloud is cost optimization. Luckily, AWS has made this relatively simple thanks to the Database Migration Service. I use the Database Migrations Service (DMS) to migrate a MariaDB database from an EC2 server to an RDS Aurora Serverless v.1 MySQL database.
 
-### :white_large_square: _Create Replication Instance_
+### :large_blue_diamond: _Create Replication Instance_
 
-  :one: Name our replication instance **aurorareplication**
++ Name our replication instance **aurorareplication**
 
-  :two: Give it a Description of **mariadb to aurora**
++ Give it a Description of **mariadb to aurora**
 
-  :three: Leave most of the defaults, but change the **Allocated storage 30**
++ Leave most of the defaults, but change the **Allocated storage 30**
 
-:four: Leave Multi-AZ unchecked
++ Leave Multi-AZ unchecked
 
-:five: Uncheck publicly accessible
++ Uncheck publicly accessible
 
-:six: Choose the one with your VPC in the title from the dropdown, but for VPC security group select the security group for your databases.
++ Choose the one with your VPC in the title from the dropdown, but for VPC security group select the security group for your databases.
 
-:seven: Multi AZ: **YES**
++ Multi AZ: **YES**
 
-8️⃣ Uncheck the **Publicly** accessible box
++ Uncheck the **Publicly** accessible box
 
-:nine: Click **Create**
++ Click **Create**
 <img src ='Screenshots/Replication_instance_done_1.png'>
 <img src ='Screenshots/Replication_instance_done_2.png'>
 
-### :white_large_square: _Create Endpoints_
+### :large_blue_diamond: _Create Endpoints_
 :green_square: _**Create a Target Endpoint**_ :green_square:
 
-  :one: Start off with our Target Endpoint
++ Start off with our Target Endpoint
   
-  :two: Check the box for _RDS instance_
++ Check the box for _RDS instance_
   
-  :three: Select **[name your database in RDS]** for the RDS instance
++ Select **[name your database in RDS]** for the RDS instance
   
-  :four: Leave defaults:
++ Leave defaults:
   
    - Target Engine: **Amazon Aurora MySQL Serverless**
      
@@ -51,32 +51,32 @@
      
    - leave `master_password(RDS)` as **Password**
   
-  :five: Run test
+ + Run test
   
-  :six: Create the Target Endpoint
+ + Create the Target Endpoint
 
 :red_square: _**Create Source Endpoint**_ :red_square:
 
-  :one: Select **Source Endpoint**
+ + Select **Source Endpoint**
   
-  :two: **Do not check the box** for _RDS instance_
+ + **Do not check the box** for _RDS instance_
   
-  :three: _Set Endpoint identifier_ to **my-db-source**
+ + _Set Endpoint identifier_ to **my-db-source**
   
-  :four: Leave the defaults, and set _Source engine_ to **MariaDB**
+ + Leave the defaults, and set _Source engine_ to **MariaDB**
   
-  :five: Set _Server Name_ to the **private IP** address your **instance with the database**
+ + Set _Server Name_ to the **private IP** address your **instance with the database**
   
-  :six: Leave _Port_ set at **3306**, and leave `database_user(MariaDB)` as **User name**
+ + Leave _Port_ set at **3306**, and leave `database_user(MariaDB)` as **User name**
   
-  :seven: Paste your `password database(MariaDB)` into the **Password** field
+ + Paste your `password database(MariaDB)` into the **Password** field
   
-  :eight: Run a test
+ + Run a test
   
-  :nine: Create the source endpoint
+ + Create the source endpoint
 <img src ='Screenshots/Endpoints_done.png'>
 
-### :white_large_square: _Create the Migration Task_
+### :large_blue_diamond: _Create the Migration Task_
 
 1. Add Identifier: **migratewordpress** (or anything other)
 2. Choose our **Replication Instance**
