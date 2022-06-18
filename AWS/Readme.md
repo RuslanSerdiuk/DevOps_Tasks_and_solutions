@@ -9,3 +9,7 @@
 ## [Migrate MariaDB to RDS Aurora Serverless v1](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS/Migrate_MariaDB_to_RDS_Aurora_Serverless_v1) - How to quickly migrate your MariaDB to Aurora and resolve some problem while migration process
 
 ## [Reduce Volume Size in AWS Instance](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS/Reduce_Volume_size) - In this article, I will give a clear step-by-step guide on how to reduce the size of the root volume on an AWS instance without losing data.
+
+## [VPN Server "Pritunl" in AWS](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS/VPN_Server__Pritunl) - How to reduce the cost of AWS VPN? Simply replace with your own VPN server!
+
+
