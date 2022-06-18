@@ -1,13 +1,14 @@
 # Deploying and replacing the AWS VPN Service with Pritunl on a separate instance
 
-There are situations when we or our customer need to connect to the instance from different IP addresses. **We cannot open port 22 to the whole world!** 
+:bangbang: There are situations when we or our customer need to connect to the instance from different IP addresses. **We cannot open port 22 to the whole world!** 
 So we will use a VPN. But amazon's VPN is quite expensive. 
+
 <img src ='Screenshots/Billing_VPN.png'>
 
-And in order to save money there is an alternative solution. 
+:grey_exclamation: And in order to save money there is an alternative solution. 
 **This is to deploy a VPN Server on a separate instance.**
 
-## _Launch instance and Setup VPN Server "Pritunl"_
+## :white_medium_square: _Launch instance and Setup VPN Server "Pritunl"_
 - [Official site](https://pritunl.com/vpc)
 - [Documentation](https://docs.pritunl.com/docs/installation)
 
@@ -22,7 +23,7 @@ Create Security Group:
 Connect to instance and run command `yum update`
 <img src ='Screenshots/Update.png'>
 
-Next, just run these commands:
+Next, just run these commands :point_down:
 ```
 sudo tee /etc/yum.repos.d/mongodb-org-4.2.repo << EOF
 [mongodb-org-4.2]
@@ -57,10 +58,10 @@ sudo systemctl enable mongod pritunl
 <img src ='Screenshots/Setup_VPN_Server_2.png'>
 <img src ='Screenshots/Setup_VPN_Server_3.png'>
 
-**Check our Server `sudo systemctl status mongod pritunl`**
+**Check our Server `sudo systemctl status mongod pritunl`** :mag:
 <img src ='Screenshots/Setup_VPN_Server_4.png'>
 
-## _Configurating Server_
+## :white_medium_square: _Configurating Server_
 
 Go to the Public IP:
 <img src ='Screenshots/Configurating_server_1.png'>
@@ -91,13 +92,13 @@ Go to the console and run command: `sudo pritunl default-password` and and **pas
 <img src ='Screenshots/Configurating_server_9.png'>
 And click **"Sing in"**
 
-### Change credentials:
+### :arrows_counterclockwise: Change credentials:
 
 Now, enter new User and Password:
 <img src ='Screenshots/Configurating_server_10.png'>
 After that, click **"Save"**
 
-> **But our server will change the Public IP every time the instance is restarted.
+:warning: **But our server will change the Public IP every time the instance is restarted.
 Let's give it a permanent IP Address.**
 
 Go to the AWS:
@@ -117,7 +118,7 @@ Click **"Setting"** and enter the **Elastic IP** in the **public address**:
 <img src ='Screenshots/Elastic_IP_3.png'>
 Click **"Save"**
 
-Great! Now our server will always be on the same IP Address.
+ :clap: Great! Now our server will always be on the same IP Address.
 
 1. Go to the **Users** > click **Add Organization** > give name:
 <img src ='Screenshots/Configurating_server_11.png'>
@@ -147,7 +148,7 @@ Great! Now our server will always be on the same IP Address.
 <img src ='Screenshots/Configurating_server_16.png'>
 
 
-## _Setup and Configurating OpenVPN Client_
+## :white_medium_square: _Setup and Configurating OpenVPN Client_
 
 
 1. Download the OpenVPN Client: https://openvpn.net/client-connect-vpn-for-windows/
@@ -172,7 +173,7 @@ Great! Now our server will always be on the same IP Address.
 
 <img src ='Screenshots/Success.png'>
 
-## _Correct Security Group on the Main Server_
+## :white_medium_square: _Correct Security Group on the Main Server_
 
 EC2 > SG > Edit inbound rules:
 
@@ -182,7 +183,7 @@ Click **"Save Rules"**
 
 #### The End. Now you can give your client access to the VPN server. And your client can create the necessary number of users to access the main server.
 
-### Congratulation!
+### Congratulation! :thumbsup:
 
 
 ## _Links:_
