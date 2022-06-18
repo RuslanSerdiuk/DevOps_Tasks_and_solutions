@@ -102,10 +102,10 @@ blkid
 
 Use the sed command to replace: 
 
-sed 's/8fee2a17-de2a-4336-9a82-68be6e435b44/81a90b45-3f4a-44c9-8d91-541103de543b/g' /mnt/myroot/boot/grub/grub.cfg >> /mnt/myroot/boot/grub/grub2.cfg 
-cat /mnt/myroot/boot/grub/grub2.cfg > /mnt/myroot/boot/grub/grub.cfg 
-sed 's/8fee2a17-de2a-4336-9a82-68be6e435b44/81a90b45-3f4a-44c9-8d91-541103de543b/g' /mnt/myroot/etc/fstab >> /mnt/myroot/etc/fstab2 
-cat /mnt/myroot/etc/fstab2 > /mnt/myroot/etc/fstab
+sed -i 's/8fee2a17-de2a-4336-9a82-68be6e435b44/81a90b45-3f4a-44c9-8d91-541103de543b/g' /mnt/myroot/boot/grub/grub.cfg
+
+sed -i 's/8fee2a17-de2a-4336-9a82-68be6e435b44/81a90b45-3f4a-44c9-8d91-541103de543b/g' /mnt/myroot/etc/fstab
+
 
 # Correct /mnt/myroot/etc/fstab
 UUID=81a90b45-3f4a-44c9-8d91-541103de543b / ext4 rw,discard,errors=remount-ro,x-systemd.growfs 0 1
@@ -291,13 +291,9 @@ Check:
 - swap — f609944a-b580-4ddd-b803-031564a5ca85
 
 #### Use the `sed` command to replace:
-- `sed 's/8fee2a17-de2a-4336-9a82-68be6e435b44/35954a93-0e7b-42fb-a7e8-f5735379e6ea/g' /mnt/myroot/boot/grub/grub.cfg >> /mnt/myroot/boot/grub/grub2.cfg`
+- `sed -i 's/8fee2a17-de2a-4336-9a82-68be6e435b44/35954a93-0e7b-42fb-a7e8-f5735379e6ea/g' /mnt/myroot/boot/grub/grub.cfg
 
-- `cat /mnt/myroot/boot/grub/grub2.cfg > /mnt/myroot/boot/grub/grub.cfg`
-
-- `sed 's/8fee2a17-de2a-4336-9a82-68be6e435b44/35954a93-0e7b-42fb-a7e8-f5735379e6ea/g' /mnt/myroot/etc/fstab >> /mnt/myroot/etc/fstab2`
-
-- `cat /mnt/myroot/etc/fstab2 > /mnt/myroot/etc/fstab`
+- `sed -i 's/8fee2a17-de2a-4336-9a82-68be6e435b44/35954a93-0e7b-42fb-a7e8-f5735379e6ea/g' /mnt/myroot/etc/fstab
 
 #### And correct `/mnt/myroot/etc/fstab`
 ```
