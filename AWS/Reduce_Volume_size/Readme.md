@@ -8,17 +8,17 @@
 apt-get update 
 sudo apt-get -y install parted 
 
-# разбить диск с помощью команды parted 
-## получить список устройств хранения и разделов: 
+# to partition the disk using the command "parted" 
+## get a list of storage devices and partitions: 
 lsblk
 
 # Open dick: 
 parted /dev/nvme1n1 
 
-# Для создания таблицы разделов введите следующее: 
+# To create a partition table, enter the following: 
 mklabel gpt 
 
-# Проверьте таблицу 
+# Check the table: 
 print
 
 # Next:
@@ -31,10 +31,10 @@ mkpart swap linux-swap 90% 100%
 unit GiB
 p
 
-# Чтобы сохранить свои действия и выйти, введите команду 
+# To save your actions and exit, enter the command:
 quit
 
-# После разбиения используйте снова: 
+# After splitting, use again: 
 lsblk
 
 =============================================================================================
@@ -66,7 +66,7 @@ df -h
 # Install rsync  
 sudo apt-get -y install rsync 
 
-# Перенос данных 
+# Data transfer: 
 sudo rsync -axv / /mnt/myroot
 
 ============================================================================================
@@ -85,7 +85,7 @@ vim /etc/grub.d/20_linux_xen
 
 ============================================================================================= 
 ######### Change UUID ############################# 
-# Необходимо изменить uuid в следующих двух файлах: 
+# You need to change the UUID in the following two files: 
 /mnt/myroot/boot/grub2/grub.cfg #or /mnt/myroot/boot/grub/grub.cfg   
 /mnt/myroot/etc/fstab 
 
@@ -93,14 +93,14 @@ vim /etc/grub.d/20_linux_xen
 sudo cp /mnt/myroot/boot/grub/grub.cfg /mnt/myroot/boot/grub/grub.cfg.orig 
 sudo cp /mnt/myroot/etc/fstab /mnt/myroot/etc/fstab.orig 
 
-# Во-первых, вам нужно указать UUID соответствующего тома 
+# First, you need to specify the UUID of the corresponding volume:
 blkid 
 
 # Old — 8fee2a17-de2a-4336-9a82-68be6e435b44
 # New — 81a90b45-3f4a-44c9-8d91-541103de543b
 # swap - f19cb92a-3877-49fa-a8f1-aabd1e808236
 
-Используйте команду sed для замены: 
+Use the sed command to replace: 
 
 sed 's/8fee2a17-de2a-4336-9a82-68be6e435b44/81a90b45-3f4a-44c9-8d91-541103de543b/g' /mnt/myroot/boot/grub/grub.cfg >> /mnt/myroot/boot/grub/grub2.cfg 
 cat /mnt/myroot/boot/grub/grub2.cfg > /mnt/myroot/boot/grub/grub.cfg 
@@ -112,13 +112,13 @@ UUID=81a90b45-3f4a-44c9-8d91-541103de543b / ext4 rw,discard,errors=remount-ro,x-
 UUID=f19cb92a-3877-49fa-a8f1-aabd1e808236 swap swap defaults 0 0
 tmpfs                                     /tmp tmpfs defaults,noatime,nodev,noexec,nosuid,size=256m 0 0
 
-# Размонтируем: 
+# Unmount: 
 sudo umount /mnt/myroot
 
 ==============================================================================================
 ==============================================================================================
 
-# Затем отсоедините оба тома (конечно, сначала остановите экземпляр) и повторно подключите новый том в качестве корневого устройства, введя здесь имя устройства: 
+# Then disconnect both volumes (of course, stop the instance first) and reconnect the new volume as the root device by entering the device name here: 
 /dev/xvda
 ```
 
