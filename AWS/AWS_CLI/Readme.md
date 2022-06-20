@@ -59,6 +59,12 @@ And click **Close**
 
 #### Send Credentials to your client in a private secure message.
 
+Go to EC2 > Select your instance > Tags > Manage Tags > Add tag:
+
+Key: **Admin**, value: **Oleksii**
+<img src ='Screenshots/Add_Tags.png'>
+Click **Save**
+
 ## _Your client needs:_
 
 #### Download and Install [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
