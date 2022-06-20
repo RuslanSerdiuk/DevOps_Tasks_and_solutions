@@ -1,17 +1,17 @@
-# Increase Volume Size on the AWS Instance
+# :infinity: Increase Volume Size on the AWS Instance :infinity:
 
-Sometimes situations arise where you run out of disk space. We are faced with the question of adding volume space and expanding the file system.
+:bangbang: Sometimes situations arise where you run out of disk space. We are faced with the question of adding volume space and expanding the file system.
 
 ## _AWS Console:_
 
-EC2 > Volumes > Actions > Modify
++ EC2 > Volumes > Actions > Modify
 
-Add space that you need and click "Modify".
++ Add space that you need and click "Modify".
 
-AWS created a request to resize the volume. Wait for it to process it.
++ AWS created a request to resize the volume. Wait for it to process it.
 <img src ='Screenshots/Modify_volume.png'>
 
-Check:
++ Check:
 <img src ='Screenshots/Modify_volume_1.png'>
 
 ## _Connect to insatnce:_
