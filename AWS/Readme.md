@@ -10,6 +10,8 @@
 
 ## [Reduce Volume Size in AWS Instance](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS/Reduce_Volume_size) - In this article, I will give a clear step-by-step guide on how to reduce the size of the root volume on an AWS instance without losing data.
 
+## [Increase Volume Size](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Increase_volume/AWS/Increase_volume_size/Readme.md) - How to correctly and quickly increase the size of the root volume in AWS
+
 ## [VPN Server "Pritunl" in AWS](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS/VPN_Server__Pritunl) - How to reduce the cost of AWS VPN? Simply replace with your own VPN server!
 
-
+## 
