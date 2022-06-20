@@ -7,14 +7,14 @@ Suppose we have an infrastructure consisting of several servers. And we only wan
 ## _Create user in IAM:_
 
 Go to the Identity Access Management > Users > Create User:
-<img src ='Screenshots/Create_User_1.png'>
+<img src ='Screenshots/Create_user_1.png'>
 
 Enter the **name** and Enable only **Programmatic access**:
-<img src ='Screenshots/Create_User_2.png'>
+<img src ='Screenshots/Create_user_2.png'>
 And click **Next:Permissions**
 
 Now Select **Attach existing policies directly** and click **Create Policy**:
-<img src ='Screenshots/Create_User_3.png'>
+<img src ='Screenshots/Create_user_3.png'>
 
 Select JSON and paste this policy:
 ```
@@ -40,21 +40,21 @@ Select JSON and paste this policy:
 ```
 This policy will give our client only the right to start and stop the server by the tag **Key - Admin**, **value - Oleksii**. Which will be quite safe, because the client will not have access to the rest of the resources of our infrastructure.
 
-<img src ='Screenshots/Create_User_4.png'>
+<img src ='Screenshots/Create_user_4.png'>
 
 Click **Next:Tags** and **Next:Review**
 
 Enter name: **CustomUserPolicy** and **discription** and click **Create Policy**:
 
 Back to adding permissions to user, update the search and find our policy:
-<img src ='Screenshots/Create_User_5.png'>
+<img src ='Screenshots/Create_user_5.png'>
 Click **Next:Tags**, **Next:Review** and **Create User**
 
 Now check our credentials. Click **show**:
-<img src ='Screenshots/Create_User_6.png'>
+<img src ='Screenshots/Create_user_6.png'>
 
 Save **Access Key ID** and **Secret Access Key**
-<img src ='Screenshots/Create_User_7.png'>
+<img src ='Screenshots/Create_user_7.png'>
 And click **Close**
 
 #### Send Credentials to your client in a private secure message.
@@ -71,7 +71,7 @@ Default region name [None]: eu-central-1
 Default output format [None]: json
 ```
 
-<img src ='Screenshots/Create_User_8.png'>
+<img src ='Screenshots/Create_user_8.png'>
 
 And use these commands for start/stop:
 + Start instance: `aws ec2 start-instances --instance-ids i-0c0bddef92ebf0674`
