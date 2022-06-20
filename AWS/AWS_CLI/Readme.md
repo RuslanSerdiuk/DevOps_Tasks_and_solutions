@@ -1,22 +1,22 @@
-# Creating and configuring a user for access via the AWS CLI
+# :infinity: Creating and configuring a user for access via the AWS CLI :infinity:
 
-There are situations when an infrastructure orderer in AWS needs to **start/stop a server independently after hours or on a weekend**. For such situations, it was decided to create a separate user and assign it a **restricted policy for security purposes**.
+:bangbang: There are situations when an infrastructure orderer in AWS needs to **start/stop a server independently after hours or on a weekend**. For such situations, it was decided to create a separate user and assign it a **restricted policy for security purposes**.
 
 Suppose we have an infrastructure consisting of several servers. And we only want our client to be able to start and stop its server in AWS.
 
 ## _Create user in IAM:_
 
-Go to the Identity Access Management > Users > Create User:
+:white_medium_square: Go to the Identity Access Management > Users > Create User:
 <img src ='Screenshots/Create_user_1.png'>
 
-Enter the **name** and Enable only **Programmatic access**:
+:white_medium_square: Enter the **name** and Enable only **Programmatic access**:
 <img src ='Screenshots/Create_user_2.png'>
 And click **Next:Permissions**
 
-Now Select **Attach existing policies directly** and click **Create Policy**:
+:white_medium_square: Now Select **Attach existing policies directly** and click **Create Policy**:
 <img src ='Screenshots/Create_user_3.png'>
 
-Select JSON and paste this policy:
+:white_medium_square: Select JSON and paste this policy:
 ```
 {
     "Version": "2012-10-17",
@@ -38,7 +38,7 @@ Select JSON and paste this policy:
     ]
 }
 ```
-This policy will give our client only the right to start and stop the server by the tag **Key - Admin**, **value - Oleksii**. Which will be quite safe, because the client will not have access to the rest of the resources of our infrastructure.
+:exclamation: This policy will give our client only the right to start and stop the server by the tag **Key - Admin**, **value - Oleksii**. Which will be quite safe, because the client will not have access to the rest of the resources of our infrastructure.
 
 <img src ='Screenshots/Create_user_4.png'>
 
@@ -46,23 +46,26 @@ Click **Next:Tags** and **Next:Review**
 
 Enter name: **CustomUserPolicy** and **discription** and click **Create Policy**:
 
-Back to adding permissions to user, update the search and find our policy:
+:white_medium_square: Back to adding permissions to user, update the search and find our policy:
 <img src ='Screenshots/Create_user_5.png'>
 Click **Next:Tags**, **Next:Review** and **Create User**
 
-Now check our credentials. Click **show**:
+:white_medium_square: Now check our credentials. Click **show**:
 <img src ='Screenshots/Create_user_6.png'>
 
-Save **Access Key ID** and **Secret Access Key**
+:warning: Save **Access Key ID** and **Secret Access Key**
+
 <img src ='Screenshots/Create_user_7.png'>
+
 And click **Close**
 
 #### Send Credentials to your client in a private secure message.
 
-Go to EC2 > Select your instance > Tags > Manage Tags > Add tag:
+:white_medium_square: Go to EC2 > Select your instance > Tags > Manage Tags > Add tag:
 
-Key: **Admin**, value: **Oleksii**
++ Key: **Admin**, value: **Oleksii**
 <img src ='Screenshots/Add_Tags.png'>
+
 Click **Save**
 
 ## _Your client needs:_
