@@ -18,20 +18,20 @@
 
 ### Below are various solutions that have helped me in my work with optimization in AWS:
 
-[Simple Application](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS/Task_1_Simple_Application) - test task to understand how some services work and how they relate to each other
+[Simple Application](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/AWS/Task_1_Simple_Application) - test task to understand how some services work and how they relate to each other
 
-[Instance_Scheduler](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS/Instance_Scheduler) - How to easy implement the Instance Scheduler in your account
+[Instance_Scheduler](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/AWS/Instance_Scheduler) - How to easy implement the Instance Scheduler in your account
 
-[SSM and CloudWatch Agents](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/SSM_and_CloudWatch_Agent/AWS/SSM_and_CloudWatch_Agent) - Implementing the SSM and CloudWatch Agents to your instance for get metrics (space of volume, RAM, etc.)
+[SSM and CloudWatch Agents](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/AWS/SSM_and_CloudWatch_Agent) - Implementing the SSM and CloudWatch Agents to your instance for get metrics (space of volume, RAM, etc.)
 
-[Migrate MariaDB to RDS Aurora Serverless v1](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS/Migrate_MariaDB_to_RDS_Aurora_Serverless_v1) - How to quickly migrate your MariaDB to Aurora and resolve some problem while migration process
+[Migrate MariaDB to RDS Aurora Serverless v1](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/AWS/Migrate_MariaDB_to_RDS_Aurora_Serverless_v1) - How to quickly migrate your MariaDB to Aurora and resolve some problem while migration process
 
-[Reduce Volume Size in AWS Instance](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS/Reduce_Volume_size) - In this article, I will give a clear step-by-step guide on how to reduce the size of the root volume on an AWS instance without losing data.
+[Reduce Volume Size in AWS Instance](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/AWS/Reduce_Volume_size) - In this article, I will give a clear step-by-step guide on how to reduce the size of the root volume on an AWS instance without losing data.
 
-[Increase Volume Size](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Increase_volume/AWS/Increase_volume_size/Readme.md) - How to correctly and quickly increase the size of the root volume in AWS
+[Increase Volume Size](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/AWS/Increase_volume_size) - How to correctly and quickly increase the size of the root volume in AWS
 
-[VPN Server "Pritunl" in AWS](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS/VPN_Server__Pritunl) - How to reduce the cost of AWS VPN? Simply replace with your own VPN server!
+[VPN Server "Pritunl" in AWS](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/AWS/VPN_Server__Pritunl) - How to reduce the cost of AWS VPN? Simply replace with your own VPN server!
 
-[Creating and configuring a user for AWS CLI for your client](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS/AWS_CLI) - How to securely give a client access to a server in your AWS infrastructure
+[Creating and configuring a user for AWS CLI for your client](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/AWS/AWS_CLI) - How to securely give a client access to a server in your AWS infrastructure
 
 
