@@ -1,19 +1,19 @@
-# Opportunities for migration and cost optimization in AWS:
+# Opportunities for migration and cost optimization in AWS
 
 ### In this mini-article, I will talk about a few effective tips that helped me reduce the cost on the project:
-1. EC2: Use latest instances families or migrate to the latest AMD (*a) or Graviton (*g) instance families when possible for better price performance ratio. List of cost optimization estimation for AMD and Graviton migration per instance attached
-2. EC2: Review underutilized EC2 instances and downscale when possible. List of the instances attached. To enable memory metrics delivered to CloudWatch you can install and configure CloudWatch agent on EC2 instances as described in [docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html)
-3. EBS: Consider migration of GP2 volumes to GP3. [This blog](https://aws.amazon.com/ru/blogs/storage/migrate-your-amazon-ebs-volumes-from-gp2-to-gp3-and-save-up-to-20-on-costs/) post provides more consideration details for migration. List of optimization opportunities attached
-4. S3: Consider creation of [lifecycle policies to transition data to cheaper storage type](https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html) for buckets with no API calls during previous month. List of the buckets attached. Review usage patter for ntukhpi-bucket and consider reducing amount of ListBucket API calls.
+1. EC2: Use latest instances families or migrate to the latest AMD (*a) or Graviton (*g) instance families when possible for better price performance ratio. [List of all instance type in AWS](https://aws.amazon.com/ru/ec2/instance-types/).
+2. EC2: Review underutilized EC2 instances and downscale when possible. To enable memory metrics delivered to CloudWatch you can install and configure CloudWatch agent on EC2 instances as described in [docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html)
+3. EBS: Consider migration of GP2 volumes to GP3. [This blog](https://aws.amazon.com/ru/blogs/storage/migrate-your-amazon-ebs-volumes-from-gp2-to-gp3-and-save-up-to-20-on-costs/) post provides more consideration details for migration.
+4. S3: Consider creation of [lifecycle policies to transition data to cheaper storage type](https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-transition-general-considerations.html) for buckets with no API calls during previous month. Review usage patter for ntukhpi-bucket and consider reducing amount of ListBucket API calls.
 5. RDS: Use latest instances families or migrate to Graviton MySQL and MariaDB instances with compatible versions. Key migration considerations listed in the [blog post](https://aws.amazon.com/ru/blogs/database/key-considerations-in-moving-to-graviton2-for-amazon-rds-and-amazon-aurora-databases/).
-6. RDS: review Idle RDS instances from the list attached. Consider using Aurora Serverless for infrequently-used applications, with peaks of 30 minutes to several hours a few times each day 
-7. General: Please use following cost optimization tools and services:
-   + Continuously review cost and usage of your workloads with CUDOS and KPI QuickSight dashboards. Ivan Trofimenko can help with getting access.
+6. RDS: review Idle RDS instances. Consider using Aurora Serverless for infrequently-used applications, with peaks of 30 minutes to several hours a few times each day 
+7. **General.** Please use following cost optimization tools and services:
+   + Continuously review cost and usage of your workloads.
    + [AWS Trusted Advisor](https://aws.amazon.com/ru/premiumsupport/technology/trusted-advisor/)
    + [AWS Compute Optimizer](https://aws.amazon.com/ru/compute-optimizer/)
    + [Instance Scheduler](https://aws.amazon.com/ru/solutions/implementations/instance-scheduler/)
 
-If you have any questions please feel free to email me or contact me on [LinkedIn](https://www.linkedin.com/in/ruslan-serdiuk/)
+> #### If you have any questions please feel free to email me or contact me on [LinkedIn](https://www.linkedin.com/in/ruslan-serdiuk/)
     
 
 ### Below are various solutions that have helped me in my work with optimization in AWS:
