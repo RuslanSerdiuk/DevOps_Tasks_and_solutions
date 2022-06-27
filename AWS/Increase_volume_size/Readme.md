@@ -26,6 +26,14 @@
 #### Select partition
 + `parted /dev/nvme0n1`
 
+#### Check info about all partition:
++ `p`
+
+#### Our partition has number 2 (between 1 and 3). We can't change it size. First we must remove partition 3.
++ `rm`
++ `3`
+<img src ='Screenshots/rm_part.png'>
+
 #### Resize our part:
 + `resizepart`
 + `2`(enter the number your partition)
