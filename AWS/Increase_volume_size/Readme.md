@@ -39,6 +39,9 @@
 + `2`(enter the number your partition)
 + and enter "end size". Fro example: `288GB`
 
+#### Than, we must return our swap back:
++ `mkpart swap linux-swap 395GB 100%`
+
 #### Check new size:
 + `lsblk`
 + `df -h`
