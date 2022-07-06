@@ -1,20 +1,39 @@
-# TERRAFORM - Task-01
+# :infinity: IaC - Simple Application :infinity:
 
-> **I was decided to create and write my own modules.**
+### :white_check_mark: Deploy https://github.com/FaztWeb/php-mysql-crud with Terraform as follows:
+```
+Create a VPC
+Create an Application Load Balancer.
+- The balancer must be accessible from the Internet, but limited to certain IP addresses (for example your home one)
+- One Listener listens on 80 and redirects to HTTPS
+- The second Listener listens on 443 and redirects everything to the target group
+- Targets created by Auto Scaling Group
+     o Instances are created on a private network
+     o The project code must be in S3
+            - S3 buckets are not public
+Database in RDS. RDS has its own security group with access only for machines from ASG.
+Create a user Best_friend@mulo.com in IAM to check.
+
+Will be a plus:
++ DNS name for the load balancer, managed through Route53
++ a working HTTPS certificate managed through Certificate Manager
+```
+
+:grey_exclamation: **I was decided to create and write my own modules.**
 
 #### All my modules:
-- [vpc](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/tree/m8-TERRAFORM-Task-01/Module-08_Terraform/Task-01/module/vpc)
-- [security groups](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/tree/m8-TERRAFORM-Task-01/Module-08_Terraform/Task-01/module/security_group)
-- [S3](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/tree/m8-TERRAFORM-Task-01/Module-08_Terraform/Task-01/module/S3)
-- [RDS](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/tree/m8-TERRAFORM-Task-01/Module-08_Terraform/Task-01/module/RDS)
-- [ASG](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/tree/m8-TERRAFORM-Task-01/Module-08_Terraform/Task-01/module/ASG)
-- [Route53](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/tree/m8-TERRAFORM-Task-01/Module-08_Terraform/Task-01/module/Route53)
-- [EC2](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/tree/m8-TERRAFORM-Task-01/Module-08_Terraform/Task-01/module/EC2)
+- [vpc](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/vpc/main.tf)
+- [security groups](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/security_group/main.tf)
+- [S3](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/S3/main.tf)
+- [RDS](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/RDS/main.tf)
+- [ASG](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/ASG/main.tf)
+- [Route53](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/Route53/main.tf)
+- [EC2](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/EC2/main.tf)
 
-> **I put each module in a separate folder and access it with "source" in the root module.**
+:exclamation: **I put each module in a separate folder and access it with "source" in the root module.**
 
 ## _PART 1_
-### But before that, I created an s3 Bucket to safe my .tfstate file remotely and DynamoDB to lock that file.
+### :white_medium_square: But before that, I created an s3 Bucket to safe my .tfstate file remotely and DynamoDB to lock that file.
 ```
 ####################################################################
 #        Create a DynamoDB Table for locking the state file
@@ -73,7 +92,7 @@ resource "aws_s3_bucket_public_access_block" "S3_access_block" {
   restrict_public_buckets = true
 }
 ```
-### After initialization I added to my code next:
+### :white_medium_square: After initialization I added to my code next:
 ```
 terraform {
   backend "s3" {
@@ -85,11 +104,11 @@ terraform {
   }
 }
 ```
-> **It enabled me migrate .tfstate file to s3 and lock it.**
+:bangbang: **This allowed me to move the `.tfstate` file to s3 and lock it.**
 
 ## _PART 2_
 
-### Now install the module by running "terraform get".
+### :white_medium_square: Now install the module by running "terraform get".
 
 ```
 ####################################################################
@@ -197,11 +216,11 @@ module "ec2" {
 }
 ```
 
-That is, using this solution, you need to replace `public_key` with your own
+:warning: That is, using this solution, you need to replace `public_key` with your own
 
-### And running "terraform apply" command for start create my infrastructure in AWS
+### :white_medium_square: And running `terraform apply` command for start create my infrastructure in AWS
 
-## + _Plus_
+## :purple_square: _Plus_
 > **A list the useful commands in terraform that helped me during work task:**
 > > + `terraform taint` - for marker resource.
 > > + `terraform apply -replace <your resource>` - replace resource.
@@ -234,4 +253,4 @@ That is, using this solution, you need to replace `public_key` with your own
 + _https://www.youtube.com/watch?v=lC4948SizsU_
 
 
-### _Also you can check main.tf [HERE](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m8-TERRAFORM-Task-01/Module-08_Terraform/Task-01/main.tf)_
+### _Also you can check main.tf [HERE](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/main.tf)_
