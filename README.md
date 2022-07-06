@@ -8,5 +8,5 @@
 5. [Docker](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Docker) - contains examples of real-world tasks (basic and not only) that may be encountered in the work of a devops engineer
 6. [CI/CD](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/CICD) - contains examples of test tasks, pipelines, which were used in the study and daily tasks
 7. [AWS](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/AWS) - different solutions that have helped me in my work with optimization and build infrastructure in AWS
-8. Terraform - 
+8. [Terraform](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/Terraform/Terraform) - various examples of deploying simple applications and infrastructure to AWS using Terraform
 9. Ansible - 
