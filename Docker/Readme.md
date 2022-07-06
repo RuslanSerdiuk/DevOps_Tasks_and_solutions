@@ -1,1 +1,0 @@
-# Here are some examples of tasks using the docker

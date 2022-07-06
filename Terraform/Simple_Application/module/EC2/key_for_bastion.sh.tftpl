@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo yum update -y
+
+cd /home/ec2-user/.ssh
+sudo su
+tee -a authorized_keys << EOF
+${pub_key}
+EOF
