@@ -1,1 +1,1 @@
-# Simple Application - this is examples 
+#### [Simple Application](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/Terraform/Terraform/Simple_Application) - an example of how to deploy a simple application to AWS and the infrastructure for it using Terraform
