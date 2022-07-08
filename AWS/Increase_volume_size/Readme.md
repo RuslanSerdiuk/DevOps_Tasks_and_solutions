@@ -16,7 +16,7 @@
 
 ## _Connect to insatnce:_
 
-#### Install parter: 
+#### Install parter:
 + `apt-get update`
 + `sudo apt-get -y install parted`
 

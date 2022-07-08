@@ -1,5 +1,4 @@
 /Terraform/Simple_Application/.terraform
 /Terraform/Simple_Application/module/ASG/user_data.sh
-/Terraform/Simple_Application/S3Bucket_files
 /Terraform/Simple_Application/.terraform.lock.hcl
 /Terraform/Simple_Application/Key for user.txt
