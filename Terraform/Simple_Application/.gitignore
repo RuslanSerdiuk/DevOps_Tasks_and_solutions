@@ -5,7 +5,6 @@
 # /terraform.tfvars
 /Key for user.txt
 
-/S3Bucket_files
 /user_data.sh
 /key_for_bastion.sh
 /.terraform.lock.hcl

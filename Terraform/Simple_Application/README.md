@@ -108,6 +108,8 @@ terraform {
 
 ## _PART 2_
 
+#### I will put these files https://github.com/FaztWeb/php-mysql-crud in the `S3Bucket_files` folder
+
 ### :white_medium_square: Now install the module by running "terraform get".
 
 ```
