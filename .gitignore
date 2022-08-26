@@ -1,3 +1,4 @@
+
 /Terraform/Simple_Application/.terraform
 /Terraform/Simple_Application/module/ASG/user_data.sh
 /Terraform/Simple_Application/.terraform.lock.hcl
