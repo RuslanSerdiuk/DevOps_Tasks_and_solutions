@@ -1,0 +1,9 @@
+Ansible/Deploy_MongoDB/.terraform.lock.hcl
+Ansible/Deploy_MongoDB/module/EC2/Ansible.pem
+Ansible/Deploy_MongoDB/.terraform/providers/registry.terraform.io/hashicorp/tls/4.0.2/windows_amd64/terraform-provider-tls_v4.0.2_x5.exe
+Ansible/Deploy_MongoDB/.terraform/providers/registry.terraform.io/hashicorp/local/2.2.3/windows_amd64/terraform-provider-local_v2.2.3_x5.exe
+Ansible/Deploy_MongoDB/.terraform/providers/registry.terraform.io/hashicorp/aws/4.31.0/windows_amd64/terraform-provider-aws_v4.31.0_x5.exe
+Ansible/Deploy_MongoDB/.terraform/modules/modules.json
+Ansible/Deploy_MongoDB/terraform.tfstate.backup
+Ansible/Deploy_MongoDB/terraform.tfstate
+Ansible/Deploy_MongoDB/Key for user.txt
