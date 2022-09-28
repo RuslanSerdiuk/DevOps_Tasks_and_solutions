@@ -4,6 +4,7 @@
 
 # /terraform.tfvars
 /Key for user.txt
+/Key for user.txt.bak
 
 /user_data.sh
 /key_for_bastion.sh
