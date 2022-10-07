@@ -286,3 +286,11 @@ hostname -I | nmap -Ps
 ```
 nmap -p 443 --script ssl-cert google.com 2>/dev/null | grep -Po ":[*]{1,}(\.[a-z0-9]{1,}){1,}" | grep -Po "(\.[a-z0-9]{1,}){1,}"
 ```
+
+#### Task 41
+Достать из файла с переменными только названия этих переменных (предположим, что имя каждой переменной идет в самом начале строки).
+```
+cat <your_file> | awk '{print$1}' > /File_with_your_variables.txt
+
+cat tag_Role_notification-backend-service-ci.yml | awk '{print $1}' > \Variables_test_ci.txt
+```
