@@ -15,3 +15,4 @@ Ansible/Simple_Example/.terraform/modules/modules.json
 Ansible/Simple_Example/.terraform.lock.hcl
 
 /Kubernetes
+Terraform/AWS-Glue/Key for user.txt
