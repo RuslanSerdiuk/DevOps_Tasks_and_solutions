@@ -2,3 +2,7 @@
 .tfstate
 .tfstate.backup
 .terraform.lock.hcl
+atlantis.yaml
+state.tf
+env/prod.tfvars
+variables.tf
