@@ -18,7 +18,7 @@ job.init(args["JOB_NAME"], args)
 fortniteTable = glueContext.create_dynamic_frame.from_options(
     connection_type ="dynamodb",
     connection_options = {
-        "dynamodb.input.tableName": "test-pns-account",
+        "dynamodb.input.tableName": "communications_devices_prod",
     },
     transformation_ctx="fortniteTable",
 )
@@ -26,7 +26,7 @@ fortniteTable = glueContext.create_dynamic_frame.from_options(
 rlssTable = glueContext.create_dynamic_frame.from_options(
     connection_type ="dynamodb",
     connection_options = {
-        "dynamodb.input.tableName": "test-pns-accounts-second",
+        "dynamodb.input.tableName": "communications_multitenant_device_prod",
     },
     transformation_ctx="rlssTable",
 )
