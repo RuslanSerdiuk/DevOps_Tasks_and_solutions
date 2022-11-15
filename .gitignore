@@ -3,7 +3,7 @@
 /Terraform/Simple_Application/.terraform.lock.hcl
 /Terraform/Simple_Application/Key for user.txt
 Terraform/Simple_Application/Key for user.txt.bak
-Terraform
+Terraform/
 =======================
 Ansible
 Ansible/Deploy_MongoDB/.terraform/providers/registry.terraform.io/hashicorp/aws/4.31.0/windows_amd64/terraform-provider-aws_v4.31.0_x5.exe
