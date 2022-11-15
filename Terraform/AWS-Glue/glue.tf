@@ -1,28 +1,35 @@
 #========================== Glue Job =====================================================
+/*
 resource "aws_cloudwatch_log_group" "logging_glue_job" {
-  name              = "logs_export_dynamodb_to_s3"
+  name              = "aws-glue/jobs"
   retention_in_days = 14
 }
-
+*/
 resource "aws_glue_job" "export_DB" {
-  name     = var.job_name
-  role_arn = var.role_arn
-  description = "Exports a DynamoDB table to S3"
-  
+  name            = var.job_name
+  role_arn        = var.role_arn
+  description     = "Exports a DynamoDB table to S3"
+  glue_version    = "3.0"
+  execution_class = "STANDARD"
+  max_retries     = "3"
+
   default_arguments = {
-    "--glue_job_name" = var.job_name
-    "--output_prefix" = "s3://${aws_s3_bucket.Export_DynamoDB.id}${var.script_name}"
-    "--table_name" = var.dynamodb_table_name
-    "--read_percentage" = "0.25"
-    "--output_format" = var.output_format
-    "--continuous-log-logGroup"          = aws_cloudwatch_log_group.logging_glue_job.name
+    "--output_prefix"                    = "s3://${aws_s3_bucket.Export_DynamoDB.id}/${var.script_name}"
+    "--read_percentage"                  = "0.25"
+   # "--output_format"                    = var.output_format
+
+    "--job-bookmark-option"            	 = "job-bookmark-enable"
+    "--TempDir"                          = "s3://aws-glue-assets-384461882996-us-east-2/temporary/"
+    "--enable-metrics"                   = "true"
     "--enable-continuous-cloudwatch-log" = "true"
-    "--enable-continuous-log-filter"     = "true"
-    "--enable-metrics"                   = ""
+    "--enable-spark-ui"                  = "true"
+    "--spark-event-logs-path"            =	"s3://aws-glue-assets-384461882996-us-east-2/sparkHistoryLogs/"
+    "--enable-glue-datacatalog"          = "true"
+    "--enable-job-insights"              = "true"
   }
 
   command {
-    script_location = "s3://${aws_s3_bucket.Export_DynamoDB.id}"
+    script_location = "s3://${aws_s3_bucket.Export_DynamoDB.id}${var.script_name}"
   }
 
     tags = {

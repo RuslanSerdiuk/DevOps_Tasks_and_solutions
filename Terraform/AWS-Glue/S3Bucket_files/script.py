@@ -4,6 +4,8 @@ from awsglue.utils import getResolvedOptions
 from pyspark.context import SparkContext
 from awsglue.context import GlueContext
 from awsglue.job import Job
+from awsglue.dynamicframe import DynamicFrame
+from pyspark.sql import functions as SqlFuncs
 
 args = getResolvedOptions(sys.argv, ["JOB_NAME"])
 sc = SparkContext()
@@ -12,37 +14,61 @@ spark = glueContext.spark_session
 job = Job(glueContext)
 job.init(args["JOB_NAME"], args)
 
-# Script generated for node DynamoDB table
-DynamoDBtable_node1 = glueContext.create_dynamic_frame.from_options(
-    connection_type="dynamodb",
-    connection_options={
-        "dynamodb.export": "ddb",
-        "dynamodb.s3.bucket": "aws-glue-assets-384461882996-us-east-1",
-        "dynamodb.s3.prefix": "temporary/ddbexport/",
-        "dynamodb.tableArn": "arn:aws:dynamodb:us-east-1:384461882996:table/Test-table",
-        "dynamodb.unnestDDBJson": True,
+
+fortniteTable = glueContext.create_dynamic_frame.from_options(
+    connection_type ="dynamodb",
+    connection_options = {
+        "dynamodb.input.tableName": "test-pns-account",
     },
-    transformation_ctx="DynamoDBtable_node1",
+    transformation_ctx="fortniteTable",
 )
 
-# Script generated for node ApplyMapping
-ApplyMapping_node2 = ApplyMapping.apply(
-    frame=DynamoDBtable_node1,
-    mappings=[("AccountId:DeviceId", "string", "AccountId:DeviceId", "string")],
-    transformation_ctx="ApplyMapping_node2",
+rlssTable = glueContext.create_dynamic_frame.from_options(
+    connection_type ="dynamodb",
+    connection_options = {
+        "dynamodb.input.tableName": "test-pns-accounts-second",
+    },
+    transformation_ctx="rlssTable",
 )
 
-# Script generated for node S3 bucket
-S3bucket_node3 = glueContext.write_dynamic_frame.from_options(
-    frame=ApplyMapping_node2,
+rlssDF = rlssTable.toDF()
+rlssTable = DynamicFrame.fromDF(
+    rlssDF.withColumn('accountid', SqlFuncs.split(rlssDF["TenantId#AccountId"], "#").getItem(1)),
+    glueContext,
+    "rlssTable",
+)
+
+
+mappedFortnite = ApplyMapping.apply(
+    frame=fortniteTable,
+    mappings=[("accountid", "string", "accountid", "string")],
+    transformation_ctx="mappedFortnite",
+)
+
+mappedRlss = ApplyMapping.apply(
+    frame=rlssTable,
+    mappings=[("accountid", "string", "accountid", "string")],
+    transformation_ctx="mappedRlss",
+)
+
+mappedRlss.toDF().show();
+
+DropDuplicates = DynamicFrame.fromDF(
+    mappedFortnite.toDF().union(mappedRlss.toDF()).dropDuplicates().repartition(1),
+    glueContext,
+    "DropDuplicates",
+)
+
+AmazonS3 = glueContext.write_dynamic_frame.from_options(
+    frame=DropDuplicates,
     connection_type="s3",
-    format="json",
+    format="csv",
     connection_options={
-        "path": "s3://dynamodb-exports-384461882996-us-east-1",
+        "path": "s3://pns-bucket-for-export-dynamodb-pd/",
         "compression": "gzip",
         "partitionKeys": [],
     },
-    transformation_ctx="S3bucket_node3",
+    transformation_ctx="AmazonS3",
 )
 
 job.commit()
