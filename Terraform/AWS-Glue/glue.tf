@@ -1,7 +1,7 @@
 #========================== Glue Job =====================================================
 /*
 resource "aws_cloudwatch_log_group" "logging_glue_job" {
-  name              = "aws-glue/jobs"
+  name              = "pns"
   retention_in_days = 14
 }
 */
@@ -10,20 +10,22 @@ resource "aws_glue_job" "export_DB" {
   role_arn        = var.role_arn
   description     = "Exports a DynamoDB table to S3"
   glue_version    = "3.0"
-  execution_class = "STANDARD"
-  max_retries     = "3"
+  # execution_class = "STANDARD"
+  max_retries     = "1"
 
   default_arguments = {
     "--output_prefix"                    = "s3://${aws_s3_bucket.Export_DynamoDB.id}/${var.script_name}"
     "--read_percentage"                  = "0.25"
-   # "--output_format"                    = var.output_format
+   # "--output_format"                   = var.output_format
 
+   # "--continuous-log-logGroup"          = "pns"
+   # "--continuous-log-logStreamPrefix"   = "pns-com-dynamo-s3-migration"
     "--job-bookmark-option"            	 = "job-bookmark-enable"
-    "--TempDir"                          = "s3://aws-glue-assets-384461882996-us-east-2/temporary/"
+    #"--TempDir"                         = "s3://aws-glue-assets-384461882996-us-east-2/temporary/"
     "--enable-metrics"                   = "true"
     "--enable-continuous-cloudwatch-log" = "true"
-    "--enable-spark-ui"                  = "true"
-    "--spark-event-logs-path"            =	"s3://aws-glue-assets-384461882996-us-east-2/sparkHistoryLogs/"
+    "--enable-spark-ui"                  = "false"
+    # "--spark-event-logs-path"          =	"s3://aws-glue-assets-384461882996-us-east-2/sparkHistoryLogs/"
     "--enable-glue-datacatalog"          = "true"
     "--enable-job-insights"              = "true"
   }
@@ -40,6 +42,7 @@ resource "aws_glue_job" "export_DB" {
   }
 }
 
+/*
 resource "aws_glue_trigger" "job_trigger" {
   name     = var.name_job_trigger
   schedule = "cron(1 0 * * ? *)"
@@ -49,7 +52,7 @@ resource "aws_glue_trigger" "job_trigger" {
     job_name = aws_glue_job.export_DB.name
   }
 }
-
+*/
 /*
 #========================== STEP Function =====================================================
 resource "aws_sfn_state_machine" "sfn_state_machine" {
