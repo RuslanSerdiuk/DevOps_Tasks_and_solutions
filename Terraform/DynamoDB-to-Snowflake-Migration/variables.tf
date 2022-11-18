@@ -76,3 +76,19 @@ variable "role_arn" {
 variable "script_name" {
   
 }
+
+############################
+# Vault                    #
+############################
+/*
+variable "SNOWFLAKE_NOTIFICATIONS_DB" {}
+variable "SNOWFLAKE_NOTIFICATIONS_USER" {}
+variable "SNOWFLAKE_NOTIFICATIONS_PASSWORD" {}
+*/
+############################
+# Secret Manager           #
+############################
+
+variable "name_secret" {
+  
+}

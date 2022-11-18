@@ -23,3 +23,9 @@ job_name            = "CommService_DynamoDB_to_s3"
 name_job_trigger    = "export_commservice_dynamodb_to_s3"
 role_arn            = "arn:aws:iam::384461882996:role/TestRoleForGlueJob"
 script_name         = "/script.py"
+
+############################
+# Secret Manager           #
+############################
+
+name_secret            = "Snowflake_credentials"
