@@ -1,10 +1,4 @@
 #========================== Glue Job =====================================================
-/*
-resource "aws_cloudwatch_log_group" "logging_glue_job" {
-  name              = "pns"
-  retention_in_days = 14
-}
-*/
 resource "aws_glue_job" "export_DB" {
   name            = var.job_name
   role_arn        = var.role_arn
