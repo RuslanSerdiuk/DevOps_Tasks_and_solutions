@@ -92,3 +92,34 @@ variable "SNOWFLAKE_NOTIFICATIONS_PASSWORD" {}
 variable "name_secret" {
   
 }
+
+############################
+# Lambda                   #
+############################
+
+variable "function_name" {
+  
+}
+
+variable "role" {
+  
+}
+
+variable "lambda_export_s3_to_snowflake_handler" {
+  
+}
+
+variable "filename" {
+  
+}
+/*
+variable "subnet_ids" {
+  type        = list(string)
+  description = "Subnets for instances and lb's"
+}
+
+variable "security_groups" {
+  type        = list(string)
+  description = "Securiy groups for instances and lb's"
+}
+*/

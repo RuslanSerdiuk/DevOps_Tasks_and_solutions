@@ -2,7 +2,7 @@
 # Tags                     #
 ############################
 
-backend_role = "notification-coomunication-dynamodb-to-s3-migration"
+backend_role = "notification-coomunication-dynamodb-to-s3-to-snowflake-migration"
 finance_product = "notification-tool-service"
 finance_env = "prod"
 name_env = "pd"
@@ -29,3 +29,15 @@ script_name         = "/script.py"
 ############################
 
 name_secret            = "Snowflake_credentials"
+
+############################
+# Lambda                   #
+############################
+
+function_name = "ExpS3toSnowflake"
+filename      = "lambdatest.zip"
+role          = "arn:aws:iam::384461882996:role/test-role-for-s3-glitter"
+lambda_export_s3_to_snowflake_handler = "main.ExportS3toSnowflake"
+
+# vpc_id = "vpc-a09317cf"
+# security_groups = [ "sg-2841954d", "sg-eeeb6e81", "sg-0556d26a" ]

@@ -21,3 +21,11 @@ output "S3Bucket_id" {
 output "Snowflake_credentials_ID" {
   value = aws_secretsmanager_secret.Snowflake_credentials.id
 }
+
+############################
+# Lambda                   #
+############################
+
+output "Lambda_ID" {
+  value = aws_lambda_function.export_from_s3_to_snowflake.id
+}
