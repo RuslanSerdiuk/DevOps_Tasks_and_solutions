@@ -8,7 +8,7 @@
 # Tags                     #
 ############################
 
-backend_role    = "notification-communication-dynamodb-to-s3-migration"
+backend_role    = "notification-communication-s3-to-snowflake-migration"
 finance_product = "notification-tool-service"
 finance_env     = "prod"
 name_env        = "pd"
@@ -28,4 +28,4 @@ aws_s3_role_arn  = "arn:aws:iam::154463222472:role/svc-rw-s3-bucket-prefix-pns"
 name_secret            = "Snowflake_credentials"
 
 
-role_arn            = "arn:aws:iam::154463222472:role/svc-rw-s3-bucket-prefix-pns_and_ro_DynamoDB_communications"
+# role_arn            = "arn:aws:iam::154463222472:role/svc-rw-s3-bucket-prefix-pns_and_ro_DynamoDB_communications"

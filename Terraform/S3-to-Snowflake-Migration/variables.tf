@@ -1,11 +1,15 @@
 ############################
 # AWS                      #
 ############################
-
+/*
 variable "atlantis_user" {
   default = ""
 }
 
+variable "aws_role" {
+  description = "Role which will be assumed in order to work with oldprod account"
+}
+*/
 variable "aws_access_key_id" {
   default = ""
 }
@@ -14,8 +18,8 @@ variable "aws_secret_access_key" {
   default = ""
 }
 
-variable "aws_role" {
-  description = "Role which will be assumed in order to work with oldprod account"
+variable "region" {
+  
 }
 
 ############################

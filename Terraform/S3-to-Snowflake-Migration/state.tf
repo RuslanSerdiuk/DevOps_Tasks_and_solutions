@@ -1,15 +1,11 @@
 terraform {
-  backend "s3" {
-    bucket = "ton-tf-state"
-    key    = "pns-com/pns-com-to-snowflake-migration.state"
-    region = "us-east-1"
+  backend "local" {
+    path = ".tfstate"
   }
 }
 
 provider "aws" {
-  region = "us-east-1"
-
-  assume_role {
-    role_arn = var.aws_role
-  }
+  region     = var.region
+  access_key = var.aws_access_key_id
+  secret_key = var.aws_secret_access_key
 }

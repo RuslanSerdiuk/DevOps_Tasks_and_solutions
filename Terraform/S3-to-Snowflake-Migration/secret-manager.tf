@@ -13,10 +13,6 @@ resource "aws_secretsmanager_secret" "Snowflake_credentials" {
 resource "aws_secretsmanager_secret_version" "sversion" {
   secret_id = aws_secretsmanager_secret.Snowflake_credentials.id
   secret_string = <<EOF
-   {
-    "SNOWFLAKE_NOTIFICATIONS_DB": "adminaccount",
-    "SNOWFLAKE_NOTIFICATIONS_USER": "TF-Test-USER"
-    "SNOWFLAKE_NOTIFICATIONS_USER": "ADCniqedbin71cqe"
-   }
+    {"SNOWFLAKE_NOTIFICATIONS_DB":"adminaccount","SNOWFLAKE_NOTIFICATIONS_USER":"TF-Test-USER","SNOWFLAKE_NOTIFICATIONS_PASSWORD":"ADCniqedbin71cqe"}
 EOF
 }
