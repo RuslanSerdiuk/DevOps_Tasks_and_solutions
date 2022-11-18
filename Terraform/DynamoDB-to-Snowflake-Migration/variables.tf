@@ -54,6 +54,7 @@ variable "upload_directory" {
 variable "mime_types" {
   default = {
     py   = "database/script.py"
+    zip  = "lambda.zip"
     }
 }
 
@@ -109,10 +110,14 @@ variable "lambda_export_s3_to_snowflake_handler" {
   
 }
 
-variable "filename" {
+variable "s3_key_file" {
   
 }
 /*
+variable "filename" {
+  
+}
+
 variable "subnet_ids" {
   type        = list(string)
   description = "Subnets for instances and lb's"

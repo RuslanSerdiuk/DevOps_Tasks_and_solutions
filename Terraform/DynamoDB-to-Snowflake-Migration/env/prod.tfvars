@@ -12,7 +12,7 @@ finance_owner = "team-epic-push-notifs-tool-contractors"
 # S3                       #
 ############################
 
-name_bucket      = "pns-bucket-for-export-dynamodb"
+name_bucket      = "pns-bucket-for-export-dynamodb-to-snowflake"
 upload_directory = "S3Bucket_files/"
 
 ############################
@@ -28,16 +28,17 @@ script_name         = "/script.py"
 # Secret Manager           #
 ############################
 
-name_secret            = "Snowflake_credentials"
+name_secret            = "Snowflake_credentials_3"
 
 ############################
 # Lambda                   #
 ############################
 
 function_name = "ExpS3toSnowflake"
-filename      = "lambdatest.zip"
+# filename      = "lambda.zip"
 role          = "arn:aws:iam::384461882996:role/test-role-for-s3-glitter"
 lambda_export_s3_to_snowflake_handler = "main.ExportS3toSnowflake"
 
-# vpc_id = "vpc-a09317cf"
+s3_key_file   = "lambda.zip"
+# vpc_id      = "vpc-a09317cf"
 # security_groups = [ "sg-2841954d", "sg-eeeb6e81", "sg-0556d26a" ]
