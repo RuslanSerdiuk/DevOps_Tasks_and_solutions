@@ -19,32 +19,6 @@
     restrict_public_buckets = true
   }
 
-/*
-  resource "aws_s3_bucket_policy" "allow_access_from_specific_role" {
-    bucket = aws_s3_bucket.profile.id
-    policy = data.aws_iam_policy_document.allow_access_from_specific_role.json
-  }
-
-  data "aws_iam_policy_document" "allow_access_from_specific_role" {
-    statement {
-      principals {
-        type        = "AWS"
-        identifiers = [var.aws_s3_role_arn]
-      }
-
-      actions = [
-        "*",
-      ]
-
-      resources = [
-        aws_s3_bucket.profile.arn,
-      ]
-    }
-  }
-*/
-
-
-
 #===================================Upload files to S3====================================#
 resource "aws_s3_object" "python_script" {
   for_each      = fileset(var.upload_directory, "**/*.*")
