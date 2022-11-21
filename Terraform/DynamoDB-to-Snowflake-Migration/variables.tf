@@ -81,11 +81,14 @@ variable "script_name" {
 ############################
 # Vault                    #
 ############################
-/*
+
 variable "SNOWFLAKE_NOTIFICATIONS_DB" {}
 variable "SNOWFLAKE_NOTIFICATIONS_USER" {}
 variable "SNOWFLAKE_NOTIFICATIONS_PASSWORD" {}
-*/
+variable "SNOWFLAKE_NOTIFICATIONS_SCHEMA" {}
+variable "SNOWFLAKE_NOTIFICATIONS_WAREHOUSE" {}
+variable "SNOWFLAKE_NOTIFICATIONS_ACCOUNT" {}
+
 ############################
 # Secret Manager           #
 ############################
@@ -114,10 +117,6 @@ variable "s3_key_file" {
   
 }
 /*
-variable "filename" {
-  
-}
-
 variable "subnet_ids" {
   type        = list(string)
   description = "Subnets for instances and lb's"

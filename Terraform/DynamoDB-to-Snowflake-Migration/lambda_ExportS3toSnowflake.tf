@@ -1,8 +1,6 @@
 
 resource "aws_lambda_function" "export_from_s3_to_snowflake" {
   s3_bucket = "${var.name_bucket}-${var.name_env}"
-
-  # s3_bucket = var.S3Bucket_id
   s3_key    = var.s3_key_file
   
   function_name = "${var.function_name}-${var.name_env}"
@@ -11,8 +9,6 @@ resource "aws_lambda_function" "export_from_s3_to_snowflake" {
   runtime       = "python3.9"
   timeout       = 3
 
- # filename         = var.filename
-  # source_code_hash = filebase64sha256("../src.zip")
   /*
   vpc_config {
     subnet_ids         = var.subnet_ids
@@ -46,8 +42,8 @@ resource "aws_s3_bucket_notification" "aws-lambda-trigger" {
   }
 }
 
-resource "aws_lambda_permission" "test" {
-  statement_id  = "AllowS3Invoke"
+resource "aws_lambda_permission" "allow_cloudwatch_to_call_ExpS3toSnowflake_lambda" {
+  statement_id  = "AllowExecutionFromS3Bucket"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.export_from_s3_to_snowflake.function_name
   principal     = "s3.amazonaws.com"

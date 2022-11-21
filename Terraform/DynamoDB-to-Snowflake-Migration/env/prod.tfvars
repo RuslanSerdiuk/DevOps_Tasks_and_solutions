@@ -28,17 +28,23 @@ script_name         = "/script.py"
 # Secret Manager           #
 ############################
 
-name_secret            = "Snowflake_credentials_3"
+name_secret            = "s3-to-snowflake-credentials-migration"
 
 ############################
 # Lambda                   #
 ############################
 
 function_name = "ExpS3toSnowflake"
-# filename      = "lambda.zip"
 role          = "arn:aws:iam::384461882996:role/test-role-for-s3-glitter"
 lambda_export_s3_to_snowflake_handler = "main.ExportS3toSnowflake"
 
 s3_key_file   = "lambda.zip"
 # vpc_id      = "vpc-a09317cf"
 # security_groups = [ "sg-2841954d", "sg-eeeb6e81", "sg-0556d26a" ]
+
+SNOWFLAKE_NOTIFICATIONS_DB = "adminaccount"
+SNOWFLAKE_NOTIFICATIONS_USER = "TF-Test-USER"
+SNOWFLAKE_NOTIFICATIONS_PASSWORD = "ADCniqedbin71cqe"
+SNOWFLAKE_NOTIFICATIONS_SCHEMA = "PUBLIC"
+SNOWFLAKE_NOTIFICATIONS_WAREHOUSE = "DEVTEST_WH"
+SNOWFLAKE_NOTIFICATIONS_ACCOUNT = "mes.us-east-1"
