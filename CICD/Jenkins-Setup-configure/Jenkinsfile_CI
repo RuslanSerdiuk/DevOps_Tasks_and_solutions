@@ -16,7 +16,7 @@ pipeline {
         }
         stage('Test-Static') {
             steps {
-                sh 'docker build -f ./Dockerfile -t ruslanserdiuk/petclinic:$BUILD_NUMBER -t ruslanserdiuk/petclinic:latest .'
+                sh 'docker build -f ./CICD/Jenkins-Setup-configure/Dockerfile -t ruslanserdiuk/python-lambda-trigger:$BUILD_NUMBER -t ruslanserdiuk/python-lambda-trigger:latest .'
             }
         }
         stage('Login') {
@@ -26,8 +26,8 @@ pipeline {
         }
         stage('Push') {
             steps {
-                sh 'docker push ruslanserdiuk/petclinic:latest'
-                sh 'docker push ruslanserdiuk/petclinic:$BUILD_NUMBER' 
+                sh 'docker push ruslanserdiuk/python-lambda-trigger:latest'
+                sh 'docker push ruslanserdiuk/python-lambda-trigger:$BUILD_NUMBER' 
             }
         }
     }
