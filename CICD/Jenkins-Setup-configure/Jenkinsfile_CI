@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps{
-                git branch: "Jenkins-Setup&Configure", credentialsId: 'github-creds-jenkins-task', url: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git'      
+                git branch: "Jenkins-Setup-Configure", credentialsId: 'github-creds-jenkins-task', url: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git'      
                 }
         }
         stage('Test-Static') {
