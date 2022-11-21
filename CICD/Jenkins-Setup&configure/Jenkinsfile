@@ -1,0 +1,44 @@
+pipeline {
+    agent { label 'ec2-agent' }
+
+    parameters {
+        gitParameter (  branch: '', 
+                        branchFilter: 'origin/(.*)', 
+                        defaultValue: 'main', 
+                        description: '', 
+                        name: 'BRANCH', 
+                        quickFilterEnabled: true, 
+                        selectedValue: 'TOP', 
+                        sortMode: 'DESCENDING', 
+                        tagFilter: '*', 
+                        type: 'PT_BRANCH', 
+                        useRepository: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git')
+    }
+
+    stages {
+        stage('Delete workspace before build starts') {
+            steps {
+                echo 'Deleting workspace'
+                deleteDir()
+            }
+        }
+        stage('Env print') {
+            steps {
+                sh '''
+                    echo $BRANCH
+                '''
+            }
+        }
+        stage('Checkout') {
+            steps{
+                    git branch: "${params.BRANCH}", credentialsId: 'github-creds-jenkins-task', url: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git'      
+                }
+        }
+        stage('Ls work dir') {
+            steps {
+                sh "ls -la"
+            }
+        }
+
+    }
+}
