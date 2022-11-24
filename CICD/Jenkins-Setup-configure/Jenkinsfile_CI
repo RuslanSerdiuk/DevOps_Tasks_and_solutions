@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Login') {
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $ECR_CREDENTIALS --password-stdin384461882996.dkr.ecr.us-east-2.amazonaws.com'
+                sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 384461882996.dkr.ecr.us-east-2.amazonaws.com'
             }
         }
         stage('Push') {
