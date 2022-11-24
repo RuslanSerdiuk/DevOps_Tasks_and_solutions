@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Test-Static') {
             steps {
-                sh 'sudo docker build -f ./CICD/Jenkins-Setup-configure/Dockerfile -t ruslanserdiuk/lambda:$BUILD_NUMBER -t ruslanserdiuk/lambda:latest ./CICD/Jenkins-Setup-configure/'
+                sh 'sudo docker build -f ./CICD/Jenkins-Setup-configure/Dockerfile -t ruslan.serdiuk/lambda:$BUILD_NUMBER -t ruslan.serdiuk/lambda:latest ./CICD/Jenkins-Setup-configure/'
             }
         }
         stage('Login') {
