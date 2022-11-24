@@ -7,6 +7,7 @@ pipeline {
     }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('DockerHub')
+        ECR_CREDENTIALS = credentials('ecr-creds')
     }
     stages {
         stage('Checkout') {
@@ -21,13 +22,13 @@ pipeline {
         }
         stage('Login') {
             steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $ECR_CREDENTIALS --password-stdin384461882996.dkr.ecr.us-east-2.amazonaws.com'
             }
         }
         stage('Push') {
             steps {
                 sh 'docker push ruslanserdiuk/python-lambda-trigger:latest'
-                sh 'docker push ruslanserdiuk/python-lambda-trigger:$BUILD_NUMBER' 
+                sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:$BUILD_NUMBER' 
             }
         }
     }

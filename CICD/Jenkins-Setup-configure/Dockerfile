@@ -1,12 +1,8 @@
-#Deriving the latest base image
-FROM python:latest
+# python3.8 lambda base image
+FROM public.ecr.aws/lambda/python:3.8
 
-WORKDIR /usr/app/src
+# Copy function code to container
+COPY lambda.py ./-
 
-#to COPY the remote file at working directory in container
-COPY trigger-lambda.py ./
-
-#CMD instruction should be used to run the software
-#contained by your image, along with any arguments.
-
-CMD [ "python", "./trigger-lambda.py"]
+# setting the CMD to your handler file_name.function_name
+CMD [ "lambda.handler" ]
