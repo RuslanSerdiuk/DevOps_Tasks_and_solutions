@@ -2,7 +2,7 @@
 FROM public.ecr.aws/lambda/python:3.8
 
 # Copy function code to container
-ADD ./lambda.py ./
+ADD scripts/* ./
 
 # setting the CMD to your handler file_name.function_name
 CMD [ "lambda.handler" ]
