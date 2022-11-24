@@ -27,8 +27,8 @@ pipeline {
         }
         stage('Push') {
             steps {
-                sh 'docker push ruslan.serdiuk/lambda:latest'
-                sh 'docker push ruslan.serdiuk/lambda:latest:$BUILD_NUMBER' 
+                sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk/lambda:latest'
+                sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/push ruslan.serdiuk/lambda:latest:$BUILD_NUMBER' 
             }
         }
     }
