@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Test-Static') {
             steps {
-                sh 'cd ./CICD/Jenkins-Setup-configure | sudo docker build .'
+                sh 'cd ./CICD/Jenkins-Setup-configure | sudo docker build -f /Dockerfile .'
             }
         }
         stage('Login') {
