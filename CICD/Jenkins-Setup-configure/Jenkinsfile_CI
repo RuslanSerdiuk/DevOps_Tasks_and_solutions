@@ -17,18 +17,16 @@ pipeline {
         }
         stage('Test-Static') {
             steps {
-                sh 'sudo docker build -f ./CICD/Jenkins-Setup-configure/Dockerfile -t ruslan.serdiuk/lambda:$BUILD_NUMBER -t ruslan.serdiuk/lambda:latest ./CICD/Jenkins-Setup-configure/'
+                sh 'sudo docker build -f ./CICD/Jenkins-Setup-configure/Dockerfile -t 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk/lambda:$BUILD_NUMBER -t 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk/lambda:latest ./CICD/Jenkins-Setup-configure/'
             }
         }
         stage('Login') {
             steps {
                 sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 384461882996.dkr.ecr.us-east-2.amazonaws.com'
-                sh 'docker tag ruslan.serdiuk/lambda  384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:latest'
             }
         }
         stage('Push') {
             steps {
-                sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:latest'
                 sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk/lambda:latest'
                 sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/push ruslan.serdiuk/lambda:latest:$BUILD_NUMBER' 
             }
