@@ -23,10 +23,12 @@ pipeline {
         stage('Login') {
             steps {
                 sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 384461882996.dkr.ecr.us-east-2.amazonaws.com'
+                sh 'docker tag ruslan.serdiuk/lambda  384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:latest'
             }
         }
         stage('Push') {
             steps {
+                sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:latest'
                 sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk/lambda:latest'
                 sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/push ruslan.serdiuk/lambda:latest:$BUILD_NUMBER' 
             }
