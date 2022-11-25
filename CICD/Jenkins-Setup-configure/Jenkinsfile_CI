@@ -15,22 +15,20 @@ pipeline {
                 git branch: "Jenkins-Setup-Configure", credentialsId: 'github-creds-jenkins-task', url: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git'      
                 }
         }
-        stage('Test-Static') {
+        stage('Build') {
             steps {
-                sh 'sudo docker build -f ./CICD/Jenkins-Setup-configure/Dockerfile -t ruslan.serdiuk/lambda:$BUILD_NUMBER -t ruslan.serdiuk/lambda:latest ./CICD/Jenkins-Setup-configure/'
+                sh 'sudo docker build -f ./CICD/Jenkins-Setup-configure/Dockerfile -t ruslan.serdiuk/lambda:latest ./CICD/Jenkins-Setup-configure/'
             }
         }
-        stage('Login') {
+        stage('Login + Tag') {
             steps {
                 sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 384461882996.dkr.ecr.us-east-2.amazonaws.com'
-                sh 'docker tag ruslan.serdiuk/lambda  384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:latest'
+                sh 'docker tag ruslan.serdiuk/lambda  384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest'
             }
         }
         stage('Push') {
             steps {
-                sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:latest'
-                sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk/lambda:latest'
-                sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/push ruslan.serdiuk/lambda:latest:$BUILD_NUMBER' 
+                sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest'
             }
         }
     }
