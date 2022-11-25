@@ -35,6 +35,9 @@ pipeline {
     post {
         always {
         sh 'docker logout'
+        emailext body: 'Test Message',
+            subject: 'Test Subject',
+            to: 'ruslan.serdiuk.w@gmail.com'
         }
     }
 }
