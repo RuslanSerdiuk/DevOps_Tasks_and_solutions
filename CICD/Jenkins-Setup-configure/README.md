@@ -73,7 +73,7 @@ To launch an EC2 instance:
     sudo systemctl enable jenkins
     sudo systemctl start jenkins   
     ```
-7. Repeat and launch second instance (Worker Nodes) and insert the **user-data** (ec2-agent for Jenkins Server):
+7. Repeat and launch second instance (Worker Node) and insert the **user-data** (ec2-agent for Jenkins Server):
     ```
     #!/bin/bash
     
@@ -99,6 +99,8 @@ To launch an EC2 instance:
     <enter your Secret Access Key>
     <enter your region>
     ```
+   Replace **aws configure** to your AWS Account
+
 8. Select **Launch Instance**. <img src ='img/launch_instance.jpg'>
 9. In the left-hand navigation bar, choose **Instances** to view the status of your instance. Initially, the status of your instance is pending. After the status changes to running, your instance is ready for use. <img src ='img/launch_nodes.jpg'>
 
