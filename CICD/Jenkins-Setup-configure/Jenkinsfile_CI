@@ -1,6 +1,6 @@
 pipeline {
-    agent { 
-        label 'ec2-agent' 
+    agent {
+        label 'ec2-agent'
     }
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps{
-                git branch: "Jenkins-Setup-Configure", credentialsId: 'github-creds-jenkins-task', url: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git'      
+                git branch: "Jenkins-Setup-Configure", credentialsId: 'github-creds-jenkins-task', url: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git'
                 }
         }
         stage('Build') {
@@ -35,6 +35,6 @@ pipeline {
     post {
         always {
         sh 'docker logout'
-        }  
+        }
     }
 }
