@@ -24,10 +24,10 @@ pipeline {
             steps {
                 script {
                     STACK_STATUS = sh (
-                            script: 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml',
+                            script: 'aws cloudformation describe-stacks --stack-name jenkins-lambda | awk \'{print$2}\' | grep -oE "ROLLBACK_COMPLETE"',
                             returnStdout: true
                         ).trim()
-                         if ("An error occurred (AlreadyExistsException) when calling the CreateStack operation: Stack [jenkins-lambda] already exists" == $STACK_STATUS) {
+                         if ($STACK_STATUS == "ROLLBACK_COMPLETE") {
                         sh 'aws cloudformation delete-stack --stack-name jenkins-lambda'
                         sleep time: 40, unit: 'SECONDS'
                         sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml'
