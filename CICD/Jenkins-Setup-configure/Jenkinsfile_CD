@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     RESPONCE = sh (
-                            script: 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --payload $(echo '{"first_name": "Ruslan", "last_name": "Serdiuk"}' | base64) out | awk \'{print $2}\'',
+                            script: 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --payload $(echo '"{""first_name"":" "Ruslan""," "last_name"":" "Serdiuk""}"' | base64) out | awk \'{print $2}\'',
                             returnStdout: true
                         ).trim()
                         echo "Lambda responce code: ${RESPONCE}"
