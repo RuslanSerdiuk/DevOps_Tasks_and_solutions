@@ -27,7 +27,7 @@ pipeline {
                             script: 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml',
                             returnStdout: true
                         ).trim()
-                         if ("exists" in $STACK_STATUS) {
+                         if ("An error occurred (AlreadyExistsException) when calling the CreateStack operation: Stack [jenkins-lambda] already exists" == $STACK_STATUS) {
                         sh 'aws cloudformation delete-stack --stack-name jenkins-lambda'
                         sleep time: 40, unit: 'SECONDS'
                         sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml'
