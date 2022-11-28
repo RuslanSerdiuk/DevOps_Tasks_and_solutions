@@ -1,0 +1,54 @@
+pipeline {
+    agent {
+        label 'ec2-agent'
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
+    environment {
+        ECR_CREDENTIALS = credentials('ecr-creds')
+    }
+    stages {
+        stage('Delete workspace before build starts') {
+            steps {
+                echo 'Deleting workspace'
+                deleteDir()
+            }
+        }
+        stage('Checkout') {
+            steps{
+                git branch: "Jenkins-Setup-Configure", credentialsId: 'github-creds-jenkins-task', url: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git'
+                }
+        }
+        stage('Deploy Lambda') {
+            steps {
+                sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://lambda-template.yaml'
+            }
+        }
+        stage('Invoke Lambda - Type:Event') {
+            steps {
+                script {
+                    RESPONCE = sh (
+                            script: 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --payload $(echo '{"first_name": "Ruslan", "last_name": "Serdiuk"}' | base64) out | awk \'{print $2}\'',
+                            returnStdout: true
+                        ).trim()
+                        echo "Lambda responce code: ${RESPONCE}"
+
+                    }
+                sh 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://payloadfile.json response.json | awk \'{print $2}\''
+            }
+        }
+        stage('Invoke Lambda - Type:RequestResponse') {
+            steps {
+                sh 'aws lambda invoke --invocation-type RequestResponse --function-name JenkinsTask --payload $(echo '{"first_name": "Ruslan", "last_name": "Serdiuk"}' | base64) out'
+                sh 'aws lambda invoke --invocation-type RequestResponse --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://payloadfile.json response.json'
+            }
+        }
+        stage('Ls work dir') {
+            steps {
+                sh "ls -la"
+            }
+        }
+
+    }
+}
