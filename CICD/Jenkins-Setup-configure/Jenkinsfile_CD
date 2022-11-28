@@ -22,7 +22,18 @@ pipeline {
         }
         stage('Deploy Lambda') {
             steps {
-                sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml'
+                script {
+                    STACK_STATUS = sh (
+                            script: 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml',
+                            returnStdout: true
+                        ).trim()
+                         if ("exists" in $STACK_STATUS) {
+                        sh 'aws cloudformation delete-stack --stack-name jenkins-lambda'
+                        sleep time: 40, unit: 'SECONDS'
+                        sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml'
+                         }
+                        echo "Stack has been RECREATED!"
+                    }
             }
         }
         stage('Invoke Lambda - Type:Event') {
@@ -33,7 +44,6 @@ pipeline {
                             returnStdout: true
                         ).trim()
                         echo "Lambda responce code: ${RESPONCE}"
-
                     }
                 sh 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://CICD/Jenkins-Setup-configure/payloadfile.json response.json | awk \'{print $2}\''
             }
