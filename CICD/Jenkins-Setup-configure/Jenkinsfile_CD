@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Deploy Lambda') {
             steps {
-                sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://lambda-template.yaml'
+                sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml'
             }
         }
         stage('Invoke Lambda - Type:Event') {
