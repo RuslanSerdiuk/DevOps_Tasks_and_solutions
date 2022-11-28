@@ -41,7 +41,7 @@ pipeline {
         stage('Invoke Lambda - Type:RequestResponse') {
             steps {
                 sh 'aws lambda invoke --invocation-type RequestResponse --function-name JenkinsTask --payload $(echo \'{"first_name": "Ruslan", "last_name": "Serdiuk"}\' | base64) out'
-                sh 'aws lambda invoke --invocation-type RequestResponse --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://payloadfile.json response.json'
+                sh 'aws lambda invoke --invocation-type RequestResponse --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://CICD/Jenkins-Setup-configure/payloadfile.json response.json'
             }
         }
         stage('Ls work dir') {
