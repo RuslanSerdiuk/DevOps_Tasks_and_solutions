@@ -56,7 +56,7 @@ pipeline {
                         echo "Lambda responce code: ${RESPONCE}"
                     }
                 sh 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://CICD/Jenkins-Setup-configure/payloadfile.json response.json | awk \'{print $2}\''
-                currentBuild.displayName = "Executed on: ${NODE_NAME}\n Deploy on #${BRANCH} - [#${BUILD_NUMBER}]"
+                currentBuild.displayName = "Executed on: #${BUILD_NUMBER}"
             }
         }
         stage('Invoke Lambda - Type:RequestResponse') {
