@@ -36,6 +36,7 @@ pipeline {
                 script{
                     if (STACK_STATUS != "ROLLBACK_COMPLETE") {
                         sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml'
+                        STACK_INFO = "Lambda already exists \n Deploy step has been skipped"
                     }
                     else (STACK_STATUS == "ROLLBACK_COMPLETE") {
                         echo "Stack exists"
@@ -51,7 +52,6 @@ pipeline {
                             returnStdout: true
                         ).trim()
                         echo "Lambda responce code: ${RESPONCE}"
-                        currentBuild.description = "Response Lambda: ${RESPONCE} \n"
                     }
                 sh 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://CICD/Jenkins-Setup-configure/payloadfile.json response.json | awk \'{print $2}\''
             }
@@ -68,6 +68,7 @@ pipeline {
                     currentBuild.displayName = "${JOB_NAME}"
                     currentBuild.description = "Branch: $env.GIT_BRANCH \n" +
                                                "Build number: #${BUILD_NUMBER} \n" +
+                                               "${STACK_INFO}" +
                                                "Executed on: ${NODE_NAME}\n" +
                                                "Response Lambda: ${RESPONCE} \n"
                 }
