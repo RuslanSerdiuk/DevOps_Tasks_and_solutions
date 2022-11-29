@@ -9,7 +9,7 @@ pipeline {
         stage("Set description") {
             steps {
                 script {
-                    currentBuild.displayName = "User: ${JOB_NAME}"
+                    currentBuild.displayName = "${JOB_NAME}"
                     currentBuild.description = "Branch: $env.GIT_BRANCH \n" +
                                                "Build number: #${BUILD_NUMBER} \n" +
                                                "Executed on: ${NODE_NAME}\n"
