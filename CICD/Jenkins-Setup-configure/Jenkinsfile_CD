@@ -12,8 +12,7 @@ pipeline {
                     currentBuild.displayName = "${JOB_NAME}"
                     currentBuild.description = "Branch: $env.GIT_BRANCH \n" +
                                                "Build number: #${BUILD_NUMBER} \n" +
-                                               "Executed on: ${NODE_NAME}\n" +
-                                               "Response Lambda: ${RESPONCE} \n"
+                                               "Executed on: ${NODE_NAME}\n"
                 }
             }
         }
@@ -62,7 +61,7 @@ pipeline {
                             returnStdout: true
                         ).trim()
                         echo "Lambda responce code: ${RESPONCE}"
-                        currentBuild.description = "Response Lambda: ${RESPONCE} \n"
+                        currentBuild.description =+ "Response Lambda: ${RESPONCE} \n"
                     }
                 sh 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://CICD/Jenkins-Setup-configure/payloadfile.json response.json | awk \'{print $2}\''
             }
