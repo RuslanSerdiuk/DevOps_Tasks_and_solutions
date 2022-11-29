@@ -29,12 +29,16 @@ pipeline {
             }   
         }
         stage('Deploy Lambda') {
+            when {
+                    expression { STACK_STATUS != "ROLLBACK_COMPLETE" }
+                }
             steps {
                 script{
                     if (STACK_STATUS != "ROLLBACK_COMPLETE") {
                         sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml'
                     }
                     else (STACK_STATUS == "ROLLBACK_COMPLETE") {
+                        STACK_INFO = "Lambda already exists \n Deploy step has been skipped"
                         echo "Stack exists"
                     }
                 }
@@ -64,7 +68,6 @@ pipeline {
                     currentBuild.displayName = "${JOB_NAME}"
                     currentBuild.description = "Branch: $env.GIT_BRANCH \n" +
                                                "Build number: #${BUILD_NUMBER} \n" +
-                                               "${STACK_INFO}" +
                                                "Executed on: ${NODE_NAME}\n" +
                                                "Response Lambda: ${RESPONCE} \n"
                 }
