@@ -36,9 +36,13 @@ pipeline {
                     expression { $STACK_STATUS != "ROLLBACK_COMPLETE" }
                 }
             steps {
-                sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml'
-                if ($STACK_STATUS == "ROLLBACK_COMPLETE") {
-                    echo "Stack exists"
+                script{
+                    if ($STACK_STATUS != "ROLLBACK_COMPLETE") {
+                        sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml'
+                    }
+                    else ($STACK_STATUS == "ROLLBACK_COMPLETE") {
+                        echo "Stack exists"
+                    }
                 }
             }
         }
