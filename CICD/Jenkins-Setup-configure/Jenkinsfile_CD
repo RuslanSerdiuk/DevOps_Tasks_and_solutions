@@ -20,20 +20,26 @@ pipeline {
                 git branch: "Jenkins-Setup-Configure", credentialsId: 'github-creds-jenkins-task', url: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git'
                 }
         }
-        stage('Deploy Lambda') {
+        stage('Check CloudFormation Stack') {
             steps {
                 script {
                     STACK_STATUS = sh (
                             script: 'aws cloudformation describe-stacks --stack-name jenkins-lambda | awk \'{print$2}\' | grep -oE "ROLLBACK_COMPLETE"',
                             returnStdout: true
                         ).trim()
-                         if ($STACK_STATUS == "ROLLBACK_COMPLETE") {
-                        sh 'aws cloudformation delete-stack --stack-name jenkins-lambda'
-                        sleep time: 40, unit: 'SECONDS'
-                        sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml'
-                         }
-                        echo "Stack has been RECREATED!"
-                    }
+                        echo "Stack has been Checked!"
+                }
+            }   
+        }
+        stage('Deploy Lambda') {
+            when {
+                    expression { $STACK_STATUS != "ROLLBACK_COMPLETE" }
+                }
+            steps {
+                sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml'
+                if ($STACK_STATUS == "ROLLBACK_COMPLETE") {
+                    echo "Stack exists"
+                }
             }
         }
         stage('Invoke Lambda - Type:Event') {
