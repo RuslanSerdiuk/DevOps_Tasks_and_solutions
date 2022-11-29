@@ -12,6 +12,7 @@ pipeline {
                     currentBuild.displayName = "Deploy on $env.GIT_BRANCH - #${BUILD_NUMBER} \n" +
                                                "Executed on: ${NODE_NAME}\n"
                     echo "JENKINS_URL: ${JENKINS_URL}\n JOB_NAME: ${JOB_NAME}\n HUDSON_URL: ${HUDSON_URL}\n"
+                    sh 'printenv'
                 }
             }
         }
