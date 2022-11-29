@@ -13,6 +13,7 @@ pipeline {
                     currentBuild.description = "Branch: $env.GIT_BRANCH \n" +
                                                "Build number: #${BUILD_NUMBER} \n" +
                                                "Executed on: ${NODE_NAME}\n" +
+                                               "Response Lambda: ${RESPONCE} \n"
                 }
             }
         }
