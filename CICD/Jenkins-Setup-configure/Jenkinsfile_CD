@@ -36,7 +36,7 @@ pipeline {
                 script{
                     if (STACK_STATUS != "ROLLBACK_COMPLETE") {
                         sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Jenkins-Setup-configure/lambda-template.yaml'
-                        STACK_INFO = "Lambda already exists \n Deploy step has been skipped"
+                        STACK_INFO = echo "Lambda already exists \n Deploy step has been skipped"
                     }
                     else (STACK_STATUS == "ROLLBACK_COMPLETE") {
                         echo "Stack exists"
