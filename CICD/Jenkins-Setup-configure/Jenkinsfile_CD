@@ -9,6 +9,13 @@ pipeline {
         ECR_CREDENTIALS = credentials('ecr-creds')
     }
     stages {
+        stage("Set description") {
+            steps {
+                script {
+                    currentBuild.displayName = "#${bundleName}"
+                }
+            }
+        }
         stage('Delete workspace before build starts') {
             steps {
                 echo 'Deleting workspace'
