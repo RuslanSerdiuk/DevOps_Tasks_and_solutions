@@ -30,7 +30,7 @@ pipeline {
         }
         stage('Deploy Lambda') {
             when {
-                    expression { STACK_STATUS != "ROLLBACK_COMPLETE" }
+                    expression { ${STACK_STATUS} != "ROLLBACK_COMPLETE" }
                 }
             steps {
                 script{
