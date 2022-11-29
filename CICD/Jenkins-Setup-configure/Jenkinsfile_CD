@@ -9,8 +9,9 @@ pipeline {
         stage("Set description") {
             steps {
                 script {
-                    currentBuild.displayName = "Deploy on: $env.GIT_BRANCH \n"
-                    currentBuild.description = "Build number: #${BUILD_NUMBER} \n" +
+                    currentBuild.displayName = "${username}"
+                    currentBuild.description = "Branch: $env.GIT_BRANCH \n" +
+                                               "Build number: #${BUILD_NUMBER} \n" +
                                                "Executed on: ${NODE_NAME}\n"
                 }
             }
