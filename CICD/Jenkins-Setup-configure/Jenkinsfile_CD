@@ -5,10 +5,6 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
-    environment {
-        ECR_CREDENTIALS = credentials('ecr-creds')
-        AWS_CREDENTIALS = credentials('7c68a418-a3f9-4f35-9379-50518abe09e2')
-    }
     stages {
         stage("Set description") {
             steps {
