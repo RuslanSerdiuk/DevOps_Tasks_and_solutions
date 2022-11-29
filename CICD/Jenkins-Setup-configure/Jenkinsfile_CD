@@ -29,7 +29,7 @@ pipeline {
                         ).trim()
                         echo "Stack has been Checked!"
                         echo "$STACK_STATUS"
-                        env.STATUS = $STACK_STATUS
+                        env.STATUS = "$STACK_STATUS"
                 }
             }   
         }
