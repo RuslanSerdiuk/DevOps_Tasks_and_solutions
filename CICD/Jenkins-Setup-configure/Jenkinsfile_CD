@@ -9,7 +9,7 @@ pipeline {
         stage("Set description") {
             steps {
                 script {
-                    currentBuild.displayName = "Deploy on #${BRANCH_NAME} - [#${BUILD_NUMBER}]" +
+                    currentBuild.displayName = "Deploy on #$env.BRANCH_NAME - [#${BUILD_NUMBER}]" +
                                                "Executed on: ${NODE_NAME}\n"
                 }
             }
