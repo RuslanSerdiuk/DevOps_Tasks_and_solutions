@@ -9,13 +9,6 @@ pipeline {
         ECR_CREDENTIALS = credentials('ecr-creds')
     }
     stages {
-        stage("Set description") {
-            steps {
-                script {
-                    currentBuild.displayName = "Deploy on #${BRANCH} - [#${BUILD_NUMBER}]"
-                }
-            }
-        }
         stage('Delete workspace before build starts') {
             steps {
                 echo 'Deleting workspace'
