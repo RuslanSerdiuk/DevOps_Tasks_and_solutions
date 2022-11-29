@@ -9,6 +9,14 @@ pipeline {
         ECR_CREDENTIALS = credentials('ecr-creds')
     }
     stages {
+        stage("Set description") {
+            steps {
+                script {
+                    currentBuild.displayName = "Deploy on #${BRANCH} - [#${BUILD_NUMBER}]" +
+                                               "Executed on: ${NODE_NAME}\n"
+                }
+            }
+        }
         stage('Delete workspace before build starts') {
             steps {
                 echo 'Deleting workspace'
@@ -56,7 +64,6 @@ pipeline {
                         echo "Lambda responce code: ${RESPONCE}"
                     }
                 sh 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://CICD/Jenkins-Setup-configure/payloadfile.json response.json | awk \'{print $2}\''
-                currentBuild.displayName = "Executed on: #${BUILD_NUMBER}"
             }
         }
         stage('Invoke Lambda - Type:RequestResponse') {
