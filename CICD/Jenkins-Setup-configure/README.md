@@ -1,10 +1,12 @@
-# Jenkins - Setup and Configure
+# Jenkins - Setup and Configure :hammer_and_wrench:
 
 ### _TASK:_
-1. requirement: add versioning for images
-2. create image (create script for run lambdas simple)
-3. push to ecr
-4. notifications
+1. Create Key Pair
+2. Create Security Group
+3. Launching a Master and Worker nodes for Jenkins
+4. Install Jenkins
+5. Configure Jenkins
+6. Connect ec2-agent (Worker Node) to the Jenkins Server 
 
 #### _Prerequisites:_
 1. An AWS account. If you don’t have one, you can register [here](https://portal.aws.amazon.com/billing/signup#/start).
@@ -37,7 +39,7 @@ A security group acts as a firewall that controls the traffic allowed to reach o
 For this task, you will create a security group and add the following rules:
 - Allow inbound HTTP access from anywhere. 
 - Allow inbound SSH traffic from your computer’s public IP address so you can connect to your instance.
-- **AFTER LAUNCH** Master and Worker nodes - add to the Security Group the IP of the Master Node for the port 22.
+- **AFTER LAUNCH** Master and Worker nodes - add to the Security Group the IP of the Master Node for the port 22. :bangbang:
 
 
 
@@ -103,7 +105,7 @@ To launch an EC2 instances:
 
 8. Select **Launch Instance**. <img src ='img/launch_instance.jpg'>
 9. In the left-hand navigation bar, choose **Instances** to view the status of your instance. Initially, the status of your instance is pending. After the status changes to running, your instance is ready for use. <img src ='img/launch_nodes.jpg'>
-10. When both instances are ready, go to our **Security Group** and open 22 ssh port for master Jenkins! <img src ='img/ssh_Jenkins_Master.jpg'>
+10. When both instances are ready, go to our **Security Group** and open 22 ssh port for master Jenkins! :warning: <img src ='img/ssh_Jenkins_Master.jpg'> 
 
 
 
@@ -143,10 +145,8 @@ Jenkins is now installed and running on your EC2 instance. To configure Jenkins:
 
 
 ### _LINKS:_
-+ __
-+ __
-+ __
-+ __
++ _https://www.jenkins.io/doc/book/getting-started/_
++ _https://www.jenkins.io/doc/book/installing/linux/_
 
 
 
