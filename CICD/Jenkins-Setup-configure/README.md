@@ -103,6 +103,7 @@ To launch an EC2 instances:
 
 8. Select **Launch Instance**. <img src ='img/launch_instance.jpg'>
 9. In the left-hand navigation bar, choose **Instances** to view the status of your instance. Initially, the status of your instance is pending. After the status changes to running, your instance is ready for use. <img src ='img/launch_nodes.jpg'>
+10. When both instances are ready, go to our **Security Group** and open 22 ssh port for master Jenkins! <img src ='img/ssh_Jenkins_Master.jpg'>
 
 
 
