@@ -1,4 +1,4 @@
-# Jenkins [Setup and Configure]
+# Jenkins - Setup and Configure
 
 ### _TASK:_
 1. requirement: add versioning for images
@@ -43,9 +43,9 @@ For this task, you will create a security group and add the following rules:
 
 
 ### _Launching an Amazon EC2 instances_
-Now that you have configured a key pair and security group, you can launch an EC2 instance.
+Now that you have configured a key pair and security group, you can launch an EC2 instances.
 
-To launch an EC2 instance:
+To launch an EC2 instances:
 1. Sign in to the the [AWS Management Console](https://console.aws.amazon.com/ec2/). 
 2. Open the Amazon EC2 console by selecting EC2 under **Compute**. 
 3. From the Amazon EC2 dashboard, select **Launch Instance**.
@@ -107,18 +107,45 @@ To launch an EC2 instance:
 
 
 
+### _Configuring Jenkins_
+Jenkins is now installed and running on your EC2 instance. To configure Jenkins:
+1. Connect to http://<your_server_public_DNS>:8080 from your browser. You will be able to access Jenkins through its management interface: <img src ='img/unlock_jenkins.png'>
+2. As prompted, enter the password found in /var/lib/jenkins/secrets/initialAdminPassword. Use the following command to display this password:
+   - ```
+     sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+     ```
+3. The Jenkins installation script directs you to the **Customize Jenkins page**. Click **Install suggested plugins**.
+4. Once the installation is complete, the **Create First Admin User** will open. Enter your information, and then select **Save and Continue**. <img src ='img/create_admin_user.png'>
+5. On the left-hand side, select **Manage Jenkins**, and then select **Manage Plugins**. 
+6. Select the **Available** tab, and then enter **Amazon EC2 plugin** at the top right. 
+7. Select the checkbox next to **Amazon EC2 plugin**, and then select **Install without restart**. <img src ='img/install_ec2_plugin.png'>
+8. Once the installation is done, select **Back to Dashboard**. 
+9. Select **Configure a cloud** if there are no existing nodes or clouds. <img src ='img/configure_cloud.png'>
+10. If you already have other nodes or clouds set up, select **Manage Jenkins**.
+11. After navigating to **Manage Jenkins**, select **Configure Nodes and Clouds** from the left hand side of the page. <img src ='img/manage-nodes-and-clouds.png'>
+12. From here, select **Configure Clouds**. 
+
+   <img src ='img/manage-jenkins-configure-clouds.png'>
+13. Select **Add a new cloud**, and select **Amazon EC2**. A collection of new fields appears. <img src ='img/add-amazon-cloud.png'>
+14. Click **Add** under Amazon EC2 Credentials: <img src ='img/configure_cloud_add_ec2_credentials.png'>
+15. From the Jenkins Credentials Provider, select AWS Credentials as the **Kind**. <img src ='img/jenkins_credentials_provider_aws_credentials.png'>
+16. Scroll down and enter in the IAM User programmatic access keys with permissions to launch EC2 instances and select **Add**. <img src ='img/add_access_secret_access_keys.png'>
+17. Scroll down to select your region using the drop-down, and select **Add** for the EC2 Key Pair’s Private Key. <img src ='img/configure_cloud_region_private_key.png'>
+18. From the Jenkins Credentials Provider, select SSH Username with private key as the Kind and set the Username to ec2-user. <img src ='img/ssh_username.png'>
+19. Scroll down and select **Enter Directly** under Private Key, then select **Add**. <img src ='img/private_key_enter_directly.png'>
+20. Open the private key pair you created in the creating a key pair step and paste in the contents from "-----BEGIN RSA PRIVATE KEY-----" to "-----END RSA PRIVATE KEY-----". Select **Add** when completed. <img src ='img/enter_private_key.png'>
+21. Scroll down to "Test Connection" and ensure it states "Success". Select **Save** when done. <img src ='img/test_connection.png'>
+
+#### Congratulation! You have just installed Jenkins server and configured Master and Worker Nodes for it!
 
 
 
 
-
-
-
-
-
-
-
-
+### _LINKS:_
++ __
++ __
++ __
++ __
 
 
 
