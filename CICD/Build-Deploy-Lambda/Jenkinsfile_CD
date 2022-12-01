@@ -22,8 +22,7 @@ pipeline {
                 script {
                     try {
                         STACK_STATUS = sh (
-                            script: 'aws cloudformation update-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml &> data.txt',
-                                    'cat data.txt | tail -c 32',
+                            script: 'aws cloudformation update-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml &> data.txt | cat data.txt | tail -c 32',
                             returnStdout: true
                         ).trim()
                         echo "Update result: ${STACK_STATUS}"
