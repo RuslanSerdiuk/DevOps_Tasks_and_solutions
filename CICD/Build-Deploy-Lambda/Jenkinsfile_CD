@@ -20,11 +20,15 @@ pipeline {
         stage('Check CloudFormation Stack') {
             steps {
                 script {
-                    STACK_STATUS = sh (
+                    try {
+                        STACK_STATUS = sh (
                             script: 'aws cloudformation update-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml &> data.txt | cat data.txt | tail -c 32',
                             returnStdout: true
                         ).trim()
+                    } catch (err) {
+                        echo err.getMessage()
                         echo "Update result: ${STACK_STATUS}"
+                    }
                     STACK_STATUS_2 = sh (
                             script: 'aws cloudformation update-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml > data.txt | cat data.txt | grep -oE "stack/jenkins-lambda"',
                             returnStdout: true
