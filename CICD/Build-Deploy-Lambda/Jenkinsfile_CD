@@ -25,6 +25,11 @@ pipeline {
                             returnStdout: true
                         ).trim()
                         echo "Update result: ${STACK_STATUS}"
+                    STACK_STATUS_2 = sh (
+                            script: 'aws cloudformation update-stack --stack-name jenkins-lambda --template-body file://lambda-template.yaml > data.txt | cat data.txt | grep -oE "stack/jenkins-lambda"'
+                            returnStdout: true
+                        ).trim()
+                        echo "Stack has been Updated!"
                 }
             }   
         }
