@@ -21,25 +21,30 @@ pipeline {
             steps {
                 script {
                     STACK_STATUS = sh (
-                            script: 'aws cloudformation describe-stacks --stack-name jenkins-lambda | awk \'{print$2}\' | grep -oE "ROLLBACK_COMPLETE"',
+                            script: 'aws cloudformation update-stack --stack-name jenkins-lambda --template-body file://lambda-template.yaml &> data.txt | cat data.txt | tail -c 32'
                             returnStdout: true
                         ).trim()
-                        echo "Stack has been Checked!"
+                        echo "Update result: ${STACK_STATUS}"
+                    STACK_STATUS_2 = sh (
+                            script: 'aws cloudformation update-stack --stack-name jenkins-lambda --template-body file://lambda-template.yaml > data.txt | cat data.txt | grep -oE "stack/jenkins-lambda"'
+                            returnStdout: true
+                        ).trim()
+                        echo "Stack has been Updated!"
                 }
             }   
         }
         stage('Deploy Lambda') {
             when {
-                    expression { STACK_STATUS != "ROLLBACK_COMPLETE" }
+                    expression { STACK_STATUS_2 != "stack/jenkins-lambda" }
                 }
             steps {
                 script{
-                    if (STACK_STATUS != "ROLLBACK_COMPLETE") {
+                    if (STACK_STATUS != "[jenkins-lambda] does not exist") {
                         sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml'
+                        echo "Stack has been Created!"
                     }
-                    else (STACK_STATUS == "ROLLBACK_COMPLETE") {
-                        STACK_INFO = "Lambda already exists \n Deploy step has been skipped"
-                        echo "Stack exists"
+                    else (STACK_STATUS == "No updates are to be performed.") {
+                        echo "${STACK_STATUS}"
                     }
                 }
             }
