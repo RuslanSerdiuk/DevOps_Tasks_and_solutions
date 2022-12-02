@@ -6,16 +6,12 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
     parameters {
-        string(defaultValue: "", description: 'K', name: 'TEST')
-        string(defaultValue: "", description: 'K', name: 'complex_param')
+        string(defaultValue: "", description: 'K', name: 'ImageTag')
     }
     stages {
         stage('PrintParameter'){
             steps{
-                sh 'echo ${TEST}'
-                echo "Value of the TEST: ${TEST}"
-                sh 'echo ${complex_param}'
-                echo "Value of the complex_param: ${complex_param}"
+                echo "Value of the ImageTag: ${ImageTag}"
             }
         }
         stage('Delete workspace before build starts') {
@@ -39,7 +35,7 @@ pipeline {
         }
         stage('Deploy Lambda') {
             steps {
-                sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml --parameters ParameterKey=ImageId,ParameterValue=384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-40-latest'
+                sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml --parameters ParameterKey=ImageId,ParameterValue=${ImageTag}'
                 sleep time: 90, unit: 'SECONDS'
             }
         }

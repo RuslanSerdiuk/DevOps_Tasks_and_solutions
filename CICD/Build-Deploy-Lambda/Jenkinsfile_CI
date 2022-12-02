@@ -39,7 +39,7 @@ pipeline {
             subject: 'Test Subject',
             to: 'ruslan.serdiuk.w@gmail.com'
         build job: 'cdp-lambda-deploy', parameters: [
-                                            [$class: 'StringParameterValue', name: 'TEST', value: "384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest"]
+                                            [$class: 'StringParameterValue', name: 'ImageTag', value: "384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest"]
                                         ]
         }
     }
