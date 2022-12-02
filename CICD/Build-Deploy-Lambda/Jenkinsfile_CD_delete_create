@@ -13,9 +13,9 @@ pipeline {
         stage('PrintParameter'){
             steps{
                 sh 'echo ${TEST}'
-                echo "${TEST}"
+                echo "Value of the TEST: ${TEST}"
                 sh 'echo ${complex_param}'
-                echo "${complex_param}"
+                echo "Value of the complex_param: ${complex_param}"
             }
         }
         stage('Delete workspace before build starts') {

@@ -40,7 +40,7 @@ pipeline {
             to: 'ruslan.serdiuk.w@gmail.com'
         build job: 'cdp-lambda-deploy', parameters: [
                                             string(name: 'TEST', value: String.valueOf('384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest')),
-                                            string(name: 'complex_param', value: 'prefix-' + String.valueOf(BUILD_NUMBER))
+                                            string(name: 'complex_param', value: 'prefix-' + String.valueOf($BUILD_NUMBER))
                                         ]
         }
     }
