@@ -5,7 +5,15 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
+    parameters {
+        string(defaultValue: "", description: 'K', name: 'ImageTag')
+    }
     stages {
+        stage('PrintParameter'){
+            steps{
+                sh 'echo ${ImageTag}'
+            }
+        }
         stage('Delete workspace before build starts') {
             steps {
                 echo 'Deleting workspace'
