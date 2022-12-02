@@ -42,7 +42,7 @@ pipeline {
             subject: 'Test Subject',
             to: 'ruslan.serdiuk.w@gmail.com'
         build job: 'cdp-lambda-deploy', parameters: [
-                                            string(name: 'TEST', value: String.valueOf(TESTTAG)),
+                                            string(name: 'TEST', value: String.valueOf('$TESTTAG')),
                                             string(name: 'complex_param', value: 'prefix-' + String.valueOf('${BUILD_NUMBER}'))
                                         ]
         }
