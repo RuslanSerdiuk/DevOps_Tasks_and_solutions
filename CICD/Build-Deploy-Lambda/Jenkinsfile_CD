@@ -20,17 +20,23 @@ pipeline {
         stage('Check CloudFormation Stack') {
             steps {
                 script {
-                    STACK_STATUS = sh (
+                    try {
+                        STACK_STATUS = sh (
                             script: 'aws cloudformation describe-stacks --stack-name jenkins-lambda | awk \'{print$2}\' | grep -oE "ROLLBACK_COMPLETE"',
                             returnStdout: true
                         ).trim()
                         echo "Stack has been Checked!"
+                        echo STACK_STATUS
+                    } catch (err) {
+                        echo STACK_STATUS
+                    }
+                    echo "${STACK_STATUS}"
                 }
             }   
         }
         stage('Deploy Lambda') {
             when {
-                    expression { STACK_STATUS != "An error occurred (ValidationError) when calling the UpdateStack operation: Stack [jenkins-lambda] does not exist" }
+                    expression { STACK_STATUS == "An error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id jenkins-lambda does not exist" }
                 }
             steps {
                 script{
