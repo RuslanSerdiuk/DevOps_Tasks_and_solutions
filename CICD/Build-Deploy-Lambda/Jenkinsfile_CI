@@ -38,7 +38,7 @@ pipeline {
         emailext body: 'Test Message',
             subject: 'Test Subject',
             to: 'ruslan.serdiuk.w@gmail.com'
-        build job: 'cdp-lambda-deploy', parameters: [string(name: 'ImageTag', value: String.valueOf('version-${BUILD_NUMBER}-latest'))]
+        build job: 'cdp-lambda-deploy', parameters: [string(name: 'TEST', value: String.valueOf('384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest'))]
         }
     }
 }
