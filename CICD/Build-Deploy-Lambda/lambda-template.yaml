@@ -1,4 +1,9 @@
 AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  ImageId:
+    Type: String
+    Description: Enter image's ID + tag
+
 Resources:
   JenkinsTask:
     Type: "AWS::Lambda::Function"
@@ -7,5 +12,5 @@ Resources:
       Role: "arn:aws:iam::384461882996:role/JenkinsTask"
       PackageType: "Image"
       Code: 
-        ImageUri: "384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-40-latest"
+        ImageUri: !Ref ImageId
       Timeout: 300

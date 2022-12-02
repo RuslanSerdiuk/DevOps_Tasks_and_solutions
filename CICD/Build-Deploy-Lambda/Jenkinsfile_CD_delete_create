@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Deploy Lambda') {
             steps {
-                sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml'
+                sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml --parameters ParameterKey=ImageId,ParameterValue=384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-40-latest'
                 sleep time: 90, unit: 'SECONDS'
             }
         }
