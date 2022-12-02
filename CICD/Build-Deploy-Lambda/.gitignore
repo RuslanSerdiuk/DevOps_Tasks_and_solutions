@@ -1,3 +1,7 @@
 dockerhub-token.txt
 /module
 state.tf
+data.txt
+Jenkinsfile_CD
+Jenkinsfile_CD_lambda_exists
+Jenkinsfile_CD_terrible
