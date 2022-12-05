@@ -127,22 +127,251 @@ Checkout extensions modify the git operations that place files in the workspace 
 
 ### _Sending email_
 Using **[Email Extension Plugin](https://plugins.jenkins.io/email-ext/)** – This plugin lets you configure every aspect of email notifications. You can customize things such as when to send the email, who receives it, and what the email says.
+1. Setup Plugin!
+2. Configure System:
+   - Now go to **Manage Jenkins** -> **Configure System**. 
+   - Here scroll down to the email notification section. If you are using Gmail then type smtp.gmail.com for the SMTP server. Click on Advanced and select Use SMTP authentication. 
+   - Enter your Gmail username and password. 
+   - Select the **Use SSL** option and enter the port number as **465**. 
+   - Click on **Apply** and then **Save**. <img src ='img/email.jpg'>
+3. After that, select it to the Jenkinsfile_CI:
+   ```
+       post {
+           always {
+           emailext body: 'Test Message',
+               subject: 'Test Subject',
+               to: 'ruslan.serdiuk.w@gmail.com'
+           }
+       }
+   ```
+
+
+
+
+### _Create Job: cdp-lambda-deploy_
+Go to the **Dashboard** - **Create Item** - select **pipeline** - give name "cdp-lambda-deploy" and **Create**
+1. Add this url: <img src ='img/github_code.jpg'> to the **GitHub Project**: <img src ='img/pipeline_settings.jpg'>
+2. Next - **Delete outdated builds** and set at least 5. 
+3. Now **Pipeline settings**:
+   - **Definition:** Pipeline script from the SCM.
+   - **SCM:** Git
+   - **Repository URL:** Add this url: <img src ='img/github_code.jpg'>
+   - **Credentials:** seclect "Jenkins" (we created it earlier in the credentials) <img src ='img/pipeline_settings_2.jpg'>
+   - **Branches to build:** fill in the name of the branch where your pipeline will be located. */Jenkins-Setup-Configure
+   - **Script Path:** fill in the path, where your pipeline will be located. <img src ='img/pipeline_settings_3.jpg'> CICD/Build-Deploy-Lambda/Jenkinsfile_CD
+   - **Save!**
+
+
+
+
+### _Create trigger (+ transfer perameter) to another job in pipeline_
+1. ON THE FIRST JOB:
+   ```
+   pipeline {
+       agent {
+           label 'ec2-agent'
+       }
+       options {
+           buildDiscarder(logRotator(numToKeepStr: '5'))
+       }
+       post {
+           always {
+           build job: 'cdp-lambda-deploy', parameters: [
+                                               [$class: 'StringParameterValue', name: 'ImageTag', value: "384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest"]
+                                           ]
+           }
+       }
+   }
+   ```
+2. ON THE SECOND JOB:
+   ```
+   pipeline {
+       agent {
+           label 'ec2-agent'
+       }
+       options {
+           buildDiscarder(logRotator(numToKeepStr: '5'))
+       }
+       parameters {
+           string(defaultValue: "", description: 'K', name: 'ImageTag')
+       }
+       stages {
+           stage('PrintParameter'){
+               steps{
+                   echo "Value of the ImageTag: ${ImageTag}"
+               }
+           }
+       }
+   }
+   ```
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## _Jenkinsfile_CI:_
 ```
-emailext body: 'Test Message',
+pipeline {
+    agent {
+        label 'ec2-agent'
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('DockerHub')
+        ECR_CREDENTIALS = credentials('ecr-creds')
+    }
+    stages {
+        stage('Checkout') {
+            steps{
+                git branch: "Jenkins-Setup-Configure", credentialsId: 'github-creds-jenkins-task', url: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git'
+                }
+        }
+        stage('Build') {
+            steps {
+                sh 'sudo docker build -f ./CICD/Build-Deploy-Lambda/Dockerfile -t ruslan.serdiuk/lambda:latest ./CICD/Build-Deploy-Lambda/'
+            }
+        }
+        stage('Login + Tag') {
+            steps {
+                sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 384461882996.dkr.ecr.us-east-2.amazonaws.com'
+                sh 'docker tag ruslan.serdiuk/lambda  384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest'
+            }
+        }
+        stage('Push') {
+            steps {
+                sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest'
+            }
+        }
+    }
+    post {
+        always {
+        sh 'docker logout'
+        emailext body: 'Test Message',
             subject: 'Test Subject',
             to: 'ruslan.serdiuk.w@gmail.com'
+        build job: 'cdp-lambda-deploy', parameters: [
+                                            [$class: 'StringParameterValue', name: 'ImageTag', value: "384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest"]
+                                        ]
+        }
+    }
+}
+
 ```
 
 
 
 
+## _Jenkinsfile_CD:_
+```
+pipeline {
+    agent {
+        label 'ec2-agent'
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
+    parameters {
+        string(defaultValue: "", description: 'K', name: 'ImageTag')
+    }
+    stages {
+        stage('PrintParameter'){
+            steps{
+                echo "Value of the ImageTag: ${ImageTag}"
+            }
+        }
+        stage('Delete workspace before build starts') {
+            steps {
+                echo 'Deleting workspace'
+                deleteDir()
+            }
+        }
+        stage('Checkout') {
+            steps{
+                git branch: "Jenkins-Setup-Configure", credentialsId: 'github-creds-jenkins-task', url: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git'
+                }
+        }
+        stage('Delete Stack') {
+            steps {
+                script {
+                    sh 'aws cloudformation delete-stack --stack-name jenkins-lambda'
+                    sleep time: 30, unit: 'SECONDS'
+                }   
+            }
+        }
+        stage('Deploy Lambda') {
+            steps {
+                sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml --parameters ParameterKey=ImageId,ParameterValue=${ImageTag}'
+                sleep time: 90, unit: 'SECONDS'
+            }
+        }
+        stage('Invoke Lambda - Type:Event') {
+            steps {
+                script {
+                    RESPONCE = sh (
+                            script: 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --payload $(echo \'{"first_name": "Ruslan", "last_name": "Serdiuk"}\' | base64) out | awk \'{print $2}\'',
+                            returnStdout: true
+                        ).trim()
+                        echo "Lambda responce code: ${RESPONCE}"
+                    }
+                sh 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://CICD/Build-Deploy-Lambda/payloadfile.json response.json | awk \'{print $2}\''
+            }
+        }
+        stage('Invoke Lambda - Type:RequestResponse') {
+            steps {
+                sh 'aws lambda invoke --invocation-type RequestResponse --function-name JenkinsTask --payload $(echo \'{"first_name": "Ruslan", "last_name": "Serdiuk"}\' | base64) out'
+                sh 'aws lambda invoke --invocation-type RequestResponse --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://CICD/Build-Deploy-Lambda/payloadfile.json response.json'
+            }
+        }
+        stage("Set description") {
+            steps {
+                script {
+                    currentBuild.displayName = "${JOB_NAME}"
+                    currentBuild.description = "Branch: $env.GIT_BRANCH \n" +
+                                               "Build number: #${BUILD_NUMBER} \n" +
+                                               "Executed on: ${NODE_NAME}\n" +
+                                               "Response Lambda: ${RESPONCE} \n"
+                }
+            }
+        }
+        stage('Ls work dir') {
+            steps {
+                sh "ls -la"
+            }
+        }
+
+    }
+}
+```
 
 
 
 
+## _LINKS:_
++ _https://www.jenkins.io/doc/_
++ _https://plugins.jenkins.io/email-ext/#plugin-content-pipeline-step_
++ _https://www.jenkins.io/doc/book/pipeline/_
++ _https://stackoverflow.com/questions/37025175/how-to-pass-boolean-parameter-value-in-pipeline-to-downstream-jobs_
++ _https://serverfault.com/questions/910356/in-jenkins-how-to-pass-a-parameter-from-pipeline-job-to-a-freestyle-job_
++ _https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html_
++ _https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-cli-creating-stack.html_
