@@ -37,7 +37,7 @@ pipeline {
         sh 'docker logout'
         emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
         build job: 'cdp-lambda-deploy', parameters: [
-                                            [$class: 'StringParameterValue', name: 'ImageTag', value: "384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest"]
+                                            [$class: 'StringParameterValue', name: 'ImageTag', value: "$BUILD_NUMBER"]
                                         ]
         }
     }

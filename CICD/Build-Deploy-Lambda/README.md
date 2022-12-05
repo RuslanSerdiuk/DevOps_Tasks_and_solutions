@@ -165,6 +165,9 @@ Go to the **Dashboard** - **Create Item** - select **pipeline** - give name "cdp
 
 
 ### _Create trigger (+ transfer perameter) to another job in pipeline_
+You can trigger another job if the first one is successful and pass some important information from the first job to the second one using parameters!
+
+
 1. ON THE FIRST JOB:
    ```
    pipeline {
