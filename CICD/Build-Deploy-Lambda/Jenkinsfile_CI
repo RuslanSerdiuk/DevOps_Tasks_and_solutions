@@ -35,9 +35,7 @@ pipeline {
     post {
         always {
         sh 'docker logout'
-        emailext body: 'Test Message',
-            subject: 'Test Subject',
-            to: 'ruslan.serdiuk.w@gmail.com'
+        emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
         build job: 'cdp-lambda-deploy', parameters: [
                                             [$class: 'StringParameterValue', name: 'ImageTag', value: "384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest"]
                                         ]

@@ -87,17 +87,57 @@ Go to the **Dashboard** - **Create Item** - select **pipeline** - give name "cdp
 The [following GIT plugin](https://plugins.jenkins.io/git/#plugin-content-checkout-extensions) provides functionality available through Pipeline-compatible steps.
 
 Checkout extensions modify the git operations that place files in the workspace from the git repository on the agent. The extensions can adjust the maximum duration of the checkout operation, the use and behavior of git submodules, the location of the workspace on the disc, and more.
+```
+        stage('Checkout') {
+            steps{
+                git branch: "Jenkins-Setup-Configure", credentialsId: 'github-creds-jenkins-task', url: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git'
+                }
+        }
+```
+- **brach:** fill in name your branch in the Repo.
+- **credentialsId:** paste ID of your Jenkins Creds
+- **url:** Add this url: <img src ='img/github_code.jpg'>
+
+
+
+
+### _Build + Tag + Push:_
+```
+        stage('Build') {
+            steps {
+                sh 'sudo docker build -f ./CICD/Build-Deploy-Lambda/Dockerfile -t ruslan.serdiuk/lambda:latest ./CICD/Build-Deploy-Lambda/'
+            }
+        }
+        stage('Login + Tag') {
+            steps {
+                sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 384461882996.dkr.ecr.us-east-2.amazonaws.com'
+                sh 'docker tag ruslan.serdiuk/lambda  384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest'
+            }
+        }
+        stage('Push') {
+            steps {
+                sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest'
+            }
+        }
+```
+:warning: It is very important to give context to the docker: **./CICD/Build-Deploy-Lambda/**
+
+
+
+
+### _Sending email_
+Using **[Email Extension Plugin](https://plugins.jenkins.io/email-ext/)** – This plugin lets you configure every aspect of email notifications. You can customize things such as when to send the email, who receives it, and what the email says.
 
 
 
 
 
 
-
-
-
-
-
+```
+emailext body: 'Test Message',
+            subject: 'Test Subject',
+            to: 'ruslan.serdiuk.w@gmail.com'
+```
 
 
 
