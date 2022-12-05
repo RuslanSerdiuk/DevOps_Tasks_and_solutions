@@ -167,6 +167,30 @@ Go to the **Dashboard** - **Create Item** - select **pipeline** - give name "cdp
 ### _Create trigger (+ transfer perameter) to another job in pipeline_
 You can trigger another job if the first one is successful and pass some important information from the first job to the second one using parameters!
 
+In my case, I pass the TAG of the last successful container build that was sent to ECR. And in the second job I use this tag to deploy the lambda with this container from a template using CloudFormation:
+- ```
+   aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml --parameters ParameterKey=ImageId,ParameterValue=384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-${ImageTag}-latest
+   ```
+
+- ClodFormation template:
+   ```
+   AWSTemplateFormatVersion: 2010-09-09
+   Parameters:
+     ImageId:
+       Type: String
+       Description: Enter image's ID + tag
+   
+   Resources:
+     JenkinsTask:
+       Type: "AWS::Lambda::Function"
+       Properties:
+         FunctionName: "JenkinsTask"
+         Role: "arn:aws:iam::384461882996:role/JenkinsTask"
+         PackageType: "Image"
+         Code: 
+           ImageUri: !Ref ImageId
+         Timeout: 300
+   ```
 
 1. ON THE FIRST JOB:
    ```
@@ -204,6 +228,12 @@ You can trigger another job if the first one is successful and pass some importa
                    echo "Value of the ImageTag: ${ImageTag}"
                }
            }
+           stage('Deploy Lambda') {
+               steps {
+                   sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml --parameters ParameterKey=ImageId,ParameterValue=384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-${ImageTag}-latest'
+                   sleep time: 90, unit: 'SECONDS'
+               }
+           }
        }
    }
    ```
@@ -211,22 +241,89 @@ You can trigger another job if the first one is successful and pass some importa
 
 
 
+### _Deleting workspace_
+When you want to clean the workspace after the build, you can add this step under a suitable condition in the post section of your Pipeline job. If you want to clean the workspace before the build starts, you need to add some extra configuration to be able to clean before the sources are checked out from SCM. See the examples below for details.
+
+For example:
+```
+        stage('Delete workspace before build starts') {
+            steps {
+                echo 'Deleting workspace'
+                deleteDir()
+            }
+        }
+```
 
 
 
 
+### _Invoke Lambda_
+Now we need to invoke our lambda and see if it works or not!
+
+1. To do this, I will send her a prepared json file:
+   ```
+   {
+       "first_name": "Ruslan",
+       "last_name": "Serdiuk"
+   }
+   ```
+
+2. Or I can dicrectly set these values in the cli:
+   ```
+   aws lambda invoke --invocation-type Event --function-name JenkinsTask --payload $(echo '{"first_name": "Ruslan", "last_name": "Serdiuk"}' | base64) out | awk '{print $2}'
+   ```
+   #### BUT, we need to save the result of executing this command to a variable!
+
+3. We will use the following script:
+   ```
+   RESPONCE = sh (
+           script: 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --payload $(echo \'{"first_name": "Ruslan", "last_name": "Serdiuk"}\' | base64) out | awk \'{print $2}\'',
+           returnStdout: true
+       ).trim()
+   ```
+   The **.trim()** method helps to remove spaces in our output
+
+4. So, we have following stage:
+   ```
+         stage('Invoke Lambda - Type:Event') {
+             steps {
+                 script {
+                     RESPONCE = sh (
+                             script: 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --payload $(echo \'{"first_name": "Ruslan", "last_name": "Serdiuk"}\' | base64) out | awk \'{print $2}\'',
+                             returnStdout: true
+                         ).trim()
+                         echo "Lambda responce code: ${RESPONCE}"
+                     }
+                 sh 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://CICD/Build-Deploy-Lambda/payloadfile.json response.json | awk \'{print $2}\''
+             }
+         }
+   ```
+
+5. Check work! <img src ='img/invoke_lambda.jpg'>
 
 
 
 
+### _Set description_
+This way sets the display name of a build to something other than #1, #2, #3, ... 
+so that you can use an identifier that makes more sense in your context. 
 
+Your job configuration page gets additional setting that lets you specify a build name for each new build. <img src ='img/description.jpg'> <img src ='img/description_2.jpg'>
 
-
-
-
-
-
-
+This is how the plugin can be used via pipeline approach. Name and the description can be changed like any other steps. Mind that there are a few conventions which can be used to modify name or description:
+```
+        stage("Set description") {
+            steps {
+                script {
+                    currentBuild.displayName = "${JOB_NAME}"
+                    currentBuild.description = "Branch: $env.GIT_BRANCH \n" +
+                                               "Build number: #${BUILD_NUMBER} \n" +
+                                               "Executed on: ${NODE_NAME}\n" +
+                                               "Response Lambda: ${RESPONCE} \n"
+                }
+            }
+        }
+```
 
 
 
