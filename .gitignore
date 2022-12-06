@@ -3,7 +3,7 @@
 /Terraform/Simple_Application/.terraform.lock.hcl
 /Terraform/Simple_Application/Key for user.txt
 Terraform/Simple_Application/Key for user.txt.bak
-Terraform/
+Terraform
 =======================
 Ansible
 Ansible/Deploy_MongoDB/.terraform/providers/registry.terraform.io/hashicorp/aws/4.31.0/windows_amd64/terraform-provider-aws_v4.31.0_x5.exe
@@ -24,6 +24,3 @@ Ansible/Simple_Example/.terraform/providers/registry.terraform.io/hashicorp/tls/
 Ansible/Simple_Example/module/EC2/Ruslan-key-Ohio-TASK22.pem
 ========================
 Kubernetes
-CICD/Build-Deploy-Lambda/failed pipelines/Jenkinsfile_CD
-CICD/Build-Deploy-Lambda/failed pipelines/Jenkinsfile_CD_lambda_exists
-CICD/Build-Deploy-Lambda/failed pipelines/Jenkinsfile_CD_terrible
