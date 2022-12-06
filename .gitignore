@@ -24,3 +24,6 @@ Ansible/Simple_Example/.terraform/providers/registry.terraform.io/hashicorp/tls/
 Ansible/Simple_Example/module/EC2/Ruslan-key-Ohio-TASK22.pem
 ========================
 Kubernetes
+CICD/Build-Deploy-Lambda/failed pipelines/Jenkinsfile_CD
+CICD/Build-Deploy-Lambda/failed pipelines/Jenkinsfile_CD_lambda_exists
+CICD/Build-Deploy-Lambda/failed pipelines/Jenkinsfile_CD_terrible
