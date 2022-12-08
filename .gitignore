@@ -18,3 +18,4 @@ Ansible/Simple_Example/.terraform.lock.hcl
 Terraform/AWS-Glue/Key for user.txt
 CICD
 Terraform/S3-to-Snowflake-Migration/Key for user.txt
+Terraform/DynamoDB-to-Snowflake-Migration/.terraform
