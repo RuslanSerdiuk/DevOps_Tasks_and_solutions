@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: 2010-09-09   
+Resources:
+  AWSTask:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      FunctionName: "cdp-AWS-Task"
+      Role: "arn:aws:iam::384461882996:role/JenkinsTask"
+      Code:
+        S3Bucket: cdp-aws-task-code-for-lambda
+        S3Key:    lambda.zip
+      Timeout: 300
+      Runtime: python3.9
+      Handler: lambda.handler
