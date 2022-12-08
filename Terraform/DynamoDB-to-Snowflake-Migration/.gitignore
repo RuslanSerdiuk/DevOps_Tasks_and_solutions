@@ -3,7 +3,6 @@
 .tfstate.backup
 .terraform.lock.hcl
 atlantis.yaml
-state.tf
 Key for user.txt
 Key for user.txt.bak
 

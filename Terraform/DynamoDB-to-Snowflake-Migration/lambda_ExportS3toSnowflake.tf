@@ -1,29 +1,21 @@
+resource "aws_lambda_permission" "allow_s3bucket_to_call_ExpS3toSnowflake_lambda" {
+  statement_id  = "AllowExecutionFromS3Bucket"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.export_from_s3_to_snowflake.function_name
+  principal     = "s3.amazonaws.com"
+  source_arn    = "arn:aws:s3:::${var.name_bucket}-${var.name_env}"
+}
 
 resource "aws_lambda_function" "export_from_s3_to_snowflake" {
-  s3_bucket = "${var.name_bucket}-${var.name_env}"
-  s3_key    = var.s3_key_file
+  s3_bucket     = "${var.name_bucket}-${var.name_env}"
+  s3_key        = var.s3_key_file
   
   function_name = "${var.function_name}-${var.name_env}"
   role          = var.role
   handler       = var.lambda_export_s3_to_snowflake_handler
-  runtime       = "python3.9"
-  timeout       = 3
+  runtime       = "nodejs12.x"
+  timeout       = 120
 
-  /*
-  vpc_config {
-    subnet_ids         = var.subnet_ids
-    security_group_ids = var.security_groups
-  }
-  
-  environment {
-    variables = {
-      API_BASE_URL       = var.API_BASE_URL
-      NODE_ENV           = var.NODE_ENV
-      AUTO_USER_NAME     = var.AUTO_USER_NAME
-      AUTO_USER_PASSWORD = var.AUTO_USER_PASSWORD
-    }
-  }
-  */
   tags = {
     "Name"                    = "${var.role}-${var.finance_env}"
     "Role"                    = "${var.role}-${var.finance_env}"
@@ -32,20 +24,12 @@ resource "aws_lambda_function" "export_from_s3_to_snowflake" {
   }
 }
 
-# Adding S3 bucket as trigger to my lambda and giving the permissions
+#====== Adding S3 bucket as trigger to the lambda and giving the permissions =====
 resource "aws_s3_bucket_notification" "aws-lambda-trigger" {
   bucket = "${var.name_bucket}-${var.name_env}"
   lambda_function {
     lambda_function_arn = aws_lambda_function.export_from_s3_to_snowflake.arn
-    events              = ["s3:ObjectCreated:*", "s3:ObjectRemoved:*"]
-
+    events              = ["s3:ObjectCreated:*"]
+    filter_prefix       = "exports/"
   }
-}
-
-resource "aws_lambda_permission" "allow_cloudwatch_to_call_ExpS3toSnowflake_lambda" {
-  statement_id  = "AllowExecutionFromS3Bucket"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.export_from_s3_to_snowflake.function_name
-  principal     = "s3.amazonaws.com"
-  source_arn    = "arn:aws:s3:::${var.name_bucket}-${var.name_env}"
 }
