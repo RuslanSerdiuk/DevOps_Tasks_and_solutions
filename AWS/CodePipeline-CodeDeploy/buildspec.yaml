@@ -31,11 +31,11 @@ phases:
   build:
     commands:
       - echo Building the Docker image...
-      - docker build -t $ECR_REPO_NAME:$ECR_IMAGE_TAG .
+      - docker build -f ./AWS/CodePipeline-CodeDeploy/Dockerfile-t $ECR_REPO_NAME:$ECR_IMAGE_TAG ./AWS/CodePipeline-CodeDeploy/
       - docker tag $ECR_REPO_NAME:$ECR_IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPO_NAME:$ECR_IMAGE_TAG
       - docker tag $ECR_REPO_NAME:$ECR_IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPO_NAME:$COMMIT_ID
       - npm install time
-      - aws cloudformation package --template-file template.yaml- --s3-bucket $BUCKET --output-template-file outputtemplate.yaml
+      - aws cloudformation package --template-file ./AWS/CodePipeline-CodeDeploy/template.yaml- --s3-bucket $BUCKET --output-template-file outputtemplate.yaml
 
   post_build:
     commands:
