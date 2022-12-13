@@ -36,9 +36,9 @@ phases:
       - docker tag $ECR_REPO_NAME:$ECR_IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPO_NAME:$COMMIT_ID
       - ls $CODEBUILD_SRC_DIR
       - ls AWS
+      - ls AWS/CodePipeline-CodeDeploy
       - aws cloudformation package --template-file ./AWS/CodePipeline-CodeDeploy/template.yaml --s3-bucket $BUCKET --output-template-file ./AWS/CodePipeline-CodeDeploy/outputtemplate.yaml
       - ls AWS/CodePipeline-CodeDeploy
-      - ls AWS
 
   post_build:
     commands:
@@ -49,4 +49,4 @@ artifacts:
   type: zip
   files:
     - ./AWS/CodePipeline-CodeDeploy/template.yaml
-    - ./AWS/CodePipeline-CodeDeploy/outputemplate.yaml
+    - ./AWS/CodePipeline-CodeDeploy/outputtemplate.yaml
