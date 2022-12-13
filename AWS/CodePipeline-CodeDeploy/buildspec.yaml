@@ -34,7 +34,8 @@ phases:
       - docker build -f ./AWS/CodePipeline-CodeDeploy/Dockerfile -t $ECR_REPO_NAME:$ECR_IMAGE_TAG ./AWS/CodePipeline-CodeDeploy/
       - docker tag $ECR_REPO_NAME:$ECR_IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPO_NAME:$ECR_IMAGE_TAG
       - docker tag $ECR_REPO_NAME:$ECR_IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPO_NAME:$COMMIT_ID
-      - aws cloudformation package --template-file /AWS/CodePipeline-CodeDeploy/template.yaml --s3-bucket $BUCKET --output-template-file outputtemplate.yaml
+      - ls $CODEBUILD_SRC_DIR
+      - aws cloudformation package --template-file file://AWS/CodePipeline-CodeDeploy/template.yaml --s3-bucket $BUCKET --output-template-file outputtemplate.yaml
 
   post_build:
     commands:
