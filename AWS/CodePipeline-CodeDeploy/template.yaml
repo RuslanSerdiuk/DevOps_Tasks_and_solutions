@@ -5,7 +5,7 @@ Parameters:
     Description: Enter image's ID + tag
 
 Resources:
-  JenkinsTask:
+  AWSTask:
     Type: "AWS::Lambda::Function"
     Properties:
       FunctionName: "cdp-AWS-Task"
