@@ -2,4 +2,4 @@ FROM public.ecr.aws/lambda/python:3.8
 
 COPY lambda.py ./
 
-CMD [ "lambda.handler" ]
+CMD [ "lambda.lambda_handler" ]
