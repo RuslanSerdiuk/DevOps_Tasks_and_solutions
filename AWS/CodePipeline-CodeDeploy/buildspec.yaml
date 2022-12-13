@@ -31,7 +31,7 @@ phases:
   build:
     commands:
       - echo Building the Docker image...
-      - sudo docker build -f ./AWS/CodePipeline-CodeDeploy/Dockerfile -t $ECR_REPO_NAME:$ECR_IMAGE_TAG ./AWS/CodePipeline-CodeDeploy/
+      - docker build -f ./AWS/CodePipeline-CodeDeploy/Dockerfile -t $ECR_REPO_NAME:$ECR_IMAGE_TAG ./AWS/CodePipeline-CodeDeploy/
       - docker tag $ECR_REPO_NAME:$ECR_IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPO_NAME:$ECR_IMAGE_TAG
       - docker tag $ECR_REPO_NAME:$ECR_IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPO_NAME:$COMMIT_ID
       - npm install time
