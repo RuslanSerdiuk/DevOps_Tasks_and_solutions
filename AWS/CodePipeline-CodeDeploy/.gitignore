@@ -5,7 +5,7 @@ artifact.json
 cdp-aws-lambda.zip
 CloudFormation-CodeDeploy-Lambda.zip
 CloudFormation.yaml
-Dockerfile
-lambda.py
+
+
 lambda.zip
 policy.json
