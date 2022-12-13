@@ -26,7 +26,7 @@ phases:
     commands:
       - echo "Login to AWS ECR and get commit id"
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION| docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
-      # - COMMIT_ID=$(git rev-parse --short HEAD)
+      - COMMIT_ID=$(git rev-parse --short HEAD)
 
   build:
     commands:
