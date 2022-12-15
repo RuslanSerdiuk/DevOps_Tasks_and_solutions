@@ -14,6 +14,6 @@ def lambda_handler(event, context):
     elif event['rawPath'] == CREATE_RAW_PATH:
         print('Received createPerson request')
         decodedBody = json.loads(event['body'])
-        firstname = decodedBody['firstname']
+        firstname = decodedBody['firstName']
         print('with param firstname=' + firstname)
         return { "personId": str(uuid.uuid1())}

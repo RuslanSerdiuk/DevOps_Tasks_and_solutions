@@ -221,6 +221,48 @@
 5. Next, Next, Create!
 
 6. Click **Invoke URL** <img src ='img/api_gateway_5.jpg'>
+7. But you will get error: <img src ='img/api_gateway_6.jpg'>
+8. Ok, add **/getPerson** to end: <img src ='img/api_gateway_7.jpg'> Error again.
+9. So, go to the [https://web.postman.co/](https://web.postman.co/)
+   - Select **GET** request and enter our LINK
+   - Add Parameters: **KEY: personId - VALUE: personId123**
+   - Click **Send** <img src ='img/postman_2.jpg'>
+   - As you can see, we get our Person Information like we wrote in our lambda:
+      ```
+      GET_RAW_PATH = "/getPerson"
+      CREATE_RAW_PATH = "/createPerson"
+    
+      def lambda_handler(event, context):
+          print(event)
+          if event['rawPath'] == GET_RAW_PATH:
+              print('Received getPerson request')
+              personId = event['queryStringParameters']['personId']
+              print("with param personId=" + personId)
+              return { "firstName": "Ruslan " + personId, "lastName": "Serdiuk", "email": "Ruslan.serdiuk.w@gmail.com" }
+      ```
+
+10. Now, create new request - **POST**:
+    - Select **POST** request and enter our LINK and replace **/getPerson** with **/createPerson** :warning:
+    - Add Parameters: **KEY: personId - VALUE: personId123**
+    - Add **Body**:
+      ```
+      {
+          "firstName": "Ruslan ",
+          "lastName": "Serdiuk",
+          "email": "Ruslan.serdiuk.w@gmail.com"
+      }
+      ```
+    - Click **Send** <img src ='img/postman_1.jpg'>
+
+
+
+
+### _LINKS:_
++ __
++ __
++ __
++ __
+
 
 
 
