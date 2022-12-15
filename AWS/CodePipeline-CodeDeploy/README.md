@@ -100,7 +100,39 @@
         - ./AWS/CodePipeline-CodeDeploy/outputtemplate.yaml
     ```
 
-2. Configure Build stage:
+2. Of course, prepare your [lambda.py]() too :arrow_down:
+    ```
+    import json
+    import uuid
+    
+    GET_RAW_PATH = "/getlambda"
+    POST_RAW_PATH = "/postlambda"
+    
+    def lambda_handler(event, context):
+        print(event)
+        if event['rawPath'] == GET_RAW_PATH:
+            print('Start request for getlambda')
+            personId = event['queryStringParameters']['personId']
+            print("Received request with personId=" + personId)
+            return { "firstName": "Ruslan" + personId, "lastName": "Serdiuk", "email": "Ruslan.serdiuk.w@gmail.com" }
+        elif event['rawPath'] == POST_RAW_PATH:
+            print('Start request for postlambda')
+            decodedEvent = json.loads(event['body'])
+            firstName = decodedEvent['firstName']
+            print('Received request with firstName=' + firstName)
+            return { "personId": str(uuid.uuid1())}
+    ```
+
+3. And finaly, prepare your [Dockerfile]() :arrow_down:
+    ```
+    FROM public.ecr.aws/lambda/python:3.8
+    
+    COPY lambda.py ./
+    
+    CMD [ "lambda.lambda_handler" ]
+    ```
+
+5. Now let's **Configure Build stage**:
    - In the Build provider select - **AWS CodeBuild**
    - To the right of Project name, select **Create project**
    - **Project configuration:** 
