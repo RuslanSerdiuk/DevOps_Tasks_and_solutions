@@ -132,7 +132,7 @@
     CMD [ "lambda.lambda_handler" ]
     ```
 
-5. Now let's **Configure Build stage**:
+4. Now let's **Configure Build stage**:
    - In the Build provider select - **AWS CodeBuild**
    - To the right of Project name, select **Create project**
    - **Project configuration:** 
@@ -154,7 +154,15 @@
    - **Buildspec:**
      - Build specifications: **Use a buildspec file**
      - Buildspec name: **AWS/CodePipeline-CodeDeploy/buildspec.yaml** <img src ='img/Create_build_3.jpg'>
-     - **Continue to CodePipeline** 
+   - **Artifacts**
+     - Type: **Amazon S3**
+     - Bucket name: **<name_of_your_bucket>**
+     - Name: **<name_directory_for_artifacts_in_your_bucket>**
+     - Artifacts packaging: **None**
+     - **Additional configuration:**
+       - Cache type: **Local**
+       - Select one or more local cache options - select **Docker layer cache** :warning: <img src ='img/build_artifacts_1.jpg'> <img src ='img/build_artifacts_2.jpg'>
+   - **Continue to CodePipeline** 
 
 
 
