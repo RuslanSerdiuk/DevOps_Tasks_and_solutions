@@ -1,19 +1,19 @@
 import json
 import uuid
 
-GET_RAW_PATH = "/getlambda"
-POST_RAW_PATH = "/postlambda"
+GET_RAW_PATH = "/getPerson"
+CREATE_RAW_PATH = "/createPerson"
 
 def lambda_handler(event, context):
     print(event)
     if event['rawPath'] == GET_RAW_PATH:
-        print('Start request for getlambda')
+        print('Received getPerson request')
         personId = event['queryStringParameters']['personId']
-        print("Received request with personId=" + personId)
-        return { "firstName": "Ruslan" + personId, "lastName": "Serdiuk", "email": "Ruslan.serdiuk.w@gmail.com" }
-    elif event['rawPath'] == POST_RAW_PATH:
-        print('Start request for postlambda')
-        decodedEvent = json.loads(event['body'])
-        firstName = decodedEvent['firstName']
-        print('Received request with firstName=' + firstName)
+        print("with param personId=" + personId)
+        return { "firstName": "Ruslan " + personId, "lastName": "Serdiuk", "email": "Ruslan.serdiuk.w@gmail.com" }
+    elif event['rawPath'] == CREATE_RAW_PATH:
+        print('Received createPerson request')
+        decodedBody = json.loads(event['body'])
+        firstname = decodedBody['firstname']
+        print('with param firstname=' + firstname)
         return { "personId": str(uuid.uuid1())}

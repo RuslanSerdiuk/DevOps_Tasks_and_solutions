@@ -211,3 +211,22 @@
 
 
 
+### _Configure API Gateway:_
+1. Go to the **API Gateway** service. Select **HTTP API** and click **Build**: <img src ='img/api_gateway_1.jpg'>
+2. Click **Add integration** and select **Lambda**: <img src ='img/api_gateway_2.jpg'>
+3. Next, select **your Lambda function!** and give **API name**: <img src ='img/api_gateway_3.jpg'>
+4. Next, **Configure routers:**
+   - Get Method: **/getlambda**
+   - Post Method: **/postlambda** <img src ='img/api_gateway_4.jpg'>
+5. Next, Next, Create!
+
+6. Click **Invoke URL** <img src ='img/api_gateway_5.jpg'>
+
+
+
+
+
+
+
+
+
