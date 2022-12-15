@@ -254,14 +254,16 @@
       ```
     - Click **Send** <img src ='img/postman_1.jpg'>
 
-
+#### Congratulations! Task done :innocent:
 
 
 ### _LINKS:_
-+ __
-+ __
-+ __
-+ __
++ _https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-variables.html_
++ _https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-application.html_
++ _https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html_
++ _https://web.postman.co_
++ _https://jsonformatter.curiousconcept.com_
++ 
 
 
 
