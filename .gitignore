@@ -25,3 +25,7 @@ Ansible/Simple_Example/module/EC2/Ruslan-key-Ohio-TASK22.pem
 ========================
 Terraform/S3-to-Snowflake-Migration/Key for user.txt
 Terraform
+AWS/CodePipeline-CodeDeploy/appspec.yaml
+AWS/CodePipeline-CodeDeploy/aws_cli_commands.txt
+AWS/CodePipeline-CodeDeploy/CloudFormation.yaml
+AWS/CodePipeline-CodeDeploy/policy.json
