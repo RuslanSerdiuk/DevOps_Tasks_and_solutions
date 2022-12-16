@@ -6,7 +6,8 @@
 3. [Linux](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Linux) - Contains a study of the basic commands and utilities necessary for the devops engineer and beyond. As well as examples of some scripts and other interesting tasks related to unix systems.
 4. [Vagrant and Network](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Vagrant_and_Network) - Examples of basic tasks, commands, and utilities for introducing and understanding the basics of networks in practice.
 5. [Docker](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Docker) - Real-world tasks (simple and not only) that may be encountered in the work of a devops engineer.
-6. [CI/CD](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/CICD) - Contains examples of test tasks, pipelines, which were used in the study and daily tasks.
-7. [AWS](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS) - Different solutions for migration/optimization infrastructure in AWS.
+6. [CI/CD](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/CICD) - Deploy and Configure Master and Worker nodes / Build-Deploy Lambda / etc.
+7. [AWS](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS) - Configure Instance_Scheduler / SSM and CloudWatch Agents / Migrate MariaDB to RDS Aurora Serverless v1 / Reduce Volume Size in AWS Instance / Increase Volume Size / VPN Server "Pritunl" in AWS / CodePipeline - Build and Deploy Lambda / etc.
 8. [Terraform](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/Terraform/Terraform) - Various examples of deploying applications and infrastructure to AWS using Terraform.
-9. [Ansible](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/Ansible/Ansible) - Deploy applications/ MongoDB ReplicaSet etc
+9. [Ansible](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/Ansible/Ansible) - Deploy applications / MongoDB ReplicaSet etc
+10. [Kubernetes](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/Kubernetes/Kubernetes) - Deploy Petclinic
