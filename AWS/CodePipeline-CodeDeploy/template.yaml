@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  ImageId:
+    Type: String
+    Description: Enter image's ID + tag
+
+Resources:
+  AWSTask:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      FunctionName: "cdp-AWS-Task"
+      Role: "arn:aws:iam::384461882996:role/JenkinsTask"
+      PackageType: "Image"
+      Code: 
+        ImageUri: !Ref ImageId
+      Timeout: 300
