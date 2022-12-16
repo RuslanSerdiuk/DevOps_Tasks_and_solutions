@@ -6,9 +6,7 @@
 /Terraform/Simple_Application/.terraform.lock.hcl
 /Terraform/Simple_Application/Key for user.txt
 Terraform/Simple_Application/Key for user.txt.bak
-Terraform/S3-to-Snowflake-Migration
-Terraform/DynamoDB-to-Snowflake-Migration
-Terraform/S3-to-Snowflake-Migration/Key for user.txt
+
 Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.terraform/terraform.tfstate
 
 #####################################################
@@ -34,6 +32,6 @@ AWS/CodePipeline-CodeDeploy/CloudFormation.yaml
 AWS/CodePipeline-CodeDeploy/policy.json
 
 #####################################################
-#
+#                KUBERNETES                         #
 #####################################################
-
+/Kubernetes
