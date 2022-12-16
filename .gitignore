@@ -17,3 +17,7 @@ Ansible/Simple_Example/.terraform.lock.hcl
 /Kubernetes
 Terraform/AWS-Glue/Key for user.txt
 CICD
+AWS/CodePipeline-CodeDeploy/appspec.yaml
+AWS/CodePipeline-CodeDeploy/aws_cli_commands.txt
+AWS/CodePipeline-CodeDeploy/CloudFormation.yaml
+AWS/CodePipeline-CodeDeploy/policy.json
