@@ -32,3 +32,4 @@ AWS/CodePipeline-CodeDeploy/policy.json
 #####################################################
 #
 #####################################################
+Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.terraform/terraform.tfstate
