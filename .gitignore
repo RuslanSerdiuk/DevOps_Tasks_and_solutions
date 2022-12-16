@@ -1,3 +1,6 @@
+#####################################################
+#              TERRAFORM                            #
+#####################################################
 /Terraform/Simple_Application/.terraform
 /Terraform/Simple_Application/module/ASG/user_data.sh
 /Terraform/Simple_Application/.terraform.lock.hcl
@@ -5,27 +8,27 @@
 Terraform/Simple_Application/Key for user.txt.bak
 Terraform/S3-to-Snowflake-Migration
 Terraform/DynamoDB-to-Snowflake-Migration
-=======================
-Ansible/Deploy_MongoDB/.terraform/providers/registry.terraform.io/hashicorp/aws/4.31.0/windows_amd64/terraform-provider-aws_v4.31.0_x5.exe
-Ansible/Deploy_MongoDB/.terraform/providers/registry.terraform.io/hashicorp/local/2.2.3/windows_amd64/terraform-provider-local_v2.2.3_x5.exe
-Ansible/Deploy_MongoDB/.terraform/modules/modules.json
+Terraform/S3-to-Snowflake-Migration/Key for user.txt
+
+#####################################################
+#                ANSIBLE                            #
+#####################################################
+Ansible/Deploy_MongoDB/.terraform
 Ansible/Deploy_MongoDB/terraform.tfstate.backup
 Ansible/Deploy_MongoDB/terraform.tfstate
 Ansible/Deploy_MongoDB/module/EC2/Ansible.pem
-Ansible/Deploy_MongoDB/.terraform.lock.hcl
 Ansible/Deploy_MongoDB/Key for user.txt
-Ansible/Deploy_MongoDB/.terraform/providers/registry.terraform.io/hashicorp/tls/4.0.2/windows_amd64/terraform-provider-tls_v4.0.2_x5.exe
-========================
-Ansible/Simple_Example/.terraform.lock.hcl
-Ansible/Simple_Example/.terraform/modules/modules.json
-Ansible/Simple_Example/.terraform/providers/registry.terraform.io/hashicorp/aws/4.32.0/windows_amd64/terraform-provider-aws_v4.32.0_x5.exe
-Ansible/Simple_Example/.terraform/providers/registry.terraform.io/hashicorp/local/2.2.3/windows_amd64/terraform-provider-local_v2.2.3_x5.exe
-Ansible/Simple_Example/.terraform/providers/registry.terraform.io/hashicorp/tls/4.0.3/windows_amd64/terraform-provider-tls_v4.0.3_x5.exe
+Ansible/Simple_Example/.terraform
 Ansible/Simple_Example/module/EC2/Ruslan-key-Ohio-TASK22.pem
-========================
-Terraform/S3-to-Snowflake-Migration/Key for user.txt
-Terraform
+
+#####################################################
+#                  AWS                              #
+#####################################################
 AWS/CodePipeline-CodeDeploy/appspec.yaml
 AWS/CodePipeline-CodeDeploy/aws_cli_commands.txt
 AWS/CodePipeline-CodeDeploy/CloudFormation.yaml
 AWS/CodePipeline-CodeDeploy/policy.json
+
+#####################################################
+#
+#####################################################
