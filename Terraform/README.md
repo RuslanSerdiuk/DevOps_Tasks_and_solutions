@@ -1,7 +1,35 @@
+# :computer: Examples of Some Useful Solutions :wrench:
+
+### [DOCUMENTATION](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Documentation/Documentation/Materials/Automation-Tools/Ansible.pdf) :metal:
+
+
+
+
 #### [Simple Application](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/Terraform/Terraform/Simple_Application) - an example of how to deploy a simple application to AWS and the infrastructure for it using Terraform
+#### [Glue-Job: DynamoDB to Snowflake Migration]() - Deploy Glue-Job + trigger for it / S3 Bucket for python script / Deploy secret-manager + lambda / Create several Environments!
 
 
-#### Create DynamoDB and S3:
+
+
+#### Local state:
+```
+terraform {
+  backend "local" {
+    path = ".tfstate"
+  }
+}
+
+provider "aws" {
+  region     = var.region
+  access_key = var.aws_access_key_id
+  secret_key = var.aws_secret_access_key
+}
+```
+
+
+
+
+#### Remote state:
 ```
 terraform {
   backend "s3" {
@@ -21,9 +49,15 @@ provider "aws" {
   region     = var.region
 }
 
+```
 
+
+
+
+#### Create DynamoDB and S3 for remote state:
+```
 ####################################################################
-#        Create a DynamoDB Table for locking the state file
+#        Create a DynamoDB Table for locking the state file        #
 ####################################################################
 resource "aws_dynamodb_table" "terraform_state_locks" {
   name = var.dynamodb_table
@@ -41,7 +75,7 @@ resource "aws_dynamodb_table" "terraform_state_locks" {
 
 
 ####################################################################
-#        Create an S3 Bucket to store the state file in
+#        Create an S3 Bucket to store the state file in            #
 ####################################################################
 resource "aws_s3_bucket" "terraform_state" {
   bucket = var.state_bucket
