@@ -1,7 +1,6 @@
 aws_cli_commands.txt
 
 appspec.yaml
-artifact.json
 cdp-aws-lambda.zip
 CloudFormation-CodeDeploy-Lambda.zip
 CloudFormation.yaml
