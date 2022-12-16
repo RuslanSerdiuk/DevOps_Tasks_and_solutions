@@ -1,0 +1,53 @@
+#--------------------------------------------------------------
+# Simple AWS CodeBuild Config File
+#
+# Copyleft (c) by Ruslan Serdiuk
+#--------------------------------------------------------------
+version: 0.2
+
+env:
+  variables:
+    AWS_DEFAULT_REGION: "us-east-2"
+    AWS_ACCOUNT_ID    : "384461882996"
+    ECR_REPO_NAME     : "ruslan.serdiuk"
+    ECR_IMAGE_TAG     : "latest"
+    BUCKET            : "cdp-aws-task-code-for-lambda"
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+    commands:
+      - echo "Check aws and git version"
+      - aws --version
+      - git --version
+
+  pre_build:
+    commands:
+      - echo "Login to AWS ECR and get commit id"
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION| docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - COMMIT_ID=$(git rev-parse --short HEAD)
+
+  build:
+    commands:
+      - echo Building the Docker image...
+      - docker build -f ./AWS/CodePipeline-CodeDeploy/Dockerfile -t $ECR_REPO_NAME:$ECR_IMAGE_TAG ./AWS/CodePipeline-CodeDeploy/
+      - docker tag $ECR_REPO_NAME:$ECR_IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPO_NAME:$ECR_IMAGE_TAG
+      - docker tag $ECR_REPO_NAME:$ECR_IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPO_NAME:$COMMIT_ID
+      - ls $CODEBUILD_SRC_DIR
+      - ls AWS
+      - ls AWS/CodePipeline-CodeDeploy
+      - aws cloudformation package --template-file ./AWS/CodePipeline-CodeDeploy/template.yaml --s3-bucket $BUCKET --output-template-file ./AWS/CodePipeline-CodeDeploy/outputtemplate.yaml
+      - ls AWS/CodePipeline-CodeDeploy
+      - export TAG=$ECR_IMAGE_TAG
+
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPO_NAME:$ECR_IMAGE_TAG
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$ECR_REPO_NAME:$COMMIT_ID
+artifacts:
+  type: zip
+  files:
+    - ./AWS/CodePipeline-CodeDeploy/template.yaml
+    - ./AWS/CodePipeline-CodeDeploy/outputtemplate.yaml
