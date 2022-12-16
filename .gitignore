@@ -1,24 +1,37 @@
-##################################################
-#                 ANSIBLE                        #
-##################################################
-Ansible/Deploy_MongoDB/.terraform.lock.hcl
-Ansible/Deploy_MongoDB/module/EC2/Ansible.pem
+#####################################################
+#              TERRAFORM                            #
+#####################################################
+/Terraform/Simple_Application/.terraform
+/Terraform/Simple_Application/module/ASG/user_data.sh
+/Terraform/Simple_Application/.terraform.lock.hcl
+/Terraform/Simple_Application/Key for user.txt
+Terraform/Simple_Application/Key for user.txt.bak
+
+Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.terraform/terraform.tfstate
+
+#####################################################
+#                ANSIBLE                            #
+#####################################################
 Ansible/Deploy_MongoDB/.terraform
 Ansible/Deploy_MongoDB/terraform.tfstate.backup
 Ansible/Deploy_MongoDB/terraform.tfstate
+Ansible/Deploy_MongoDB/module/EC2/Ansible.pem
 Ansible/Deploy_MongoDB/Key for user.txt
+Ansible/Deploy_MongoDB/.terraform.lock.hcl
 
-Ansible/Simple_Example/module/EC2/Ruslan-key-Ohio-TASK22.pem
 Ansible/Simple_Example/.terraform
+Ansible/Simple_Example/module/EC2/Ruslan-key-Ohio-TASK22.pem
 Ansible/Simple_Example/.terraform.lock.hcl
 
-/Kubernetes
-
-Terraform/S3-to-Snowflake-Migration/Key for user.txt
-Terraform/DynamoDB-to-Snowflake-Migration/.terraform
-Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.terraform/terraform.tfstate
-
+#####################################################
+#                  AWS                              #
+#####################################################
 AWS/CodePipeline-CodeDeploy/appspec.yaml
 AWS/CodePipeline-CodeDeploy/aws_cli_commands.txt
 AWS/CodePipeline-CodeDeploy/CloudFormation.yaml
 AWS/CodePipeline-CodeDeploy/policy.json
+
+#####################################################
+#                KUBERNETES                         #
+#####################################################
+/Kubernetes
