@@ -19,3 +19,7 @@ Terraform/AWS-Glue/Key for user.txt
 CICD
 Terraform/S3-to-Snowflake-Migration/Key for user.txt
 Terraform/DynamoDB-to-Snowflake-Migration/.terraform
+AWS/CodePipeline-CodeDeploy/appspec.yaml
+AWS/CodePipeline-CodeDeploy/aws_cli_commands.txt
+AWS/CodePipeline-CodeDeploy/CloudFormation.yaml
+AWS/CodePipeline-CodeDeploy/policy.json
