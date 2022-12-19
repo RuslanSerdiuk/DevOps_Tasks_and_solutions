@@ -44,6 +44,82 @@ resource "aws_glue_trigger" "job_trigger" {
   }
 }
 
+########################## MONITORING / ALARM ##############################
+resource "aws_lambda_function" "GlueJobSlackAlarm" {
+    s3_bucket     = "${var.name_bucket}-${var.name_env}"
+    s3_key        = var.alarm_function_file
+    
+    function_name = "${var.alarm_function_name}-${var.name_env}"
+    role          = var.role
+    handler       = var.alarm_function_handler
+    runtime       = "python3.9"
+    timeout       = 120
+
+    tags = {
+      "Name"                    = "${var.role}-${var.finance_env}"
+      "Role"                    = "${var.role}-${var.finance_env}"
+      "EpicFinance:Environment" = var.finance_env
+      "EpicFinance:Owner"       = var.finance_owner
+  }
+}
+
+
+resource "aws_cloudwatch_event_rule" "alarm" {
+  name        = "Jobs-alarm"
+  description = "Capture each Glue-Job State Change"
+
+  event_pattern = <<EOF
+{
+  "source": [
+    "aws.glue"
+  ],
+  "detail-type": [
+    "Glue Job State Change"
+  ],
+  "detail": {
+    "state": [
+      "SUCCEEDED",
+      "FAILED",
+      "TIMEOUT",
+      "STOPPED"
+    ]
+  }
+}
+EOF
+}
+
+
+resource "aws_cloudwatch_event_target" "Check_Glue_Job_State_Changes" {
+    rule = aws_cloudwatch_event_rule.alarm.name
+    target_id = "GlueJobSlackAlarm"
+    arn = aws_lambda_function.GlueJobSlackAlarm.arn
+}
+
+
+resource "aws_lambda_permission" "allow_cloudwatch_to_call_alarm_lambda" {
+    statement_id = "AllowExecutionFromCloudWatch"
+    action = "lambda:InvokeFunction"
+    function_name = aws_lambda_function.GlueJobSlackAlarm.function_name
+    principal = "events.amazonaws.com"
+    source_arn = aws_cloudwatch_event_rule.alarm.arn
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 #========================== STEP Function =====================================================
 resource "aws_sfn_state_machine" "sfn_state_machine" {

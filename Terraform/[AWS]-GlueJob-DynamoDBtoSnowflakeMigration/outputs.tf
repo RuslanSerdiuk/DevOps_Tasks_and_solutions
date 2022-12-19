@@ -17,11 +17,11 @@ output "S3Bucket_id" {
 ############################
 # Secret Manager           #
 ############################
-
+/*
 output "Snowflake_credentials_ID" {
   value = aws_secretsmanager_secret.Snowflake_credentials.id
 }
-
+*/
 ############################
 # Lambda                   #
 ############################

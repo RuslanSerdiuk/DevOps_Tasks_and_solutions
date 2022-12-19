@@ -78,6 +78,17 @@ variable "script_name" {
   
 }
 
+########## ALARM ###########
+variable "alarm_function_name" {
+  
+}
+variable "alarm_function_handler" {
+  
+}
+variable "alarm_function_file" {
+  
+}
+
 ############################
 # Vault                    #
 ############################
