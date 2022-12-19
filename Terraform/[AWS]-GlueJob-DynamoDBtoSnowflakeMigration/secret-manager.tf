@@ -1,5 +1,5 @@
 #========================== Secret Manager =====================================================
-
+/*
 resource "aws_secretsmanager_secret" "Snowflake_credentials" {
   name = "${var.name_secret}-${var.name_env}"
   tags = {
@@ -16,3 +16,4 @@ resource "aws_secretsmanager_secret_version" "sversion" {
     {"SNOWFLAKE_NOTIFICATIONS_ACCOUNT":"${var.SNOWFLAKE_NOTIFICATIONS_ACCOUNT}","SNOWFLAKE_NOTIFICATIONS_DB":"${var.SNOWFLAKE_NOTIFICATIONS_DB}","SNOWFLAKE_NOTIFICATIONS_USER":"${var.SNOWFLAKE_NOTIFICATIONS_USER}","SNOWFLAKE_NOTIFICATIONS_PASSWORD":"${var.SNOWFLAKE_NOTIFICATIONS_PASSWORD}","SNOWFLAKE_NOTIFICATIONS_SCHEMA":"${var.SNOWFLAKE_NOTIFICATIONS_SCHEMA}","SNOWFLAKE_NOTIFICATIONS_WAREHOUSE":"${var.SNOWFLAKE_NOTIFICATIONS_WAREHOUSE}"}
 EOF
 }
+*/

@@ -92,11 +92,11 @@ variable "SNOWFLAKE_NOTIFICATIONS_ACCOUNT" {}
 ############################
 # Secret Manager           #
 ############################
-
+/*
 variable "name_secret" {
   
 }
-
+*/
 ############################
 # Lambda                   #
 ############################

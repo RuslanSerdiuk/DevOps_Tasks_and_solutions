@@ -36,7 +36,7 @@ resource "aws_glue_job" "export_DB" {
 
 resource "aws_glue_trigger" "job_trigger" {
   name     = var.name_job_trigger
-  schedule = "cron(0 0 * * ? *)"
+  schedule = "cron(10 0 * * ? *)"
   type     = "SCHEDULED"
 
   actions {

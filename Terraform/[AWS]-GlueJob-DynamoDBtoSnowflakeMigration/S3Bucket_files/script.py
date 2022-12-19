@@ -64,7 +64,7 @@ AmazonS3 = glueContext.write_dynamic_frame.from_options(
     connection_type="s3",
     format="csv",
     connection_options={
-        "path": "s3://pns-bucket-for-export-dynamodb-pd/",
+        "path": "s3://bucket-for-export-dynamodb-to-snowflake-pd/",
         "compression": "gzip",
         "partitionKeys": [],
     },

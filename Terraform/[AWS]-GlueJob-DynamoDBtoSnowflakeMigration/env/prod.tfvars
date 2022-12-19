@@ -2,7 +2,7 @@
 # Tags                     #
 ############################
 
-backend_role = "notification-coomunication-dynamodb-to-s3-to-snowflake-migration"
+backend_role = "task-dynamodb-to-s3-to-snowflake-migration"
 finance_product = "notification-tool-service"
 finance_env = "prod"
 name_env = "pd"
@@ -12,7 +12,7 @@ finance_owner = "team-epic-push-notifs-tool-contractors"
 # S3                       #
 ############################
 
-name_bucket      = "pns-bucket-for-export-dynamodb-to-snowflake"
+name_bucket      = "bucket-for-export-dynamodb-to-snowflake"
 upload_directory = "S3Bucket_files/"
 
 ############################
@@ -27,9 +27,9 @@ script_name         = "/script.py"
 ############################
 # Secret Manager           #
 ############################
-
+/*
 name_secret            = "s3-to-snowflake-credentials-migration"
-
+*/
 ############################
 # Lambda                   #
 ############################
