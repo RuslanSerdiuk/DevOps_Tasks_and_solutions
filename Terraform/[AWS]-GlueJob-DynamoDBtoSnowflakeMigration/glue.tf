@@ -50,7 +50,7 @@ resource "aws_lambda_function" "GlueJobSlackAlarm" {
     s3_key        = var.alarm_function_file
     
     function_name = "${var.alarm_function_name}-${var.name_env}"
-    role          = var.role
+    role          = var.lambda_alarm_role
     handler       = var.alarm_function_handler
     runtime       = "python3.9"
     timeout       = 120
@@ -63,49 +63,20 @@ resource "aws_lambda_function" "GlueJobSlackAlarm" {
   }
 }
 
-
-resource "aws_cloudwatch_event_rule" "alarm" {
-  name        = "Jobs-alarm"
-  description = "Capture each Glue-Job State Change"
-
-  event_pattern = <<EOF
-{
-  "source": [
-    "aws.glue"
-  ],
-  "detail-type": [
-    "Glue Job State Change"
-  ],
-  "detail": {
-    "state": [
-      "SUCCEEDED",
-      "FAILED",
-      "TIMEOUT",
-      "STOPPED"
-    ]
-  }
-}
-EOF
+# Grant access to SNS topic to invoke a lambda function
+resource "aws_lambda_permission" "sns_alarms" {
+  statement_id  = "AllowExecutionFromSNSAlarms"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.GlueJobSlackAlarm.function_name
+  principal     = "sns.amazonaws.com"
+  source_arn    = aws_sns_topic.alarms.arn
 }
 
+resource "aws_cloudwatch_log_group" "send_cloudwatch_alarms_to_slack" {
+  name = "/aws/lambda/${aws_lambda_function.GlueJobSlackAlarm.function_name}"
 
-resource "aws_cloudwatch_event_target" "Check_Glue_Job_State_Changes" {
-    rule = aws_cloudwatch_event_rule.alarm.name
-    target_id = "GlueJobSlackAlarm"
-    arn = aws_lambda_function.GlueJobSlackAlarm.arn
+  retention_in_days = 14
 }
-
-
-resource "aws_lambda_permission" "allow_cloudwatch_to_call_alarm_lambda" {
-    statement_id = "AllowExecutionFromCloudWatch"
-    action = "lambda:InvokeFunction"
-    function_name = aws_lambda_function.GlueJobSlackAlarm.function_name
-    principal = "events.amazonaws.com"
-    source_arn = aws_cloudwatch_event_rule.alarm.arn
-}
-
-
-
 
 
 

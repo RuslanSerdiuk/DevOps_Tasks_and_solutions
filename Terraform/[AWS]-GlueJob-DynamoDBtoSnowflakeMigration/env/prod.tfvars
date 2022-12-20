@@ -24,8 +24,9 @@ name_job_trigger    = "export_commservice_dynamodb_to_s3"
 role_arn            = "arn:aws:iam::384461882996:role/TestRoleForGlueJob"
 script_name         = "/script.py"
 
+lambda_alarm_role      = "arn:aws:iam::384461882996:role/SendGlueJobAlarmsToSlack"
 alarm_function_name    = "GlueJobSlackAlarm"
-alarm_function_handler = "main.GlueJobSlackAlarm"
+alarm_function_handler = "function.lambda_handler"
 alarm_function_file    = "GlueJobSlackAlarm.zip"
 ############################
 # Secret Manager           #

@@ -79,6 +79,10 @@ variable "script_name" {
 }
 
 ########## ALARM ###########
+variable "lambda_alarm_role" {
+  
+}
+
 variable "alarm_function_name" {
   
 }
