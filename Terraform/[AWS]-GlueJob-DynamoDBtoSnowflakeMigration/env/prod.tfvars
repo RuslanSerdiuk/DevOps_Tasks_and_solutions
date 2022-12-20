@@ -27,7 +27,7 @@ script_name         = "/script.py"
 lambda_alarm_role      = "arn:aws:iam::384461882996:role/SendGlueJobAlarmsToSlack"
 alarm_function_name    = "GlueJobSlackAlarm"
 alarm_function_handler = "function.lambda_handler"
-alarm_function_file    = "GlueJobSlackAlarm.zip"
+alarm_function_file    = "function.zip"
 ############################
 # Secret Manager           #
 ############################
