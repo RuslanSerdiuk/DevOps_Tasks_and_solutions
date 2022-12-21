@@ -1,0 +1,24 @@
+{"message": {"version": "0", "id": "e9414d3c-4d05-fb88-2179-154754865dcf", "detail-type": "Glue Job State Change", "source": "aws.glue", "account": "384461882996", "time": "2022-12-21T14:21:56Z", "region": "us-east-2", "resources": [], "detail": {"jobName": "CommService_DynamoDB_to_s3", "severity": "INFO", "state": "SUCCEEDED", "jobRunId": "jr_f028be32156779a5ee84c995e04f4774e0c084f958f801e74489f9ea2733d6aa", "message": "Job run succeeded"}}, "status_code": 404, "response": "no_service"}
+
+
+{
+    "message": {
+        "version": "0",
+        "id": "e9414d3c-4d05-fb88-2179-154754865dcf",
+        "detail-type": "Glue Job State Change",
+        "source": "aws.glue",
+        "account": "384461882996",
+        "time": "2022-12-21T14:21:56Z",
+        "region": "us-east-2",
+        "resources": [],
+        "detail": {
+            "jobName": "CommService_DynamoDB_to_s3",
+            "severity": "INFO",
+            "state": "SUCCEEDED",
+            "jobRunId": "jr_f028be32156779a5ee84c995e04f4774e0c084f958f801e74489f9ea2733d6aa",
+            "message": "Job run succeeded"
+        }
+    },
+    "status_code": 404,
+    "response": "no_service"
+}

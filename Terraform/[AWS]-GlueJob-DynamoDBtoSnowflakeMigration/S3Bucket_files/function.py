@@ -8,7 +8,7 @@ def lambda_handler(event, context):
     msg = {
         "channel": "#alarm-for-the-glue-job",
         "username": "WEBHOOK_USERNAME",
-        "text": event["Records"][0]["Sns"]["Message"],
+        "text": json.loads(event["Records"][0]["Sns"]["Message"]),
         "icon_emoji": "",
     }
 
@@ -16,7 +16,7 @@ def lambda_handler(event, context):
     resp = http.request("POST", url, body=encoded_msg)
     print(
         {
-            "message": event["Records"][0]["Sns"]["Message"],
+            "message": json.loads(event["Records"][0]["Sns"]["Message"]),
             "status_code": resp.status,
             "response": resp.data,
         }

@@ -71,13 +71,13 @@ resource "aws_lambda_permission" "sns_alarms" {
   principal     = "sns.amazonaws.com"
   source_arn    = aws_sns_topic.alarms.arn
 }
-
+/*
 resource "aws_cloudwatch_log_group" "send_cloudwatch_alarms_to_slack" {
   name = "/aws/lambda/${aws_lambda_function.GlueJobSlackAlarm.function_name}"
 
   retention_in_days = 14
 }
-
+*/
 
 
 
