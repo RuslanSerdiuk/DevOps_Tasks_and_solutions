@@ -9,15 +9,7 @@ resource "aws_cloudwatch_event_rule" "alarm" {
   ],
   "detail-type": [
     "Glue Job State Change"
-  ],
-  "detail": {
-    "state": [
-      "SUCCEEDED",
-      "FAILED",
-      "TIMEOUT",
-      "STOPPED"
-    ]
-  }
+  ]
 }
 EOF
 }
