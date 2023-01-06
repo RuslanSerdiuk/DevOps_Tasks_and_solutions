@@ -11,6 +11,7 @@ def get_alarm_attributes(sns_message):
     alarm['jobName'] = sns_message['detail']['jobName']
     alarm['jobRunId'] = sns_message['detail']['jobRunId']
     alarm['state'] = sns_message['detail']['message']
+    alarm['state2'] = sns_message['detail']['state']
     alarm['time'] = sns_message['time']
     alarm['region'] = sns_message['region']
 
@@ -53,16 +54,59 @@ def success_alarm(alarm):
         ]
     }
 
+def failure_alarm(alarm):
+    return {
+        "type": "home",
+        "blocks": [
+            {
+                "type": "header",
+                "text": {
+                    "type": "plain_text",
+                    "text": ":red_circle: " + alarm['detail-type']
+                }
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*GlueJobName:* " + '\n' + alarm['jobName'] + '\n' + '\n' + "*jobRunId:*" + " " + alarm['jobRunId'] + '\n' + '\n' + "*State Job:*" + " " + alarm['state'] + " :bangbang:"
+                },
+                "block_id": "text1"
+            },
+            {
+                "type": "divider"
+            },
+            {
+                "type": "context",
+                "elements": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Time:*" + " " + alarm['time'] + '\n' + '\n' + "Region: *" + alarm['region'] + "*"
+                    }
+                ]
+            }
+        ]
+    }
+    
 
 def lambda_handler(event, context):
 
-    sns_message = event["Records"][0]["Sns"]["Message"]
+    sns_message = json.loads(event["Records"][0]["Sns"]["Message"])
     alarm = get_alarm_attributes(sns_message)
 
     msg = str()
 
-    if alarm['detail-type'] == "Glue Job State Change":
+    if alarm['state2'] == "SUCCEEDED":
         msg = success_alarm(alarm)
+    elif alarm['state2'] == 'FAILED':
+        msg = failure_alarm(alarm)
+    elif alarm['state2'] == 'TIMEOUT':
+        msg = failure_alarm(alarm)
+    elif alarm['state2'] == 'STOPPED':
+        msg = failure_alarm(alarm)
         
     encoded_msg = json.dumps(msg).encode("utf-8")
     resp = http.request("POST", url, body=encoded_msg)
