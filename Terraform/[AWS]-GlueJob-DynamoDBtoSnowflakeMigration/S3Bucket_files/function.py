@@ -1,8 +1,25 @@
 import urllib3
 import json
+import boto3
+from botocore.exceptions import ClientError
+
+secret_name = "s3-to-snowflake-credentials-migration-pd"
+region_name = "us-east-2"
+
+session = boto3.session.Session()
+client = session.client(
+    service_name='secretsmanager',
+    region_name=region_name
+)
+
+get_secret_value_response = client.get_secret_value(
+    SecretId=secret_name
+)
+
+secret = json.loads(get_secret_value_response['SecretString'])
 
 http = urllib3.PoolManager()
-url = "https://hooks.slack.com/services/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"
+url = secret['SLACK_URL']
 
 def get_alarm_attributes(sns_message):
     alarm = dict()

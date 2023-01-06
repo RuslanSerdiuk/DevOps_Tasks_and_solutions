@@ -107,15 +107,16 @@ variable "SNOWFLAKE_NOTIFICATIONS_PASSWORD" {}
 variable "SNOWFLAKE_NOTIFICATIONS_SCHEMA" {}
 variable "SNOWFLAKE_NOTIFICATIONS_WAREHOUSE" {}
 variable "SNOWFLAKE_NOTIFICATIONS_ACCOUNT" {}
+variable "SLACK_URL" {}
 
 ############################
 # Secret Manager           #
 ############################
-/*
+
 variable "name_secret" {
   
 }
-*/
+
 ############################
 # Lambda                   #
 ############################
