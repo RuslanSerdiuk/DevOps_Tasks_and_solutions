@@ -37,7 +37,7 @@ account_id             = "384461882996"
 name_secret            = "s3-to-snowflake-credentials-migration"
 
 ############################
-# Lambda                   #
+# Lambdas                  #
 ############################
 
 function_name = "ExpS3toSnowflake"
@@ -55,3 +55,16 @@ SNOWFLAKE_NOTIFICATIONS_SCHEMA = "PUBLIC"
 SNOWFLAKE_NOTIFICATIONS_WAREHOUSE = "DEVTEST_WH"
 SNOWFLAKE_NOTIFICATIONS_ACCOUNT = "mes.us-east-1"
 SLACK_URL                       = "https://hooks.slack.com/services/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"
+
+######## Lambda 2: for trigger export process #####
+
+function_2_name     = "TriggerExpS3toSnowflake"
+role_for_function_2 = "arn:aws:iam::384461882996:role/test-role-for-s3-glitter"
+lambda_trigger_export_s3_to_snowflake_handler = "main.TriggerExportS3toSnowflake"
+
+s3_key_file_for_function_2 = "email-export-lambda.zip"
+
+
+
+
+

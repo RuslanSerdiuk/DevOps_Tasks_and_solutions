@@ -6,3 +6,4 @@ atlantis.yaml
 Key for user.txt
 Key for user.txt.bak
 
+/S3Bucket_files/email-export-lambda.zip

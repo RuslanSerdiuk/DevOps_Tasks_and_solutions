@@ -136,6 +136,23 @@ variable "lambda_export_s3_to_snowflake_handler" {
 variable "s3_key_file" {
   
 }
+
+##### Lambda 2: trigger export process ###
+variable "function_2_name" {
+  
+}
+
+variable "role_for_function_2" {
+  
+}
+
+variable "lambda_trigger_export_s3_to_snowflake_handler" {
+  
+}
+
+variable "s3_key_file_for_function_2" {
+  
+}
 /*
 variable "subnet_ids" {
   type        = list(string)
