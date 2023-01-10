@@ -34,8 +34,12 @@ output "Lambda_ID" {
 # CloudWatch               #
 ############################
 
-output "aws_cloudwatch_event_rule" {
+output "aws_cloudwatch_event_alarm" {
   value = aws_cloudwatch_event_rule.alarm.arn
+}
+
+output "aws_cloudwatch_event_trigger" {
+  value = aws_cloudwatch_event_rule.trigger.arn
 }
 
 ############################

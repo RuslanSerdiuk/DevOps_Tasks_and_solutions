@@ -12,7 +12,7 @@ finance_owner = "team-epic-push-notifs-tool-contractors"
 # S3                       #
 ############################
 
-name_bucket      = "bucket-for-export-dynamodb-to-snowflake"
+name_bucket      = "communications-bucket-for-export-dynamodb-test"
 upload_directory = "S3Bucket_files/"
 
 ############################
@@ -34,7 +34,7 @@ account_id             = "384461882996"
 # Secret Manager           #
 ############################
 
-name_secret            = "s3-to-snowflake-credentials-migration"
+name_secret            = "s3-to-snowflake-credentials-migration-test"
 
 ############################
 # Lambdas                  #
@@ -59,7 +59,7 @@ SLACK_URL                       = "https://hooks.slack.com/services/T04FYUVU2EP/
 ######## Lambda 2: for trigger export process #####
 
 function_2_name     = "TriggerExpS3toSnowflake"
-role_for_function_2 = "arn:aws:iam::384461882996:role/test-role-for-s3-glitter"
+role_for_function_2 = "arn:aws:iam::384461882996:role/svc-rw-s3-bucket-prefix-communications-lambda"
 lambda_trigger_export_s3_to_snowflake_handler = "main.TriggerExportS3toSnowflake"
 
 s3_key_file_for_function_2 = "email-export-lambda.zip"

@@ -12,6 +12,13 @@ resource "aws_cloudwatch_event_rule" "alarm" {
   ]
 }
 EOF
+
+tags = {
+    "Name"                    = "${var.role}-${var.finance_env}"
+    "Role"                    = "${var.role}-${var.finance_env}"
+    "EpicFinance:Environment" = var.finance_env
+    "EpicFinance:Owner"       = var.finance_owner
+  }
 }
 
 resource "aws_cloudwatch_event_target" "Check_Glue_Job_State_Changes" {
@@ -27,25 +34,30 @@ resource "aws_cloudwatch_event_rule" "trigger" {
 
   event_pattern = <<EOF
 {
-  "source": [
-    "aws.glue"
-  ],
+  "detail": {
+    "state": [
+      "SUCCEEDED"
+    ]
+  },
   "detail-type": [
     "Glue Job State Change"
+  ],
+  "source": [
+    "aws.glue"
   ]
 }
 EOF
+
+tags = {
+    "Name"                    = "${var.role}-${var.finance_env}"
+    "Role"                    = "${var.role}-${var.finance_env}"
+    "EpicFinance:Environment" = var.finance_env
+    "EpicFinance:Owner"       = var.finance_owner
+  }
 }
 
-resource "aws_cloudwatch_event_target" "Check_Glue_Job_State_Changes" {
+resource "aws_cloudwatch_event_target" "Glue_Job_State_Success_for_trigger_export" {
     rule = aws_cloudwatch_event_rule.trigger.name
     target_id = "lambda-function-for-export-data"
     arn = aws_lambda_function.trigger_lambda_export.arn
 }
-
-
-
-
-
-
-

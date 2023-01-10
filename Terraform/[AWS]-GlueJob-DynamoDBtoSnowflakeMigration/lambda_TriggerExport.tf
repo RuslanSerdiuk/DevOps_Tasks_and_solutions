@@ -1,10 +1,10 @@
 ######################### Lambda 2: trigger export #######################################
-resource "aws_lambda_permission" "allow_cloudwatch_to_call_senremhandler_lambda" {
+resource "aws_lambda_permission" "allow_cloudwatch_to_call_lambda_for_export_data" {
   statement_id  = "AllowExecutionFromCloudWatch"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.trigger_lambda_export.function_name
   principal     = "events.amazonaws.com"
-  source_arn    = aws_cloudwatch_event_rule.notification_task_trigger_service_min_event.arn
+  source_arn    = aws_cloudwatch_event_rule.trigger.arn
 }
 
 resource "aws_lambda_function" "trigger_lambda_export" {

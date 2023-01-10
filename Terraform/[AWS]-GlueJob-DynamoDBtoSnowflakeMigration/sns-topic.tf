@@ -55,31 +55,22 @@ data "aws_iam_policy_document" "sns_topic_policy" {
 
   statement {
     actions = [
-      "SNS:Subscribe",
-      "SNS:SetTopicAttributes",
-      "SNS:RemovePermission",
-      "SNS:Receive",
-      "SNS:Publish",
-      "SNS:ListSubscriptionsByTopic",
-      "SNS:GetTopicAttributes",
-      "SNS:DeleteTopic",
-      "SNS:AddPermission",
+      "sns:Subscribe",
+      "sns:SetTopicAttributes",
+      "sns:RemovePermission",
+      "sns:Receive",
+      "sns:Publish",
+      "sns:ListSubscriptionsByTopic",
+      "sns:GetTopicAttributes",
+      "sns:DeleteTopic",
+      "sns:AddPermission",
     ]
-
-    condition {
-      test     = "StringEquals"
-      variable = "AWS:SourceOwner"
-
-      values = [
-        var.account_id,
-      ]
-    }
 
     effect = "Allow"
 
     principals {
-      type        = "AWS"
-      identifiers = ["*"]
+      type        = "Service"
+      identifiers = ["cloudwatch.amazonaws.com"]
     }
 
     resources = [
