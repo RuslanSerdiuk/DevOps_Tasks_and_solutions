@@ -59,7 +59,7 @@ SLACK_URL                       = "https://hooks.slack.com/services/T04FYUVU2EP/
 ######## Lambda 2: for trigger export process #####
 
 function_2_name     = "TriggerExpS3toSnowflake"
-role_for_function_2 = "arn:aws:iam::384461882996:role/svc-rw-s3-bucket-prefix-communications-lambda"
+role_for_function_2 = "arn:aws:iam::384461882996:role/communications-glue-job-lambda-trigger"
 lambda_trigger_export_s3_to_snowflake_handler = "main.TriggerExportS3toSnowflake"
 
 s3_key_file_for_function_2 = "email-export-lambda.zip"

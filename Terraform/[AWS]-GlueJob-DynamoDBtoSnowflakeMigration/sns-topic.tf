@@ -1,4 +1,5 @@
 # Create an IAM role for the SNS with access to CloudWatch
+/*
 resource "aws_iam_role" "sns_logs" {
   name = "sns-logs"
 
@@ -23,7 +24,7 @@ resource "aws_iam_role_policy_attachment" "sns_logs" {
   role       = aws_iam_role.sns_logs.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonSNSRole"
 }
-
+*/
 # Create an SNS topic to receive notifications from CloudWatch
 resource "aws_sns_topic" "alarms" {
   name = "alarms"
@@ -32,8 +33,8 @@ resource "aws_sns_topic" "alarms" {
   # For production, set it to 0 or close
   lambda_success_feedback_sample_rate = 100
 
-  lambda_failure_feedback_role_arn = aws_iam_role.sns_logs.arn
-  lambda_success_feedback_role_arn = aws_iam_role.sns_logs.arn
+  lambda_failure_feedback_role_arn = "arn:aws:iam::384461882996:role/sns-log"
+  lambda_success_feedback_role_arn = "arn:aws:iam::384461882996:role/sns-log"
 }
 
 # Trigger lambda function when a message is published to "alarms" topic
@@ -55,22 +56,14 @@ data "aws_iam_policy_document" "sns_topic_policy" {
 
   statement {
     actions = [
-      "sns:Subscribe",
-      "sns:SetTopicAttributes",
-      "sns:RemovePermission",
-      "sns:Receive",
-      "sns:Publish",
-      "sns:ListSubscriptionsByTopic",
-      "sns:GetTopicAttributes",
-      "sns:DeleteTopic",
-      "sns:AddPermission",
+      "sns:Publish"
     ]
 
     effect = "Allow"
 
     principals {
       type        = "Service"
-      identifiers = ["cloudwatch.amazonaws.com"]
+      identifiers = ["events.amazonaws.com"]
     }
 
     resources = [
