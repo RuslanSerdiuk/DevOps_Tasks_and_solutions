@@ -37,6 +37,9 @@ resource "aws_cloudwatch_event_rule" "trigger" {
   "detail": {
     "state": [
       "SUCCEEDED"
+    ],
+    "jobName": [
+        "CommService_DynamoDB_to_s3"
     ]
   },
   "detail-type": [

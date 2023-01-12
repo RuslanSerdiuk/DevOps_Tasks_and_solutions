@@ -62,19 +62,35 @@ variable "mime_types" {
 # Glue                     #
 ############################
 
+########## JOB: 1 ##########
+
 variable "job_name" {
-  
+  description = "Name of the glue job"
 }
 
 variable "name_job_trigger" {
-  
+
 }
 
 variable "role_arn" {
-  
+  description = "IAM Role for the glue job"
 }
 
 variable "script_name" {
+  description = "Name of the Python script for the glue job"
+}
+
+########## JOB: 2 ##########
+
+variable "job_2_name" {
+  
+}
+
+variable "name_job_2_trigger" {
+  
+}
+
+variable "job_2_script_name" {
   
 }
 

@@ -19,10 +19,15 @@ upload_directory = "S3Bucket_files/"
 # Glue                     #
 ############################
 
-job_name            = "CommService_DynamoDB_to_s3"
-name_job_trigger    = "export_commservice_dynamodb_to_s3"
 role_arn            = "arn:aws:iam::384461882996:role/TestRoleForGlueJob"
+########## Job: 1 ##########
+job_name            = "CommService_DynamoDB_to_s3"
 script_name         = "/script.py"
+name_job_trigger    = "export_commservice_dynamodb_to_s3"
+########## Job: 2 ##########
+job_2_name          = "export_communications_settings_prod_to_s3"
+job_2_script_name   = "/ExpCommSetProd.py"
+name_job_2_trigger  = "export_commservice_dynamodb_to_s3_job_2"
 
 lambda_alarm_role      = "arn:aws:iam::384461882996:role/SendGlueJobAlarmsToSlack"
 alarm_function_name    = "GlueJobSlackAlarm"
