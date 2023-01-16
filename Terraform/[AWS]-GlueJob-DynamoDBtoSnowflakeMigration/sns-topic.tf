@@ -27,14 +27,14 @@ resource "aws_iam_role_policy_attachment" "sns_logs" {
 */
 # Create an SNS topic to receive notifications from CloudWatch
 resource "aws_sns_topic" "alarms" {
-  name = "alarms"
+  name = "GlueJobsAlert"
 
   # Important! Only for testing, set to log every single message 
   # For production, set it to 0 or close
   lambda_success_feedback_sample_rate = 100
 
-  lambda_failure_feedback_role_arn = "arn:aws:iam::384461882996:role/sns-log"
-  lambda_success_feedback_role_arn = "arn:aws:iam::384461882996:role/sns-log"
+  lambda_failure_feedback_role_arn = "arn:aws:iam::384461882996:role/SendGlueJobAlarmsToSlack"
+  lambda_success_feedback_role_arn = "arn:aws:iam::384461882996:role/SendGlueJobAlarmsToSlack"
 }
 
 # Trigger lambda function when a message is published to "alarms" topic

@@ -29,11 +29,6 @@ job_2_name          = "export_communications_settings_prod_to_s3"
 job_2_script_name   = "/ExpCommSetProd.py"
 name_job_2_trigger  = "export_commservice_dynamodb_to_s3_job_2"
 
-lambda_alarm_role      = "arn:aws:iam::384461882996:role/SendGlueJobAlarmsToSlack"
-alarm_function_name    = "GlueJobSlackAlarm"
-alarm_function_handler = "function.lambda_handler"
-alarm_function_file    = "function.zip"
-
 account_id             = "384461882996"
 ############################
 # Secret Manager           #
@@ -69,7 +64,11 @@ lambda_trigger_export_s3_to_snowflake_handler = "main.TriggerExportS3toSnowflake
 
 s3_key_file_for_function_2 = "email-export-lambda.zip"
 
+######## Lambda 3: for glue-jobs alert to slack #####
 
-
+lambda_alarm_role      = "arn:aws:iam::384461882996:role/SendGlueJobAlarmsToSlack"
+alarm_function_name    = "GlueJobSlackAlarm"
+alarm_function_handler = "function.lambda_handler"
+alarm_function_file    = "function.zip"
 
 

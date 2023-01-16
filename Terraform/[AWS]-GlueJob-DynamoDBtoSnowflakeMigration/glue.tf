@@ -33,7 +33,7 @@ resource "aws_glue_job" "export_DB" {
   }
 }
 
-
+/*
 resource "aws_glue_trigger" "job_trigger" {
   name     = var.name_job_trigger
   schedule = "cron(10 0 * * ? *)"
@@ -43,7 +43,7 @@ resource "aws_glue_trigger" "job_trigger" {
     job_name = aws_glue_job.export_DB.name
   }
 }
-
+*/
 #========================== Glue Job: 2 =============================================
 
 resource "aws_glue_job" "Job_2" {
