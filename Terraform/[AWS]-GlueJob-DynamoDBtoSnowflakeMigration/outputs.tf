@@ -35,7 +35,7 @@ output "Lambda_ID" {
 ############################
 
 output "aws_cloudwatch_event_alarm" {
-  value = aws_cloudwatch_event_rule.alarm.arn
+  value = aws_cloudwatch_event_rule.GlueJobsStateChange-AlertToSlack.arn
 }
 
 output "aws_cloudwatch_event_trigger" {

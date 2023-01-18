@@ -91,6 +91,55 @@ resource "aws_glue_trigger" "job_trigger_2" {
   }
 }
 */
+
+#========================== Glue Job: 3 =============================================
+/*
+resource "aws_glue_job" "Job_3" {
+  name            = var.job_3_name
+  role_arn        = var.role_arn
+  description     = "JOB_3"
+  glue_version    = "3.0"
+  max_retries     = "3"
+
+  default_arguments = {
+    "--output_prefix"                    = "s3://${aws_s3_bucket.Export_DynamoDB.id}/${var.job_3_script_name}"
+    "--read_percentage"                  = "0.25"
+
+    "--job-bookmark-option"            	 = "job-bookmark-enable"
+    "--enable-metrics"                   = "true"
+    "--enable-continuous-cloudwatch-log" = "true"
+    "--enable-glue-datacatalog"          = "true"
+    "--enable-job-insights"              = "true"
+    "--job-language"                     = "python"
+  }
+
+  number_of_workers         = 10
+  worker_type               = "G.1X"
+
+  command {
+    script_location = "s3://${aws_s3_bucket.Export_DynamoDB.id}${var.job_3_script_name}"
+  }
+
+    tags = {
+    Name                      = "${var.backend_role}-${var.finance_env}"
+    Role                      = "${var.backend_role}-${var.finance_env}"
+    "EpicFinance:Environment" = var.finance_env
+    "EpicFinance:Owner"       = var.finance_owner
+  }
+}
+*/
+/*
+resource "aws_glue_trigger" "job_trigger_3" {
+  name     = var.name_job_3_trigger
+  schedule = "cron(0 0 * * ? *)"
+  type     = "SCHEDULED"
+
+  actions {
+    job_name = aws_glue_job.Job_3.name
+  }
+}
+*/
+
 /*
 #========================== STEP Function =====================================================
 resource "aws_sfn_state_machine" "sfn_state_machine" {
