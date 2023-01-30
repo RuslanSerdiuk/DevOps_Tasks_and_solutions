@@ -46,11 +46,17 @@ resource "aws_cloudwatch_event_rule" "GlueJobsStateChange-AlertToSlack" {
 
   event_pattern = <<EOF
 {
-  "source": [
-    "aws.glue"
-  ],
+  "detail": {
+    "jobName": [
+        "export_communications_settings_prod_to_s3",
+        "CommService_DynamoDB_to_s3"
+    ]
+  },
   "detail-type": [
     "Glue Job State Change"
+  ],
+  "source": [
+    "aws.glue"
   ]
 }
 EOF

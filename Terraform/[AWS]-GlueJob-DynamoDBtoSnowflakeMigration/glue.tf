@@ -93,7 +93,7 @@ resource "aws_glue_trigger" "job_trigger_2" {
 */
 
 #========================== Glue Job: 3 =============================================
-/*
+
 resource "aws_glue_job" "Job_3" {
   name            = var.job_3_name
   role_arn        = var.role_arn
@@ -127,7 +127,7 @@ resource "aws_glue_job" "Job_3" {
     "EpicFinance:Owner"       = var.finance_owner
   }
 }
-*/
+
 /*
 resource "aws_glue_trigger" "job_trigger_3" {
   name     = var.name_job_3_trigger

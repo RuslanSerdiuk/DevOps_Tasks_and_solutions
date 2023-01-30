@@ -95,7 +95,7 @@ variable "job_2_script_name" {
 }
 
 ########## JOB: 3 ##########
-/*
+
 variable "job_3_name" {
   
 }
@@ -107,7 +107,7 @@ variable "name_job_3_trigger" {
 variable "job_3_script_name" {
   
 }
-*/
+
 
 ############################
 # Vault                    #
@@ -127,6 +127,10 @@ variable "SLACK_URL" {}
 
 variable "name_secret" {
 
+}
+
+variable "name_secret_for_comm_service" {
+  
 }
 
 ############################
@@ -189,9 +193,5 @@ variable "alarm_function_handler" {
 
 }
 variable "alarm_function_file" {
-
-}
-
-variable "account_id" {
 
 }

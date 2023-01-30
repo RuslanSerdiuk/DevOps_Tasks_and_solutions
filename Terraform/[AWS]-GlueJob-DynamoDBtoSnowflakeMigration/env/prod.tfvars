@@ -28,13 +28,19 @@ name_job_trigger    = "export_commservice_dynamodb_to_s3"
 job_2_name          = "export_communications_settings_prod_to_s3"
 job_2_script_name   = "/ExpCommSetProd.py"
 name_job_2_trigger  = "export_commservice_dynamodb_to_s3_job_2"
+########## Job: 3 ##########
+job_3_name          = "export_communications_thirdparty_accountmapping_prod_to_s3"
+job_3_script_name   = "/ExpCommThirdpartyProd.py"
+name_job_3_trigger  = "export_commservice_dynamodb_to_s3_job_3"
 
-account_id             = "384461882996"
 ############################
 # Secret Manager           #
 ############################
 
-name_secret            = "s3-to-snowflake-credentials-migration-test"
+#============== for Snowflake Credentials ================
+name_secret                  = "s3-to-snowflake-credentials-migration-test"
+#=========== for Comm Service alert to Slack ===========
+name_secret_for_comm_service = "communication-service-alerts-to-slack-secrets"
 
 ############################
 # Lambdas                  #

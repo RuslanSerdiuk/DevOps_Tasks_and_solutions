@@ -16,7 +16,7 @@ resource "aws_lambda_function" "GlueJobSlackAlarm" {
     function_name = "${var.alarm_function_name}-${var.name_env}"
     role          = var.lambda_alarm_role
     handler       = var.alarm_function_handler
-    runtime       = "python3.9"
+    runtime       = "python3.8"
     timeout       = 120
 
     tags = {

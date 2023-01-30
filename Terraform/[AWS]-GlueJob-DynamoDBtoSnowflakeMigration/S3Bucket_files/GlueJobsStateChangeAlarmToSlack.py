@@ -3,7 +3,7 @@ import json
 import boto3
 from botocore.exceptions import ClientError
 
-secret_name = "s3-to-snowflake-credentials-migration-test-pd"
+secret_name = "communication-service-alerts-to-slack-secrets-pd"
 region_name = "us-east-2"
 
 session = boto3.session.Session()
