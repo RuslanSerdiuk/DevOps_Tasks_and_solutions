@@ -39,9 +39,11 @@ name_job_3_trigger  = "export_commservice_dynamodb_to_s3_job_3"
 
 #============== for Snowflake Credentials ================
 name_secret                  = "s3-to-snowflake-credentials-migration-test"
+
+/*
 #=========== for Comm Service alert to Slack ===========
 name_secret_for_comm_service = "communication-service-alerts-to-slack-secrets"
-
+*/
 ############################
 # Lambdas                  #
 ############################

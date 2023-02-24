@@ -129,9 +129,11 @@ variable "name_secret" {
 
 }
 
+/*
 variable "name_secret_for_comm_service" {
   
 }
+*/
 
 ############################
 # Lambda                   #
