@@ -20,7 +20,7 @@ variable "region" {
 ############################
 
 variable "backend_role" {
-  
+
 }
 
 variable "finance_product" {
@@ -44,7 +44,7 @@ variable "finance_owner" {
 ############################
 
 variable "name_bucket" {
-  
+
 }
 
 variable "upload_directory" {
@@ -62,40 +62,52 @@ variable "mime_types" {
 # Glue                     #
 ############################
 
+########## JOB: 1 ##########
+
 variable "job_name" {
-  
+  description = "Name of the glue job"
 }
 
 variable "name_job_trigger" {
-  
+
 }
 
 variable "role_arn" {
-  
+  description = "IAM Role for the glue job"
 }
 
 variable "script_name" {
+  description = "Name of the Python script for the glue job"
+}
+
+########## JOB: 2 ##########
+
+variable "job_2_name" {
+
+}
+
+variable "name_job_2_trigger" {
+
+}
+
+variable "job_2_script_name" {
+
+}
+
+########## JOB: 3 ##########
+
+variable "job_3_name" {
   
 }
 
-########## ALARM ###########
-variable "lambda_alarm_role" {
+variable "name_job_3_trigger" {
   
 }
 
-variable "alarm_function_name" {
-  
-}
-variable "alarm_function_handler" {
-  
-}
-variable "alarm_function_file" {
+variable "job_3_script_name" {
   
 }
 
-variable "account_id" {
-  
-}
 
 ############################
 # Vault                    #
@@ -114,27 +126,50 @@ variable "SLACK_URL" {}
 ############################
 
 variable "name_secret" {
+
+}
+
+/*
+variable "name_secret_for_comm_service" {
   
 }
+*/
 
 ############################
 # Lambda                   #
 ############################
 
 variable "function_name" {
-  
+
 }
 
 variable "role" {
-  
+
 }
 
 variable "lambda_export_s3_to_snowflake_handler" {
-  
+
 }
 
 variable "s3_key_file" {
-  
+
+}
+
+##### Lambda 2: trigger export process ###
+variable "function_2_name" {
+
+}
+
+variable "role_for_function_2" {
+
+}
+
+variable "lambda_trigger_export_s3_to_snowflake_handler" {
+
+}
+
+variable "s3_key_file_for_function_2" {
+
 }
 /*
 variable "subnet_ids" {
@@ -147,3 +182,18 @@ variable "security_groups" {
   description = "Securiy groups for instances and lb's"
 }
 */
+
+########## Lambda Alert to Slack ###########
+variable "lambda_alarm_role" {
+
+}
+
+variable "alarm_function_name" {
+
+}
+variable "alarm_function_handler" {
+
+}
+variable "alarm_function_file" {
+
+}

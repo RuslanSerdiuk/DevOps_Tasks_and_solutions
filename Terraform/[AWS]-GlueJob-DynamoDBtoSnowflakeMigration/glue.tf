@@ -33,7 +33,7 @@ resource "aws_glue_job" "export_DB" {
   }
 }
 
-
+/*
 resource "aws_glue_trigger" "job_trigger" {
   name     = var.name_job_trigger
   schedule = "cron(10 0 * * ? *)"
@@ -43,53 +43,102 @@ resource "aws_glue_trigger" "job_trigger" {
     job_name = aws_glue_job.export_DB.name
   }
 }
+*/
+#========================== Glue Job: 2 =============================================
 
-########################## MONITORING / ALARM ##############################
-resource "aws_lambda_function" "GlueJobSlackAlarm" {
-    s3_bucket     = "${var.name_bucket}-${var.name_env}"
-    s3_key        = var.alarm_function_file
-    
-    function_name = "${var.alarm_function_name}-${var.name_env}"
-    role          = var.lambda_alarm_role
-    handler       = var.alarm_function_handler
-    runtime       = "python3.9"
-    timeout       = 120
+resource "aws_glue_job" "Job_2" {
+  name            = var.job_2_name
+  role_arn        = var.role_arn
+  description     = "JOB_2"
+  glue_version    = "3.0"
+  max_retries     = "3"
+
+  default_arguments = {
+    "--output_prefix"                    = "s3://${aws_s3_bucket.Export_DynamoDB.id}/${var.job_2_script_name}"
+    "--read_percentage"                  = "0.25"
+
+    "--job-bookmark-option"            	 = "job-bookmark-enable"
+    "--enable-metrics"                   = "true"
+    "--enable-continuous-cloudwatch-log" = "true"
+    "--enable-glue-datacatalog"          = "true"
+    "--enable-job-insights"              = "true"
+    "--job-language"                     = "python"
+  }
+
+  number_of_workers         = 10
+  worker_type               = "G.1X"
+
+  command {
+    script_location = "s3://${aws_s3_bucket.Export_DynamoDB.id}${var.job_2_script_name}"
+  }
 
     tags = {
-      "Name"                    = "${var.role}-${var.finance_env}"
-      "Role"                    = "${var.role}-${var.finance_env}"
-      "EpicFinance:Environment" = var.finance_env
-      "EpicFinance:Owner"       = var.finance_owner
+    Name                      = "${var.backend_role}-${var.finance_env}"
+    Role                      = "${var.backend_role}-${var.finance_env}"
+    "EpicFinance:Environment" = var.finance_env
+    "EpicFinance:Owner"       = var.finance_owner
   }
 }
 
-# Grant access to SNS topic to invoke a lambda function
-resource "aws_lambda_permission" "sns_alarms" {
-  statement_id  = "AllowExecutionFromSNSAlarms"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.GlueJobSlackAlarm.function_name
-  principal     = "sns.amazonaws.com"
-  source_arn    = aws_sns_topic.alarms.arn
-}
 /*
-resource "aws_cloudwatch_log_group" "send_cloudwatch_alarms_to_slack" {
-  name = "/aws/lambda/${aws_lambda_function.GlueJobSlackAlarm.function_name}"
+resource "aws_glue_trigger" "job_trigger_2" {
+  name     = var.name_job_2_trigger
+  schedule = "cron(5 0 * * ? *)"
+  type     = "SCHEDULED"
 
-  retention_in_days = 14
+  actions {
+    job_name = aws_glue_job.Job_2.name
+  }
 }
 */
 
+#========================== Glue Job: 3 =============================================
 
+resource "aws_glue_job" "Job_3" {
+  name            = var.job_3_name
+  role_arn        = var.role_arn
+  description     = "JOB_3"
+  glue_version    = "3.0"
+  max_retries     = "3"
 
+  default_arguments = {
+    "--output_prefix"                    = "s3://${aws_s3_bucket.Export_DynamoDB.id}/${var.job_3_script_name}"
+    "--read_percentage"                  = "0.25"
 
+    "--job-bookmark-option"            	 = "job-bookmark-enable"
+    "--enable-metrics"                   = "true"
+    "--enable-continuous-cloudwatch-log" = "true"
+    "--enable-glue-datacatalog"          = "true"
+    "--enable-job-insights"              = "true"
+    "--job-language"                     = "python"
+  }
 
+  number_of_workers         = 10
+  worker_type               = "G.1X"
 
+  command {
+    script_location = "s3://${aws_s3_bucket.Export_DynamoDB.id}${var.job_3_script_name}"
+  }
 
+    tags = {
+    Name                      = "${var.backend_role}-${var.finance_env}"
+    Role                      = "${var.backend_role}-${var.finance_env}"
+    "EpicFinance:Environment" = var.finance_env
+    "EpicFinance:Owner"       = var.finance_owner
+  }
+}
 
+/*
+resource "aws_glue_trigger" "job_trigger_3" {
+  name     = var.name_job_3_trigger
+  schedule = "cron(0 0 * * ? *)"
+  type     = "SCHEDULED"
 
-
-
-
+  actions {
+    job_name = aws_glue_job.Job_3.name
+  }
+}
+*/
 
 /*
 #========================== STEP Function =====================================================
