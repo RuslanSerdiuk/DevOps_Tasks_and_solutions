@@ -62,7 +62,7 @@ SNOWFLAKE_NOTIFICATIONS_PASSWORD = "ADCniqedbin71cqe"
 SNOWFLAKE_NOTIFICATIONS_SCHEMA = "PUBLIC"
 SNOWFLAKE_NOTIFICATIONS_WAREHOUSE = "DEVTEST_WH"
 SNOWFLAKE_NOTIFICATIONS_ACCOUNT = "mes.us-east-1"
-SLACK_URL                       = "https://hooks.slack.com/services/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"
+SLACK_URL                       = "your_Slack_URL"
 
 ######## Lambda 2: for trigger export process #####
 
