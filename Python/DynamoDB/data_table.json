@@ -1,0 +1,41 @@
+[
+	{
+		"uuid": "0001",
+		"name": "AUDI",
+		"status": "Broken",
+		"key": "Car",
+		"Parameters":
+			{
+				"Speed":
+					[
+						{ "0-100": "3.2 sec", "Max": "350 km/h" }
+					]
+			}
+	},
+	{
+		"uuid": "0002",
+		"name": "YAMAHA",
+		"status": "New",
+		"key": "Motobike",
+		"Parameters":
+            {
+                "Speed":
+                    [
+                        { "0-100": "1.4 sec", "Max": "320 km/h" }
+                    ]
+            }
+	},
+	{
+		"uuid": "0003",
+		"name": "Trek",
+		"status": "Broken",
+		"key": "Bike",
+        "Parameters":
+            {
+                "Speed":
+                    [
+                        { "0-100": "100 km/h - is Impossible speed for bike", "Max": "40 km/h" }
+                    ]
+            }
+	}
+]
