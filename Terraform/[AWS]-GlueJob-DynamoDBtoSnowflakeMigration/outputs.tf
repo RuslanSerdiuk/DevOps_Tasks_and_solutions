@@ -17,11 +17,11 @@ output "S3Bucket_id" {
 ############################
 # Secret Manager           #
 ############################
-
+/*
 output "Snowflake_credentials_ID" {
   value = aws_secretsmanager_secret.Snowflake_credentials.id
 }
-
+*/
 ############################
 # Lambda                   #
 ############################
@@ -29,3 +29,23 @@ output "Snowflake_credentials_ID" {
 output "Lambda_ID" {
   value = aws_lambda_function.export_from_s3_to_snowflake.id
 }
+
+############################
+# CloudWatch               #
+############################
+
+output "aws_cloudwatch_event_alarm" {
+  value = aws_cloudwatch_event_rule.GlueJobsStateChange-AlertToSlack.arn
+}
+
+output "aws_cloudwatch_event_trigger" {
+  value = aws_cloudwatch_event_rule.trigger.arn
+}
+
+############################
+# SNS                      #
+############################
+
+
+
+
