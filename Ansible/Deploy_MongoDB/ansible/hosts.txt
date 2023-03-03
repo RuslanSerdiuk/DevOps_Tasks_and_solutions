@@ -1,0 +1,5 @@
+[primary_node]
+mongo_primary    ansible_host="{{ ipaddr_priv_app }}"
+
+[secondary_node]
+mongo_secondary    ansible_host="{{ ipaddr_priv_db }}"

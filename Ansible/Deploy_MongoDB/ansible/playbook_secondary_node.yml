@@ -1,0 +1,7 @@
+---
+- name: Install MongoDB Secondary Node
+  hosts: tag_Name_Secondary_Node
+  become: yes
+
+  roles:
+    - deploy_mongo_secondary_node

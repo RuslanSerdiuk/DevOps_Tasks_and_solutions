@@ -1,0 +1,5 @@
+[app_server]
+linux_app    ansible_host="{{ ipaddr_priv_app }}"
+
+[db_server]
+linux_db    ansible_host="{{ ipaddr_priv_db }}"
