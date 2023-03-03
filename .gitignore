@@ -7,7 +7,11 @@
 /Terraform/Simple_Application/Key for user.txt
 Terraform/Simple_Application/Key for user.txt.bak
 
+Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.terraform.lock.hcl
+Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.terraform/providers/registry.terraform.io/hashicorp/aws/4.47.0/windows_amd64/terraform-provider-aws_v4.47.0_x5.exe
+Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.tfstate
 Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.terraform/terraform.tfstate
+Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.tfstate.backup
 
 #####################################################
 #                ANSIBLE                            #
