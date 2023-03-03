@@ -1,0 +1,18 @@
+{
+    "uuid": "0004",
+    "name": "Lamborghini",
+    "status": "New",
+    "key": "Car",
+    "Parameters":
+        {
+            "Speed":
+                [
+                    { "0-100": "2.8 sec", "Max": "380 km/h" }
+                ],
+            "Characteristics":
+                [
+                    { "Model": "Huracan", "Year of release": "2021" },
+                    { "Series number": "12/99", "Engine": "v12" }
+                ]
+    }
+}
