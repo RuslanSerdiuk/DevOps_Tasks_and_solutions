@@ -1,0 +1,7 @@
+---
+- name: Install MongoDB Primary Node
+  hosts: tag_Name_Primary_Node
+  become: yes
+
+  roles:
+    - deploy_mongo_primary_node

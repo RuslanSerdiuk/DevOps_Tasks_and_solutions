@@ -1,0 +1,7 @@
+---
+- name: Install MySql
+  hosts: tag_Name_Ansible_db
+  become: yes
+
+  roles:
+    - deploy_db

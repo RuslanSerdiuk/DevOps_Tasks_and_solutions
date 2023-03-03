@@ -1,0 +1,150 @@
+#!/bin/bash
+
+sudo yum update -y
+
+cd /home/ec2-user/.ssh/
+sudo su
+
+tee -a Ansible.pem << EOF
+${super_secret_key}
+EOF
+
+chmod 400 Ansible.pem
+
+cd ..
+
+amazon-linux-extras install epel -y
+yum install ansible -y
+ansible-galaxy collection install community.mysql
+
+mkdir ansible
+cd ansible
+
+tee -a hosts.txt << EOF
+${inventory_file}
+EOF
+
+tee -a ansible.cfg << EOF
+${ansible_config}
+EOF
+
+mkdir group_vars
+
+tee -a group_vars/aws_ec2 << EOF
+${aws_ec2_vars}
+EOF
+
+tee -a group_vars/tag_Name_Mongo_Primary_Node << EOF
+${primary_node_vars}
+EOF
+
+tee -a group_vars/tag_Name_Mongo_Secondary_Node << EOF
+${secondary_node_vars}
+EOF
+
+
+##########================= Dynamic Inventory ====================########
+sudo ansible-galaxy collection install amazon.aws
+sudo wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
+sudo python ./get-pip.py
+sudo pip install boto3
+
+
+export AWS_ACCESS_KEY="${my_access_key}"
+export AWS_SECRET_ACCESS_KEY="${my_secret_key}"
+
+tee -a aws_ec2.yaml << EOF
+${dynamic_inventory}
+EOF
+
+#================================= ROLE: Deploy Mongo Primary Node
+mkdir roles
+cd roles
+
+sudo ansible-galaxy init deploy_mongo_primary_node
+
+tee -a deploy_mongo_primary_node/defaults/main.yml << EOF
+${defaults_main_primary_node}
+EOF
+
+tee -a deploy_mongo_primary_node/handlers/main.yml << EOF
+${handlers_main_primary_node}
+EOF
+
+cat <<EOF > deploy_mongo_primary_node/meta/main.yml
+${metadata_primary_node}
+EOF
+
+tee -a deploy_mongo_primary_node/templates/mongo-demo.service.j2 << EOF
+${config_mongo_service}
+EOF
+
+tee -a deploy_mongo_primary_node/templates/mongo_cnf.j2 << EOF
+${config_mongo}
+EOF
+
+tee -a deploy_mongo_primary_node/tasks/main.yml << EOF
+${tasks_main_primary_node}
+EOF
+
+tee -a deploy_mongo_primary_node/vars/main.yml << EOF
+
+admin_password: 12345
+operating_pw: 54321
+testing_pw: 13531
+test_password: mypass
+private_ip_primary_node: ${ip_private_primary_node}
+public_dns_primary_node: ${public_dns_prim_node}
+public_dns_secondary_node: ${public_dns_sec_node}
+EOF
+
+cd ..
+
+#================================== PLAYBOOK Primary Node ==============================
+tee -a playbook_primary_node.yml << EOF
+${playbook_primary_node}
+EOF
+
+
+##########=======================ROLE: Deploy Mongo Secondary Node
+
+cd roles
+
+sudo ansible-galaxy init deploy_mongo_secondary_node
+
+tee -a deploy_mongo_secondary_node/handlers/main.yml << EOF
+${handlers_main_secondary_node}
+EOF
+
+tee -a deploy_mongo_secondary_node/vars/main.yml << EOF
+${vars_main_secondary_node}
+EOF
+
+tee -a deploy_mongo_secondary_node/templates/mongo_cnf.j2 << EOF
+${config_mongo_secondary}
+EOF
+
+tee -a deploy_mongo_secondary_node/templates/mongo-demo.service.j2 << EOF
+${config_mongo_service}
+EOF
+
+cat <<EOF > deploy_mongo_secondary_node/meta/main.yml
+${metadata_secondary_node}
+EOF
+
+tee -a deploy_mongo_secondary_node/tasks/main.yml << EOF
+${tasks_secondary_node}
+EOF
+
+
+cd ..
+
+#================================== PLAYBOOK MongoDB Secondary Node ==============================
+tee -a playbook_secondary_node.yml << EOF
+${playbook_secondary_node}
+EOF
+
+sudo ansible-galaxy collection install community.mongodb
+
+# sudo ansible-playbook playbook_secondary_node.yml -i aws_ec2.yaml
+# sudo ansible-playbook playbook_primary_node.yml -i aws_ec2.yaml

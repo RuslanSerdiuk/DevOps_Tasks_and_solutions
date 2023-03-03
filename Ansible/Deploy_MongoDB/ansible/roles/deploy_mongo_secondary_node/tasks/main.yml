@@ -1,0 +1,57 @@
+
+- name: Import the public key used by the package management system
+  ansible.builtin.apt_key:
+    url: https://www.mongodb.org/static/pgp/server-5.0.asc
+    state: present
+
+- name: Add specified repository into sources list
+  ansible.builtin.apt_repository:
+    repo: 'deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse'
+    state: present
+
+- name: install mongodb
+  ansible.builtin.apt:
+    pkg: mongodb-org
+    state: latest
+    update_cache: yes
+
+- name: Stop Service mongod
+  ansible.builtin.service:
+    name: mongod
+    state: stopped
+
+- name: copy config file
+  template:
+    src: mongo_cnf.j2
+    dest: "{{ item }}"
+    mode: 0644
+  loop:
+      - /etc/mongo-demo.conf
+      - /etc/mongodb-demo.conf
+
+- name: Create mongo-demo service
+  template:
+    src: mongo-demo.service.j2
+    dest: /usr/lib/systemd/system/mongo-demo.service
+    mode: 0644
+
+- name: Just force systemd to reread configs
+  ansible.builtin.systemd:
+    daemon_reload: yes
+
+- name: Start service mongo-demo 
+  ansible.builtin.service:
+    name: mongo-demo
+    state: started
+
+- name: Install Python Tools
+  apt:
+    name:
+      - python3
+      - python3-pip
+      - gcc
+    update_cache: yes
+    state: latest
+
+- name: Install pymongo
+  pip: name=pymongo state=latest

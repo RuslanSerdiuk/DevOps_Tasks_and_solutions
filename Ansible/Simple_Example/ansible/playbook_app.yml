@@ -1,0 +1,7 @@
+---
+- name: Install Apache
+  hosts: tag_Name_Ansible_app
+  become: yes
+
+  roles:
+    - deploy_app

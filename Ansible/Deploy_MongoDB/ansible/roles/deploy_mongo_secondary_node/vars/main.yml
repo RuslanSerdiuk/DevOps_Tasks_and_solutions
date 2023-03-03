@@ -1,0 +1,3 @@
+---
+# vars file for deploy_mongo_primary_node
+admin_password: 12345

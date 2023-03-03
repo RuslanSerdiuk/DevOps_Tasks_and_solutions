@@ -1,0 +1,155 @@
+#!/bin/bash
+
+sudo yum update -y
+
+cd /home/ec2-user/.ssh/
+sudo su
+
+tee -a Ruslan-key-Ohio-TASK22.pem << EOF
+${super_secret_key}
+EOF
+
+chmod 400 Ruslan-key-Ohio-TASK22.pem
+
+cd ..
+
+amazon-linux-extras install epel -y
+yum install ansible -y
+ansible-galaxy collection install community.mysql
+
+mkdir ansible
+cd ansible
+
+tee -a hosts.txt << EOF
+${inventory_file}
+EOF
+
+tee -a ansible.cfg << EOF
+${ansible_config}
+EOF
+
+mkdir group_vars
+
+tee -a group_vars/aws_ec2 << EOF
+${aws_ec2_vars}
+EOF
+
+tee -a group_vars/tag_Name_Ansible_app << EOF
+${app_vars}
+EOF
+
+tee -a group_vars/tag_Name_Ansible_db << EOF
+${db_vars}
+EOF
+
+
+##########=================Dynamic Inventory====================########
+sudo ansible-galaxy collection install amazon.aws
+sudo wget https://bootstrap.pypa.io/pip/2.7/get-pip.py
+sudo python ./get-pip.py
+sudo pip install boto3
+
+
+export AWS_ACCESS_KEY="${my_access_key}"
+export AWS_SECRET_ACCESS_KEY="${my_secret_key}"
+
+tee -a aws_ec2.yaml << EOF
+${dynamic_inventory}
+EOF
+
+#=================================ROLE: Deploy_app
+mkdir roles
+cd roles
+
+sudo ansible-galaxy init deploy_app
+
+tee -a deploy_app/defaults/main.yml << EOF
+${defaults_main_app}
+EOF
+
+tee -a deploy_app/handlers/main.yml << EOF
+${handlers_main_app}
+EOF
+
+cat <<EOF > deploy_app/meta/main.yml
+${metadata_app}
+EOF
+
+tee -a deploy_app/templates/connect_cnf.j2 << EOF
+<?php
+session_start();
+
+\$conn = mysqli_connect(
+  '${ipaddr_private_db}',
+  'Ruslan',
+  'Password123!',
+  'php_mysql_crud'
+) or die(mysqli_erro(\$mysqli));
+
+?>
+EOF
+
+tee -a deploy_app/templates/apache_conf.j2 << EOF
+${config_apache}
+EOF
+
+tee -a deploy_app/tasks/main.yml << EOF
+${tasks_main_app}
+EOF
+
+tee -a deploy_app/vars/main.yml << EOF
+${vars_app}
+EOF
+
+cd ..
+
+#==================================PLAYBOOK_APP==============================
+tee -a playbook_app.yml << EOF
+${playbook_app}
+EOF
+
+
+##########=======================ROLE: Deploy_db
+
+cd roles
+
+sudo ansible-galaxy init deploy_db
+
+tee -a deploy_db/vars/main.yml << EOF
+${vars_main_db}
+EOF
+
+tee -a deploy_db/templates/root.cnf.j2 << EOF
+${templates_root_db}
+EOF
+
+tee -a deploy_db/templates/temp_cnf.j2 << EOF
+${templates_temp_db}
+EOF
+
+tee -a deploy_db/templates/script.sql.j2 << EOF
+${db_script}
+EOF
+
+tee -a deploy_db/handlers/main.yml << EOF
+${handlers_main_db}
+EOF
+
+cat <<EOF > deploy_db/meta/main.yml
+${metadata_db}
+EOF
+
+tee -a deploy_db/tasks/main.yml << EOF
+${tasks_db}
+EOF
+
+
+cd ..
+
+#==================================PLAYBOOK_DB==============================
+tee -a playbook_db.yml << EOF
+${playbook_db}
+EOF
+
+sudo ansible-playbook playbook_app.yml -i aws_ec2.yaml
+sudo ansible-playbook playbook_db.yml -i aws_ec2.yaml

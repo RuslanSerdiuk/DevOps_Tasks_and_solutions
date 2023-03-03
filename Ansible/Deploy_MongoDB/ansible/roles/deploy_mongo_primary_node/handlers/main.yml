@@ -1,0 +1,15 @@
+
+- name: Start MongoDB
+  service:
+    name: mongo-demo
+    state: started
+
+- name: Restart systemctl MongoDB
+  service:
+    name: mongo-demo
+    state: restarted
+
+- name: Restart service mongod
+  ansible.builtin.service:
+    name: mongo-demo
+    state: restarted

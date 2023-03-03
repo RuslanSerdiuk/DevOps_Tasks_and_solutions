@@ -1,0 +1,9 @@
+[client]
+socket   = {{ mysqld.socket }}
+user     = debian-sys-maint
+password = {{ percona_system_password }}
+
+[mysql_upgrade]
+socket   = {{ mysqld.socket }}
+user     = debian-sys-maint
+password = {{ percona_system_password }}

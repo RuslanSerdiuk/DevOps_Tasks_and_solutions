@@ -1,0 +1,8 @@
+
+mysql_root_password: Pass123!
+mysql_system_password: Password123!
+mysql_user: Ruslan
+
+mysqld:
+  socket: /var/run/mysqld/mysqld.sock
+

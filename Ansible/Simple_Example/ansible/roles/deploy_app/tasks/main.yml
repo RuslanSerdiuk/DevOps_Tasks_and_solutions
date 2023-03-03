@@ -1,0 +1,66 @@
+
+- name: Install Apache
+  apt: name=apache2 update_cache=yes state=latest
+
+- name: Start Apache and Enable it on the every boot
+  service: name=apache2 state=started enabled=yes
+
+
+- name: Repo PHP
+  ansible.builtin.apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+
+
+- name: Updating the repo
+  apt: update_cache=yes
+
+
+- name: Installation PHP
+  apt: name=php7.4 state=present
+
+
+- name: Install Lamp Stack
+  apt:
+    pkg:
+      - php7.4-mysql
+      - php7.4-curl
+      - php7.4-json
+      - php7.4-cgi
+      - php7.4-xsl
+      - php7.4-cgi
+      - php7.4-gd
+      - php7.4-mbstring
+      - php7.4-zip
+      - php7.4-xmlrpc
+      - php7.4-soap
+      - php7.4-intl
+      - libapache2-mod-php
+    state: present
+    update_cache: yes
+
+
+- name: Install GIT
+  apt: name=git state=latest
+
+
+- name: Clone REPO from github
+  ansible.builtin.git:
+    repo: 'https://github.com/FaztWeb/php-mysql-crud.git'
+    dest: /var/www/html/{{ php_directory }}
+    force: yes
+
+
+- name: Config Apache Server
+  template:
+    src: apache_conf.j2
+    dest: /etc/apache2/sites-available/000-default.conf
+    mode: '0644'
+
+
+- name: Config connect to DB
+  template:
+    src: connect_cnf.j2
+    dest: /var/www/html/{{ php_directory }}/db.php
+  notify: Restart Apache
+

@@ -1,0 +1,71 @@
+
+- name: Install mySQL
+  apt:
+    name:
+      - mysql-server
+      - python3
+      - python3-pip
+      - gcc
+    update_cache: yes
+    state: latest
+  notify: Restart MySQL Service
+
+- name: Install Python-MySQL
+  pip:
+    name: pymysql
+
+
+- name: Credentials MySQL for root
+  copy:
+    dest: ~/.my.cnf
+    content: |
+      [client]
+      user = "root"
+      password = "{{ mysql_root_password }}"
+      socket   = /var/run/mysqld/mysqld.sock
+
+
+- name: Create MySQL User
+  community.mysql.mysql_user:
+    name: "{{ mysql_user }}"
+    host: "%"
+    plugin: mysql_native_password
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    password: "{{ mysql_system_password }}"
+    login_user: "root"
+    login_password: "{{ mysql_root_password }}"
+    check_implicit_admin: yes
+    priv: "*.*:ALL,GRANT"
+
+
+- name: Create a DB
+  community.mysql.mysql_db:
+    name: "php_mysql_crud"
+
+- name: Modify mysql config
+  ini_file:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    section: mysqld
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    backup: yes
+  with_items:
+    - { option: bind-address, value: 0.0.0.0 }
+    - { option: port, value: 3306 }
+  notify: Restart MySQL Service
+
+
+- name: Add script.sql to DB
+  template:
+    src: script.sql.j2
+    dest: /tmp/dump.sql
+
+
+- name: Run script.sql
+  mysql_db:
+    name: "php_mysql_crud"
+    state: import
+    target: /tmp/dump.sql
+    login_user: "{{ mysql_user }}"
+    login_password: "{{ mysql_system_password }}"
+
