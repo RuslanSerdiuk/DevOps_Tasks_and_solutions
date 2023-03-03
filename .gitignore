@@ -39,3 +39,4 @@ AWS/CodePipeline-CodeDeploy/policy.json
 #                KUBERNETES                         #
 #####################################################
 /Kubernetes
+Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/S3Bucket_files/email-export-lambda.zip
