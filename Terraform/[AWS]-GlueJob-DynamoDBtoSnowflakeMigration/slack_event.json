@@ -1,0 +1,38 @@
+{
+    "Records": [
+       {
+          "EventSource": "aws:sns",
+          "EventVersion": "1.0",
+          "EventSubscriptionArn": "arn:aws:sns:us-east-2:384461882996:Test:cfa7948b-ffdc-4edc-b56d-0cd08c19179f",
+          "Sns": {
+             "Type": "Notification",
+             "MessageId": "ece86172-cf7f-5c1a-a586-3d5d50fca11c",
+             "TopicArn": "arn:aws:sns:us-east-2:384461882996:Test",
+             "Subject": "None",
+             "Message": {
+                "version": "0",
+                "id": "f2f649ea-17a4-b252-a114-b61f95df5a61",
+                "detail-type": "Glue Job State Change",
+                "source": "aws.glue",
+                "account": "384461882996",
+                "time": "2023-01-04T15:37:32Z",
+                "region": "us-east-2",
+                "resources": [],
+                "detail": {
+                   "jobName": "CommService_DynamoDB_to_s3",
+                   "severity": "INFO",
+                   "state": "SUCCEEDED",
+                   "jobRunId": "jr_fe3a2808f5b3c882c6c26629c5e7ecb678f77c5617f3e2537d5216f4ed40c25a",
+                   "message": "Job run succeeded"
+                }
+             },
+             "Timestamp": "2023-01-04T15:37:39.833Z",
+             "SignatureVersion": "1",
+             "Signature": "1WkFl5yAGp9NAM2F9noh6cgVl3WJR8zbVizfaGXZpqYaUGFqmizJu7IWC/KXILxuVihQp5nNljRVAHtqJLlvV+9dsPjzmj2oSDNGxBCH+fE+phYgDgbxUtMMF/+IThIAa46fs88m+fCbu6fRelh9jJz7wxTsFPt6SAv3/NKC8gXSyk4556Sb0OZp1ci2gbCek4chV1MMJDiCE3OvdWE67x4eQBx8Ju2ELyrS3w0WPe7nHdm3khK2wXWS+Hs2duPrF0TnT2xYCHJC4sAvgXQvDLlS+DI6WdpYnMX0fZrAzVZ1vSGNh6alAUmFEOc52VedjWyCwJf2vztkdF7Wvn0oUA==",
+             "SigningCertUrl": "https://sns.us-east-2.amazonaws.com/SimpleNotificationService-56e67fcb41f6fec09b0196692625d385.pem",
+             "UnsubscribeUrl": "https://sns.us-east-2.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-east-2:384461882996:Test:cfa7948b-ffdc-4edc-b56d-0cd08c19179f",
+             "MessageAttributes": {}
+          }
+       }
+    ]
+ }
