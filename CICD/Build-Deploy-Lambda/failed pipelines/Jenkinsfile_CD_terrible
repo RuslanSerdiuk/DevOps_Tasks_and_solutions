@@ -1,0 +1,96 @@
+pipeline {
+    agent {
+        label 'ec2-agent'
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
+    stages {
+        stage('Delete workspace before build starts') {
+            steps {
+                echo 'Deleting workspace'
+                deleteDir()
+            }
+        }
+        stage('Checkout') {
+            steps{
+                git branch: "Jenkins-Setup-Configure", credentialsId: 'github-creds-jenkins-task', url: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git'
+                }
+        }
+        stage('Check CloudFormation Stack') {
+            steps {
+                script {
+                    try {
+                        STACK_STATUS = sh (
+                            script: 'aws cloudformation update-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml &> data.txt | cat data.txt | tail -c 32',
+                            returnStdout: true
+                        ).trim()
+                        echo "Update result: ${STACK_STATUS}"
+                    } catch (err) {
+                        echo err.getMessage()
+                    }
+                    try {
+                        STACK_STATUS_2 = sh (
+                            script: 'aws cloudformation update-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml > data.txt | cat data.txt | grep -oE "stack/jenkins-lambda"',
+                            returnStdout: true
+                        ).trim()
+                        echo "Stack has been Updated!"
+                    } catch (err) {
+                        echo err.getMessage()
+                    }
+                }
+            }   
+        }
+        stage('Deploy Lambda') {
+            when {
+                    expression { STACK_STATUS_2 != "stack/jenkins-lambda" }
+                }
+            steps {
+                script{
+                    if (STACK_STATUS != "[jenkins-lambda] does not exist") {
+                        sh 'aws cloudformation create-stack --stack-name jenkins-lambda --template-body file://CICD/Build-Deploy-Lambda/lambda-template.yaml'
+                        echo "Stack has been Created!"
+                    }
+                    else (STACK_STATUS == "No updates are to be performed.") {
+                        echo "${STACK_STATUS}"
+                    }
+                }
+            }
+        }
+        stage('Invoke Lambda - Type:Event') {
+            steps {
+                script {
+                    RESPONCE = sh (
+                            script: 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --payload $(echo \'{"first_name": "Ruslan", "last_name": "Serdiuk"}\' | base64) out | awk \'{print $2}\'',
+                            returnStdout: true
+                        ).trim()
+                        echo "Lambda responce code: ${RESPONCE}"
+                    }
+                sh 'aws lambda invoke --invocation-type Event --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://CICD/Build-Deploy-Lambda/payloadfile.json response.json | awk \'{print $2}\''
+            }
+        }
+        stage('Invoke Lambda - Type:RequestResponse') {
+            steps {
+                sh 'aws lambda invoke --invocation-type RequestResponse --function-name JenkinsTask --payload $(echo \'{"first_name": "Ruslan", "last_name": "Serdiuk"}\' | base64) out'
+                sh 'aws lambda invoke --invocation-type RequestResponse --function-name JenkinsTask --cli-binary-format raw-in-base64-out --payload file://CICD/Build-Deploy-Lambda/payloadfile.json response.json'
+            }
+        }
+        stage("Set description") {
+            steps {
+                script {
+                    currentBuild.displayName = "${JOB_NAME}"
+                    currentBuild.description = "Branch: $env.GIT_BRANCH \n" +
+                                               "Build number: #${BUILD_NUMBER} \n" +
+                                               "Executed on: ${NODE_NAME}\n" +
+                                               "Response Lambda: ${RESPONCE} \n"
+                }
+            }
+        }
+        stage('Ls work dir') {
+            steps {
+                sh "ls -la"
+            }
+        }
+
+    }
+}
