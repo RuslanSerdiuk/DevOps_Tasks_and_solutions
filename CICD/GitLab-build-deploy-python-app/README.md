@@ -65,7 +65,7 @@ Next click **Add Variable** and fill **Key** and **Value**:
 
 
 ### Now - edit Pipeline and add build stage! :green_circle:
-<img src="./img/Build_0.jpg">
+<img src="./img/build_0.jpg">
 
 ```
 variables:
@@ -102,8 +102,8 @@ build_image:
 ```
 
 Next **commit** and **Check**:
-<img src="./img/Build_3.jpg">
-<img src="./img/Build_4.jpg">
+<img src="./img/build_3.jpg">
+<img src="./img/build_4.jpg">
 
 To build an image in Docker the command below is used:
 `docker build -t username/repository_name .` :heavy_check_mark:
