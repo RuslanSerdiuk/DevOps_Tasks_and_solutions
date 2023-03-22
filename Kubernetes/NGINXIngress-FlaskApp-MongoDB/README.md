@@ -52,12 +52,24 @@ Lint, or a linter, is a static code analysis tool used to flag programming error
 
 How to install `hadolint`: [Haskell Dockerfile Linter](https://github.com/hadolint/hadolint#install)
 
+OR if you work on wondows:
+1. Run the following command from a non-admin PowerShell to install scoop to its default location `C:\Users\<YOUR USERNAME>\scoop`:
+    ```
+    iwr -useb get.scoop.sh | iex
+    ```
+   > **Scoop** is a command-line installer for Windows.
+2. ```
+   scoop install hadolint
+   ```
+
 Check if `hadolint` is installed:
 
 ```console
 $ hadolint --version
 Haskell Dockerfile Linter 2.7.0-no-git
 ```
+<img src="./img/Lint_install.jpg">
+
 Run `hadolint` to lint your Dockerfiles and fix errors and warnings if they are.
 
 **Usage Example:**
