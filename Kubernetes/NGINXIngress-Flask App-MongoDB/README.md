@@ -1,23 +1,20 @@
-# DevOps BootCamp: Kubernetes Practical Task
+# NGINX Ingress - Flask App - MongoDB
 
-We are glad to see you here!
+## _Description_
 
-During this course you will become familiar with a lot of tools and technologies. We would like you to apply this knowledge in practice, otherwise it would be boring. There is a task for you, which you can do along with stydying materials from this course. So, without further adieu, let's begin this task!
-
-# Description
-
+### Task
 You need to build the app's container images and deploy them to Kubernetes.
 
-## Requirements
+### Requirements
 
 - Access to GitLab repository
 - Installed [jq utility](https://stedolan.github.io/jq/download/) 
 
-## Repository Preparation
+### Repository Preparation
 
-You must [clone](https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html#clone-a-repository) this repository before starting to work on the task.
+You must [clone]() this repository before starting to work on the task.
 
-## Application Description
+### Application Description
 
 The application will be deployed in 3-tier layers:
 
@@ -27,7 +24,13 @@ The application will be deployed in 3-tier layers:
 
 The Flask application provides users with possibility to change colour of website background.
 
-## Step Description
+
+
+
+## _Steps Description_
+
+
+
 
 ### Build application 
 
@@ -80,6 +83,8 @@ $ hadolint Dockerfile # no issues
 How to create a private repository: [Documentation](https://docs.docker.com/docker-hub/repos/#private-repositories)
 
 
+
+
 ### Test: Docker Compose Deployment
 
 The second step is that verify that your application can be deployed as Docker container.
@@ -106,6 +111,8 @@ Now you can deploy your application on the local PC and check how it works.
 - the application is deployed (you can open it in browser)
 - issue is fixed on *Issue Page* page
 - data can be written to MongoDB on *Test DB Connectivity* page
+
+
 
 
 ### Deployment Preparation 
@@ -147,7 +154,10 @@ Your Kubernetes manifest should meet the following requirements:
 - the application is deployed in your *local* Kubernetes;
 - the application is accessed through `<nsurname>.application.com` URL
 
-### Local Machine Preparation
+
+
+
+## _Local Machine Preparation_
 **Vagrant (optional)**
 Vagrantfile can be used for VM provisioning with required tools (Docker, Minikube, Hadolint, Kubectl, etc.).
 Otherwise required tools must be installed on your local machine.
@@ -191,6 +201,9 @@ ingress-nginx-admission-create--1-n9w2k     0/1     Completed   0          2m26s
 ingress-nginx-admission-patch--1-cnx7n      0/1     Completed   0          2m26s
 ingress-nginx-controller-69bdbc4d57-f7lfz   1/1     Running     0          2m26s
 ```
+
+
+
 
 #### Local Kubernetes Environment Preparation
 
@@ -264,6 +277,34 @@ secret/docker-secret created
 Possible, you will need to rerun the step of this test since you can reach your application and do some request only when it will be deployed.
 So that don't panic if this step failed on the first run.
 
-### Last Step
 
-Task will be checked in the life session with your mentor on your local minikube cluster.
+
+
+## _Flask color app_
+
+This is a Demo Flask application that chan
+
+
+### Endpoints
+
+| Endpoint       |                  Description               |
+| -------------- | ------------------------------------------ |
+| `/`            | Start page that changes background color depends on `BG_COLOR` env variable         |
+| `/test_db`     | Page with form to post a message to MongoDB |
+| `/color`       | API to get current color, timestamp and system information |
+| `/issue`       | API to get status of issue |
+| `/db_message`  | API to get messages from MongoDB
+
+### Environment variables
+
+| Variable       | Default Value |                 Description                 |
+| -------------- | ------------- | ------------------------------------------- |
+| BG_COLOR       | `white`       | Background color for start page and API. List of colors is located at [link](color_list.txt)    |
+| MONGO_USERNAME | `root`        | Username for MongoDB connections            |
+| MONGO_PASSWORD | `example`     | Username's passwrod for MongoDB connections |
+| MONGO_HOST     | `localhost`   | MongoDB's hostname                          |
+| MONGO_PORT     | `27017`       | MongoDB's password                          |
+
+### Supported colors
+
+List of supported colors is located at [link](color_list.txt)
