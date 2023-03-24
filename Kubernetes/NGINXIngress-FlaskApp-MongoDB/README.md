@@ -45,6 +45,27 @@ You need to prepare *Dockerfile* so that Docker image complyes with the followin
 - Docker image consists of the application and its requirements
 - Docker image might be placed in **private** DockerHub repository `<nsurname>_application`
 
+#### Guide:
+1. Build image from Dockerfile: 
+    ```
+    docker build -t nginxingress-flaskapp-mongodb-web .
+    ```
+   
+2. Correct tagging of the image in relation to our private repository:
+    > You need to tag your image correctly first with your **registryhost**!
+
+    ```
+    docker tag nginxingress-flaskapp-mongodb-web ruslan1serdiuk/rserdiuk_application:nginxingress-flaskapp-mongodb-web
+    ```
+
+3. Push Image:
+    ```
+    docker push ruslan1serdiuk/rserdiuk_application:nginxingress-flaskapp-mongodb-web
+    ```
+#### Result: <img src="./img/docker_push.jpg"> <img src="./img/docker_hub.jpg"> 
+
+
+
 
 ##### Haskell Dockerfile Linter
 
@@ -115,14 +136,63 @@ You need to prepare *docker-compose.yaml* that:
         - MONGO_HOST: mongo
         - MONGO_PORT: 27017
         - BG_COLOR: teal
+        
+#### My `docker-compose.yaml`:
 
+```
+version: '3.1'  
 
-Now you can deploy your application on the local PC and check how it works.
+networks:
+  app-tier:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/24
+          gateway: 172.18.0.1
+
+services:
+
+  db:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: "${MONGO_USERNAME}"
+      MONGO_INITDB_ROOT_PASSWORD: "${MONGO_PASSWORD}"
+    volumes:
+      - ./MongoData:/data/db
+    networks:
+      app-tier:
+        ipv4_address: 172.18.0.2
+
+  web:
+    build:
+      context: ./
+      dockerfile: Dockerfile  
+    restart: always
+    ports:
+      - 5000:5000
+    env_file: .env
+    networks:
+      app-tier:
+        ipv4_address: 172.18.0.3
+    depends_on:
+      - "db"
+```
+
+Now we can deploy our application on the local PC and check how it works.
 
 **Step Result:**
-- the application is deployed (you can open it in browser)
-- issue is fixed on *Issue Page* page
-- data can be written to MongoDB on *Test DB Connectivity* page
+- the application is deployed (you can open it in browser)<img src="./img/open_app.jpg">
+
+
+- issue is fixed on *Issue Page* page 
+
+  <img src="./img/issue.jpg">
+
+
+- data can be written to MongoDB on *Test DB Connectivity* page <img src="./img/test_app.jpg">
 
 
 
