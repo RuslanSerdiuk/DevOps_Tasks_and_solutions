@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: application
+  labels:
+    app: application
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: application
+  template:
+    metadata:
+      labels:
+        app: application
+    spec:
+      containers:
+      - name: application
+        image: ruslan1serdiuk/rserdiuk_application:nginxingress-flaskapp-mongodb-web
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "200m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000
+          name: http-web-svc
+        readinessProbe:
+          httpGet:
+            path: /healthx
+            port: http-web-svc
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http-web-svc
+          initialDelaySeconds: 10
+          periodSeconds: 3
+        env:
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: application
+                  key: MONGO_HOST
+            - name: MONGO_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: application
+                  key: MONGO_PORT
+            - name: BG_COLOR
+              valueFrom:
+                configMapKeyRef:
+                  name: application
+                  key: BG_COLOR
+            - name: FAIL_FLAG
+              valueFrom:
+                configMapKeyRef:
+                  name: application
+                  key: FAIL_FLAG
+      imagePullSecrets:
+      - name: docker-secret
+      initContainers:
+        - name: wait-for-mongodb
+          image: alpine:3.17.2
+          command: ['sh', '-c', 'until nc -zv mongo 27017; do sleep 5; done;']
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: application
+spec:
+  selector:
+    app: application
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: http-web-svc
+  type: ClusterIP 

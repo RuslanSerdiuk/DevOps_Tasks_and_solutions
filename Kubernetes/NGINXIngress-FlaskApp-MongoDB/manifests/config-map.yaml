@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: application
+  namespace: rserdiuk
+data:
+  MONGO_HOST: "mongo"
+  MONGO_PORT: "27017"
+  BG_COLOR: "teal"
+  FAIL_FLAG: "False"
