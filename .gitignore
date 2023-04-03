@@ -40,3 +40,4 @@ AWS/CodePipeline-CodeDeploy/policy.json
 #####################################################
 
 Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/S3Bucket_files/email-export-lambda.zip
+Kubernetes/NGINXIngress-FlaskApp-MongoDB/.vagrant
