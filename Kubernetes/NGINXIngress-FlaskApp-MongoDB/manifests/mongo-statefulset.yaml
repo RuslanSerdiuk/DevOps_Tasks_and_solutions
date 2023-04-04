@@ -23,8 +23,6 @@ spec:
             - "mongod"
             - "--bind_ip"
             - "0.0.0.0"
-            - "--replSet"
-            - "MainRepSet"
           resources:
             requests:
               memory: "128Mi"
@@ -37,6 +35,17 @@ spec:
           volumeMounts:
             - name: mongodb-persistent-storage-claim
               mountPath: /data/db
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mongo
+                  key: MONGO_USERNAME
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mongo
+                  key: MONGO_PASSWORD
   volumeClaimTemplates:
   - metadata:
       name: mongodb-persistent-storage-claim

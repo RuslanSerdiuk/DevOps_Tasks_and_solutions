@@ -63,6 +63,16 @@ spec:
                 configMapKeyRef:
                   name: application
                   key: FAIL_FLAG
+            - name: MONGO_USERNAME
+              valueFrom: 
+                secretKeyRef: 
+                  key: MONGO_USERNAME
+                  name: mongo
+            - name: MONGO_PASSWORD
+              valueFrom: 
+                secretKeyRef: 
+                  key: MONGO_PASSWORD
+                  name: mongo
       imagePullSecrets:
       - name: docker-secret
       initContainers:
