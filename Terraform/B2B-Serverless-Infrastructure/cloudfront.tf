@@ -11,7 +11,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   enabled             = true
   is_ipv6_enabled     = true
-  comment             = "Some comment"
+  comment             = "B2B project CloudFront distribution"
   default_root_object = "index.html"
 
   custom_error_response{
@@ -22,8 +22,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   logging_config {
     include_cookies = false
-    bucket          = "mylogs.s3.amazonaws.com"
-    prefix          = "myprefix"
+    bucket          = aws_s3_bucket.B2B_Project_bucket.bucket_regional_domain_name
+    prefix          = "logs/cloudfront-logs/"
   }
 
   aliases = ["mysite.p2p_project_access_policy.com", "yoursite.p2p_project_access_policy.com"]
@@ -47,10 +47,17 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     max_ttl                = 86400
   }
   
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+      locations        = []
+    }
+  }
+
   tags = {
-    "Name"                    = "${var.role}-${var.finance_env}"
-    "Role"                    = "${var.role}-${var.finance_env}"
-    "EpicFinance:Environment" = var.finance_env
+    "Name"                    = var.finance_product
+    "Role"                    = "${var.backend_role}-${var.finance_env}"
+    "Environment"             = var.name_env
   }
 
   viewer_certificate {

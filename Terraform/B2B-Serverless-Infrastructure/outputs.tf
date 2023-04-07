@@ -3,7 +3,7 @@
 ############################
 
 output "S3Bucket_id" {
-  value = aws_s3_bucket.Export_DynamoDB.id
+  value = aws_s3_bucket.B2B_Project_bucket.id
 }
 
 ############################
@@ -11,7 +11,7 @@ output "S3Bucket_id" {
 ############################
 
 output "Lambda_ID" {
-  value = aws_lambda_function.trigger_lambda_warming.id
+  value = aws_lambda_function.serverless_mach.id
 }
 
 ############################

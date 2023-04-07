@@ -1,27 +1,24 @@
 ############################
 # Tags                     #
 ############################
-
-backend_role = "task-dynamodb-to-s3-to-snowflake-migration"
-finance_product = "notification-tool-service"
+backend_role = "serverless-mach"
+finance_product = "b2b_project"
 finance_env = "prod"
 name_env = "pd"
 
 ############################
 # S3                       #
 ############################
-
-name_bucket      = "communications-bucket-for-export-dynamodb-test"
+name_bucket      = "serverless-mach-bst-backend"
 upload_directory = "S3Bucket_files/"
 
 ############################
 # Lambdas                  #
 ############################
-
-function_name   = "ExpS3toSnowflake"
+function_name   = "serverless-mach-dev-main"
 role_for_lambda = "arn:aws:iam::384461882996:role/test-role-for-s3-glitter"
-lambda_handler = "main.ExportS3toSnowflake"
+lambda_handler = "dist/lambda.handler"
 
-s3_key_file   = "lambda.zip"
+s3_key_file   = "lambda-mach.zip"
 # vpc_id      = "vpc-a09317cf"
 # security_groups = [ "sg-2841954d", "sg-eeeb6e81", "sg-0556d26a" ]
