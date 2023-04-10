@@ -19,7 +19,7 @@ resource "aws_lambda_function" "serverless_mach" {
 
   tags = {
     "Name"                    = var.finance_product
-    "Role"                    = "${var.backend_role}-${var.finance_env}"
-    "Environment"             = var.name_env
+    "Role"                    = "${var.backend_role}-${var.name_env}"
+    "Environment"             = var.finance_env
   }
 }

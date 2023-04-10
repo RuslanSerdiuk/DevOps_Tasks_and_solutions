@@ -23,3 +23,10 @@ lambda_handler = "dist/lambda.handler"
 s3_key_file   = "lambda-mach.zip"
 # vpc_id      = "vpc-a09317cf"
 # security_groups = [ "sg-2841954d", "sg-eeeb6e81", "sg-0556d26a" ]
+
+############################
+# API Gateway              #
+############################
+
+api_name        = "dev-serverless-mach"
+http_route_key  = "ANY /"

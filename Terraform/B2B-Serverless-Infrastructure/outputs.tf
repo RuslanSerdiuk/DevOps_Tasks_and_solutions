@@ -35,5 +35,5 @@ output "CloudFront_Distribution_ID" {
 ############################
 
 output "API_Gateway" {
-  value = aws_api_gateway_rest_api.api.arn
+  value = aws_apigatewayv2_api.serverless_mach_api.arn
 }

@@ -77,3 +77,15 @@ variable "lambda_handler" {
 variable "s3_key_file" {
 
 }
+
+############################
+# API Gateway              #
+############################
+
+variable "api_name" {
+  
+}
+
+variable "http_route_key" {
+  description = "( $default | GET /pets | or ANY /example/{proxy+} )"
+}

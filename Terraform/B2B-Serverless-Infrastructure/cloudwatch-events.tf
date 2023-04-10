@@ -6,8 +6,8 @@ resource "aws_cloudwatch_event_rule" "b2b_project_fift_min_event" {
 
   tags = {
     "Name"                    = var.finance_product
-    "Role"                    = "${var.backend_role}-${var.finance_env}"
-    "Environment"             = var.name_env
+    "Role"                    = "${var.backend_role}-${var.name_env}"
+    "Environment"             = var.finance_env
   }
 }
 
