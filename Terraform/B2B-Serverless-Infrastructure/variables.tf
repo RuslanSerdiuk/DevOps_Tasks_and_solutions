@@ -15,6 +15,10 @@ variable "region" {
   description = "My Region"
 }
 
+variable "accountId" {
+  
+}
+
 ############################
 # Tags                     #
 ############################

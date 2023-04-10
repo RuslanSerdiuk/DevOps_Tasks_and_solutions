@@ -2,7 +2,7 @@
 # S3                       #
 ############################
 
-output "S3Bucket_id" {
+output "S3Bucket_ID" {
   value = aws_s3_bucket.B2B_Project_bucket.id
 }
 
@@ -18,6 +18,22 @@ output "Lambda_ID" {
 # CloudWatch               #
 ############################
 
-output "aws_cloudwatch_event_trigger" {
+output "Cloudwatch_Event_Trigger" {
   value = aws_cloudwatch_event_rule.b2b_project_fift_min_event.arn
+}
+
+############################
+# CloudFront               #
+############################
+
+output "CloudFront_Distribution_ID" {
+  value = aws_cloudfront_distribution.s3_distribution.arn
+}
+
+############################
+# API Gateway              #
+############################
+
+output "API_Gateway" {
+  value = aws_api_gateway_rest_api.api.arn
 }

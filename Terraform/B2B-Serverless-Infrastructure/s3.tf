@@ -31,8 +31,8 @@ data "aws_iam_policy_document" "allow_access" {
     resources = ["${aws_s3_bucket.B2B_Project_bucket.arn}/*"]
 
     principals {
-      type        = "*"
-      identifiers = ["*"]
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.my_origin_access_identity.iam_arn]
     }
   }
 }

@@ -6,6 +6,7 @@ finance_product = "b2b_project"
 finance_env = "prod"
 name_env = "pd"
 
+accountId = "384461882996"
 ############################
 # S3                       #
 ############################
