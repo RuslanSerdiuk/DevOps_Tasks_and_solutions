@@ -47,24 +47,24 @@ data "aws_iam_policy_document" "allow_access" {
   policy_id = "PolicyForCloudFrontPrivateContent"
   policy = <<EOF
 {
-    "Version": "2012-10-17",
-    "Statement": {
-        "Sid": "AllowCloudFrontServicePrincipalReadWrite",
-        "Effect": "Allow",
-        "Principal": {
-            "Service": "cloudfront.amazonaws.com"
-        },
-        "Action": [
-            "s3:GetObject",
-            "s3:PutObject"
-        ],
-        "Resource": "arn:aws:s3:::${aws_s3_bucket.B2B_Project_bucket.arn}/*",
-        "Condition": {
-            "StringEquals": {
-                "AWS:SourceArn": "arn:aws:cloudfront::384461882996:distribution/${aws_cloudfront_distribution.s3_distribution.id}"
+    "Version": "2008-10-17",
+    "Id": "PolicyForCloudFrontPrivateContent",
+    "Statement": [
+        {
+            "Sid": "AllowCloudFrontServicePrincipal",
+            "Effect": "Allow",
+            "Principal": {
+                "Service": "cloudfront.amazonaws.com"
+            },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::mach-bst-frontend/*",
+            "Condition": {
+                "StringEquals": {
+                    "AWS:SourceArn": "arn:aws:cloudfront::863151058727:distribution/E2TXCIXPU7WRQQ"
+                }
             }
         }
-    }
+    ]
 }
 EOF
 }

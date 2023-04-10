@@ -1,5 +1,5 @@
 locals {
-  s3_origin_id = "S3Origin"
+  s3_origin_id = var.s3_origin
 }
 
 resource "aws_cloudfront_origin_access_identity" "my_origin_access_identity" {
@@ -22,9 +22,10 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_root_object = "index.html"
 
   custom_error_response{
-    error_code         = "403"
-    response_code      = "200"
-    response_page_path = "/index.html"
+    error_code            = "403"
+    response_code         = "200"
+    response_page_path    = "/index.html"
+    error_caching_min_ttl = 10
   }
 
   logging_config {
@@ -50,6 +51,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
+    compress               = true
   }
   
   restrictions {

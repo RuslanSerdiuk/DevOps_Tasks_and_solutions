@@ -14,6 +14,11 @@ name_bucket      = "serverless-mach-bst-backend"
 upload_directory = "S3Bucket_files/"
 
 ############################
+# CloudFront               #
+############################
+s3_origin = "mach-bst-frontend"
+
+############################
 # Lambdas                  #
 ############################
 function_name   = "serverless-mach-dev-main"
@@ -27,6 +32,5 @@ s3_key_file   = "lambda-mach.zip"
 ############################
 # API Gateway              #
 ############################
-
 api_name        = "dev-serverless-mach"
 http_route_key  = "ANY /"
