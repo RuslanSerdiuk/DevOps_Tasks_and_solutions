@@ -11,8 +11,8 @@ resource "aws_cloudwatch_event_rule" "b2b_project_fift_min_event" {
   }
 }
 
-resource "aws_cloudwatch_event_target" "trigger_lambda_warming" {
+resource "aws_cloudwatch_event_target" "trigger_lambda_for_serverless_backend" {
     rule = aws_cloudwatch_event_rule.b2b_project_fift_min_event.name
     target_id = "trigger-for-lambda-warming"
-    arn = aws_lambda_function.serverless_mach.arn
+    arn = aws_lambda_function.lambda_for_serverless_backend.arn
 }

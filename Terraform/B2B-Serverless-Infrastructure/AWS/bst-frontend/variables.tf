@@ -15,16 +15,16 @@ variable "region" {
   description = "My Region"
 }
 
-variable "accountId" {
-  
-}
-
 ############################
 # Tags                     #
 ############################
 
-variable "backend_role" {
+variable "backend_role_frontend" {
 
+}
+
+variable "backend_role_admin" {
+  
 }
 
 variable "finance_product" {
@@ -43,57 +43,14 @@ variable "name_env" {
 # S3                       #
 ############################
 
-variable "name_bucket" {
+variable "frontend_name_bucket" {
 
 }
 
-variable "upload_directory" {
-  default = "S3Bucket_files/"
-}
-
-variable "mime_types" {
-  default = {
-    py   = "database/script.py"
-    zip  = "lambda.zip"
-    }
+variable "admin_name_bucket" {
+  
 }
 
 ############################
 # CloudFront               #
 ############################
-
-variable "s3_origin" {
-  
-}
-
-############################
-# Lambda                   #
-############################
-
-variable "function_name" {
-
-}
-
-variable "role_for_lambda" {
-
-}
-
-variable "lambda_handler" {
-
-}
-
-variable "s3_key_file" {
-
-}
-
-############################
-# API Gateway              #
-############################
-
-variable "api_name" {
-  
-}
-
-variable "http_route_key" {
-  description = "( $default | GET /pets | or ANY /example/{proxy+} )"
-}

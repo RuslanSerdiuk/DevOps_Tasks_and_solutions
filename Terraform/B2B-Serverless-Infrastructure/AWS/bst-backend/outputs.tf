@@ -3,7 +3,7 @@
 ############################
 
 output "S3Bucket_ID" {
-  value = aws_s3_bucket.B2B_Project_bucket.id
+  value = aws_s3_bucket.B2B_Project_bucket_for_serverless_backend.id
 }
 
 ############################
@@ -11,7 +11,7 @@ output "S3Bucket_ID" {
 ############################
 
 output "Lambda_ID" {
-  value = aws_lambda_function.serverless_mach.id
+  value = aws_lambda_function.lambda_for_serverless_backend.id
 }
 
 ############################
@@ -23,17 +23,9 @@ output "Cloudwatch_Event_Trigger" {
 }
 
 ############################
-# CloudFront               #
-############################
-
-output "CloudFront_Distribution_ID" {
-  value = aws_cloudfront_distribution.s3_distribution.arn
-}
-
-############################
 # API Gateway              #
 ############################
 
 output "API_Gateway" {
-  value = aws_apigatewayv2_api.serverless_mach_api.arn
+  value = aws_apigatewayv2_api.lambda_for_serverless_backend_api.arn
 }

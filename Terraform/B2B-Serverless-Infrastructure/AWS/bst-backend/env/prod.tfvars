@@ -1,36 +1,28 @@
 ############################
 # Tags                     #
 ############################
-backend_role = "serverless-mach"
+backend_role    = "mach-bst-backend"
 finance_product = "b2b_project"
-finance_env = "prod"
-name_env = "pd"
+finance_env     = "prod"
+name_env        = "pd"
 
-accountId = "384461882996"
 ############################
 # S3                       #
 ############################
-name_bucket      = "serverless-mach-bst-backend"
+name_bucket      = "mach-bst-backend"
 upload_directory = "S3Bucket_files/"
-
-############################
-# CloudFront               #
-############################
-s3_origin = "mach-bst-frontend"
 
 ############################
 # Lambdas                  #
 ############################
-function_name   = "serverless-mach-dev-main"
+function_name   = "serverless-mach-bst-backend"
 role_for_lambda = "arn:aws:iam::384461882996:role/test-role-for-s3-glitter"
 lambda_handler = "dist/lambda.handler"
 
 s3_key_file   = "lambda-mach.zip"
-# vpc_id      = "vpc-a09317cf"
-# security_groups = [ "sg-2841954d", "sg-eeeb6e81", "sg-0556d26a" ]
 
 ############################
 # API Gateway              #
 ############################
-api_name        = "dev-serverless-mach"
+api_name        = "serverless-mach-bst-backend"
 http_route_key  = "ANY /"
