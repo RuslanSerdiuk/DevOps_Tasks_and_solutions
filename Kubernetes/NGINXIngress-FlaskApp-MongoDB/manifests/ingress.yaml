@@ -1,16 +1,18 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx
+  name: presentation-layer-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-   - host: rserdiuk.application.com
-     http:
-        paths:
-          - pathType: Prefix
-            path: /
-            backend:
-              service:
-                name: application
-                port: 
-                  number: 80
+  - host: bmukovozov.application.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: application
+            port:
+              number: 80
