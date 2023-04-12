@@ -25,4 +25,4 @@ s3_key_file   = "lambda-mach.zip"
 # API Gateway              #
 ############################
 api_name        = "serverless-mach-bst-backend"
-http_route_key  = "ANY /"
+http_route_key  = "$default"
