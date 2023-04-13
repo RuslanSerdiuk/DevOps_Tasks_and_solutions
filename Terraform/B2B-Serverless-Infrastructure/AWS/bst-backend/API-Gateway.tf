@@ -1,6 +1,6 @@
 ######################### API Gateway #################################
 resource "aws_apigatewayv2_api" "lambda_for_serverless_backend_api" {
-  name          = var.api_name
+  name          = "${var.api_name}-${var.name_env}"
   protocol_type = "HTTP"
 
   cors_configuration {

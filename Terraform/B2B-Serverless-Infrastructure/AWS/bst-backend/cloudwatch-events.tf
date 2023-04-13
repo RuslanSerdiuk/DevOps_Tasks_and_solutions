@@ -1,6 +1,6 @@
 ################### rule for lambda trigger ###################
 resource "aws_cloudwatch_event_rule" "b2b_project_fift_min_event" {
-  name                = "b2b_project_${var.name_env}"
+  name                = "Rule-for-serverless-mach-bst-backend-${var.name_env}"
   description         = "Trigger function every 15 minutes"
   schedule_expression = "cron(*/15 * * * ? *)"
 

@@ -3,8 +3,8 @@
 ############################
 backend_role    = "mach-bst-backend"
 finance_product = "b2b_project"
-finance_env     = "prod"
-name_env        = "pd"
+finance_env     = "dev"
+name_env        = "dv"
 
 ############################
 # S3                       #

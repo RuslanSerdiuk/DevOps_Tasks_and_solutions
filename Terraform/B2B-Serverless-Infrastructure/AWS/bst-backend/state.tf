@@ -1,8 +1,9 @@
 terraform {
   backend "s3" {
     bucket = "tf-ruslan-bucketfor-statefiles"
-    key = "terraform-infrastructure/AWS/bst-backend.tfstate"
+    key = "bst-backend.tfstate"
     region = "us-east-2"
+    workspace_key_prefix = "terraform-infrastructure/AWS"
     dynamodb_table = "tf-ruslan-state-locks"
     encrypt = true
   }
