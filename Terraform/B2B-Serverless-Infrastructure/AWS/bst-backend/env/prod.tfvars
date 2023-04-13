@@ -26,3 +26,7 @@ s3_key_file   = "lambda-mach.zip"
 ############################
 api_name        = "serverless-mach-bst-backend"
 http_route_key  = "$default"
+########### CORS ###########
+allow_origins = ["*"]
+allow_headers = ["content-type", "x-amz-date", "authorization", "x-api-key", "x-amz-security-token", "x-amz-user-agent", "x-amzn-trace-id"]
+allow_methods = ["GET", "POST", "OPTIONS", "PATCH", "PUT", "DELETE", "HEAD"]

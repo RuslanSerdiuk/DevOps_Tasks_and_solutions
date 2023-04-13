@@ -15,7 +15,8 @@ resource "aws_lambda_function" "lambda_for_serverless_backend" {
   role          = var.role_for_lambda
   handler       = var.lambda_handler
   runtime       = "nodejs18.x"
-  timeout       = 3
+  timeout       = 6
+  memory_size   = 1024
 
   environment {
     variables = {

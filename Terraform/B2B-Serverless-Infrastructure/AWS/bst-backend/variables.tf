@@ -117,3 +117,15 @@ variable "api_name" {
 variable "http_route_key" {
   description = "( $default | GET /pets | or ANY /example/{proxy+} )"
 }
+
+variable "allow_origins" {
+
+}
+
+variable "allow_headers" {
+  
+}
+
+variable "allow_methods" {
+  
+}

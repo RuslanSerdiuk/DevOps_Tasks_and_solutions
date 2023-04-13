@@ -3,6 +3,12 @@ resource "aws_apigatewayv2_api" "lambda_for_serverless_backend_api" {
   name          = var.api_name
   protocol_type = "HTTP"
 
+  cors_configuration {
+    allow_origins = var.allow_origins
+    allow_headers = var.allow_headers
+    allow_methods = var.allow_methods
+  }
+
   tags = {
     "Name"                    = var.finance_product
     "Role"                    = "${var.backend_role}-${var.name_env}"
