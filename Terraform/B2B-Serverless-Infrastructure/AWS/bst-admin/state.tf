@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "tf-ruslan-bucketfor-statefiles"
-    key = "bst-frontend.tfstate"
+    key = "bst-admin.tfstate"
     region = "us-east-2"
     workspace_key_prefix = "terraform-infrastructure/AWS"
   }

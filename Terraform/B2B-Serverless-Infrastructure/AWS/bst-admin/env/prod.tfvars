@@ -1,7 +1,7 @@
 ############################
 # Tags                     #
 ############################
-backend_role          = "mach-bst-frontend"
+backend_role          = "mach-bst-admin"
 finance_product       = "b2b_project"
 finance_env           = "prod"
 name_env              = "pd"
@@ -9,7 +9,7 @@ name_env              = "pd"
 ############################
 # S3                       #
 ############################
-bucket_name           = "mach-bst-frontend"
+bucket_name           = "mach-bst-admin"
 
 ############################
 # CloudFront               #

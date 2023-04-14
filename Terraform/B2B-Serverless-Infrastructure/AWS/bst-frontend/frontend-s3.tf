@@ -1,10 +1,10 @@
 ################################## S3 Bucket [Frontend] ########################################
   resource "aws_s3_bucket" "B2B_Project_bucket_for_frontend" {
-    bucket = "${var.frontend_name_bucket}-${var.name_env}"
+    bucket = "${var.bucket_name}-${var.name_env}"
 
       tags = {
         "Name"                    = var.finance_product
-        "Role"                    = "${var.backend_role_frontend}-${var.name_env}"
+        "Role"                    = "${var.backend_role}-${var.name_env}"
         "Environment"             = var.finance_env
       }
   }

@@ -16,7 +16,7 @@ upload_directory = "S3Bucket_files/"
 # Lambdas                  #
 ############################
 function_name   = "serverless-mach-bst-backend"
-role_for_lambda = "arn:aws:iam::384461882996:role/test-role-for-s3-glitter"
+role_for_lambda = "arn:aws:iam::384461882996:role/b2b-project"
 lambda_handler = "dist/lambda.handler"
 
 s3_key_file   = "lambda-mach.zip"
