@@ -1,0 +1,9 @@
+- name: Deploy latest version of Prometheus chart inside monitoring namespace (and create it)
+  kubernetes.core.helm:
+    name: test
+    chart_ref: prometheus-community/prometheus
+    release_namespace: "{{ namespace }}"
+    create_namespace: true
+    values: "{{ lookup('template', 'prometheus.yaml') | from_yaml }}"
+    state: present
+    kubeconfig: "/home/ubuntu/.kube/config"

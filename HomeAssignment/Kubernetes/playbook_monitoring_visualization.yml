@@ -1,0 +1,7 @@
+---
+- name: Install Prometheus, Grafana, Elasticsearch, Kibana, Filebeat for metrics and logging monitoring
+  hosts: tag_Name_Minikube
+  become: yes
+
+  roles:
+    - monitoring_visualization
