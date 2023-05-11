@@ -1,9 +1,2 @@
 [windows_server]
 windows2019    ansible_host=18.119.113.204 
-
-[windows_server:vars]
-ansible_user=Administrator
-ansible_password="Z;TztU.=$*&?*heFqeZJWDZBXTR-(gGv"
-ansible_port=5986
-ansible_connection=winrm
-ansible_winrm_server_cert_validation=ignore

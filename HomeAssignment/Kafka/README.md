@@ -14,7 +14,7 @@
 - OpenJDK 11
 - Python
 
-#### All screenshots you can find [here]() :warning:
+#### All screenshots you can find [here](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/home-assignment/HomeAssignment/Kafka/img) :warning:
 
 
 
@@ -77,7 +77,7 @@ To start, create a directory in /home/kafka called Downloads to store your downl
     ```
     log.retention.hours=24
     ```
-6. `server.properties` file you can find and check [here]() <img src ='img/Kafka_server_properties.jpg'>
+6. `server.properties` file you can find and check [here](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/home-assignment/HomeAssignment/Kafka/kafka/config/server.properties) <img src ='img/Kafka_server_properties.jpg'>
 
 
 
@@ -162,7 +162,7 @@ To start, create a directory in /home/kafka called Downloads to store your downl
 
 ### _Bring up another broker and create a cluster between brokers_
 1. Copy Kafka directory: Copy your existing Kafka directory to create a new instance of Kafka for the second broker.
-2. Configure the second broker: Open a terminal and navigate to the directory of the second Kafka broker (kafka_second_broker). Edit the [server.properties]() file to configure the broker. Make the following changes:
+2. Configure the second broker: Open a terminal and navigate to the directory of the second Kafka broker (kafka_second_broker). Edit the [server.properties](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/home-assignment/HomeAssignment/Kafka/kafka_second_broker/config/server.properties) file to configure the broker. Make the following changes:
    ```
    broker.id=1
    listeners=PLAINTEXT://:9093
@@ -213,7 +213,7 @@ To start, create a directory in /home/kafka called Downloads to store your downl
    bin/kafka-topics.sh --bootstrap-server localhost:9092 --alter --topic NeoGames \--partitions 20
    ```
 
-2. Create a JSON file (e.g., [reassignment.json]()) with the following content:
+2. Create a JSON file (e.g., [reassignment.json](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/home-assignment/HomeAssignment/Kafka/reassignment.json)) with the following content:
    ```
    {
      "version": 1,
@@ -261,7 +261,7 @@ bin/kafka-reassign-partitions.sh --bootstrap-server localhost:2181 --reassignmen
    ```
    pip install kafka-python
    ```
-2. Write [Producer]():
+2. Write [Producer](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/home-assignment/HomeAssignment/Kafka/kafka_producer.py):
    ```
    from kafka import KafkaProducer
    
@@ -291,7 +291,7 @@ bin/kafka-reassign-partitions.sh --bootstrap-server localhost:2181 --reassignmen
    producer.close()
    ```
 
-3. Write [Consumer]():
+3. Write [Consumer](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/home-assignment/HomeAssignment/Kafka/kafka_consumer.py):
    ```
    from kafka import KafkaConsumer
    

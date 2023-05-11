@@ -7,6 +7,6 @@
 
 
 ### _LINKS:_
-#### [Kubernetes]()
-#### [Kafka]()
-#### [Windows - Ansible]()
+#### [Kubernetes](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/home-assignment/HomeAssignment/Kubernetes)
+#### [Kafka](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/home-assignment/HomeAssignment/Kafka)
+#### [Windows - Ansible](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/home-assignment/HomeAssignment/WindowsAnsible)

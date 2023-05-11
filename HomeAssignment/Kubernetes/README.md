@@ -12,6 +12,7 @@
 
 > Instead of a full-fledged Kubernetes cluster, I was decided to deploy a `minikube`. Because it's much faster!
 
+#### All screenshots you can find [here](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/home-assignment/HomeAssignment/Kubernetes/img) :warning:
 
 ### _Prerequisites:_
 1. For machine with Ansible:
@@ -37,7 +38,7 @@
     export AWS_SECRET_ACCESS_KEY=<your-secret-key>
     ```
 
-3. Create an Ansible inventory file: Ansible uses an inventory file to define the hosts it should manage. With Dynamic Inventory for AWS, you don't need to manually specify hosts; Ansible will fetch them from AWS. Create an inventory file - [aws_ec2.yml](), and add the following content:
+3. Create an Ansible inventory file: Ansible uses an inventory file to define the hosts it should manage. With Dynamic Inventory for AWS, you don't need to manually specify hosts; Ansible will fetch them from AWS. Create an inventory file - [aws_ec2.yml](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/home-assignment/HomeAssignment/Kubernetes/aws_ec2.yaml), and add the following content:
     ```
     plugin: aws_ec2
     regions:
@@ -72,14 +73,14 @@
 
 
 ### _Deploy Redis, Jenkins & NGINX on the cluster using Ansible_
-1. Create [tag_Name_Minikube]():
+1. Create [tag_Name_Minikube](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/home-assignment/HomeAssignment/Kubernetes/group_vars/tag_Name_Minikube):
     ```
     ---
     ansible_user                         : ubuntu
     ansible_ssh_private_key_file         : /home/ubuntu/Ruslan-key-Ohio-TASK2.2.pem
     ```
 
-2. Tasks you can find [here](). Playbook:
+2. Tasks you can find [here](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/home-assignment/HomeAssignment/Kubernetes/roles/deploy_to_minikube/tasks/main.yml). Also [Vars](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/home-assignment/HomeAssignment/Kubernetes/roles/deploy_to_minikube/vars/main.yml). Playbook:
     ```
     ---
     - name: Install Redis, Jenkins & NGINX to Minikube
@@ -129,9 +130,10 @@
 
 ### _Monitoring and logging_
 1. Playbook for set up Prometheus and Grafana for metrics:
-   - Role [here]()
-   - Tasks [here]()
-   - Vars [here]()
+   - Role [here](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/home-assignment/HomeAssignment/Kubernetes/roles/monitoring_visualization)
+   - Tasks [here](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/home-assignment/HomeAssignment/Kubernetes/roles/monitoring_visualization/tasks/main.yml)
+   - Templates [here](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/home-assignment/HomeAssignment/Kubernetes/roles/monitoring_visualization/templates)
+   - Vars [here](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/home-assignment/HomeAssignment/Kubernetes/roles/monitoring_visualization/vars/main.yml)
     ```
     ---
     - name: Install Prometheus, Grafana, Elasticsearch, Kibana, Filebeat for metrics and logging monitoring
@@ -170,7 +172,7 @@
 #### There were problems with the logging. I used helm to deploy Elasticsearch. But the pods do not pass the Readiness probe!
 
 
-8. Although I changed the [value]() for one replica in the `statefulset`:
+8. Although I changed the [value](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/home-assignment/HomeAssignment/Kubernetes/roles/monitoring_visualization/templates/value.yaml) for one replica in the `statefulset`:
 
     ```
     ---
