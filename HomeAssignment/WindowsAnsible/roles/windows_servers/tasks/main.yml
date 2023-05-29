@@ -1,0 +1,39 @@
+
+- name: Disable Windows Updates Service
+  win_service:
+    name: wuauserv
+    state: stopped
+
+
+- name: Run ipconfig and return IP address information.
+  raw: ipconfig
+  register: ipconfig
+- debug: var=ipconfig
+
+
+- name: Install IIS
+  win_feature:
+    name: "Web-Server"
+    state: present
+    restart: yes
+    include_sub_features: yes
+    include_management_tools: yes
+
+- name: Delete existing files in the web app directory
+  win_shell: |
+    Remove-Item -Path "C:\\inetpub\\wwwroot\\*" -Recurse -Force
+  changed_when: false
+
+- name: Copy index text page
+  win_copy:
+    src: "{{ web_app_source }}"
+    dest: "{{ web_app_path }}"
+
+- name: Install .NET Framework 4.8
+  win_feature:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - Net-Framework-Features
+    - Web-Common-Http
+  notify: Restart IIS

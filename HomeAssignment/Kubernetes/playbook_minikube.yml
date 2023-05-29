@@ -1,0 +1,7 @@
+---
+- name: Install Redis, Jenkins & NGINX to Minikube
+  hosts: tag_Name_Minikube
+  become: yes
+
+  roles:
+    - deploy_to_minikube
