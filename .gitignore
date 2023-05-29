@@ -20,6 +20,17 @@ Terraform/B2B-Serverless-Infrastructure/.tfstate.backup
 Terraform/B2B-Serverless-Infrastructure/Key for user.txt
 Terraform/B2B-Serverless-Infrastructure/S3Bucket_files
 
+Terraform/B2B-Serverless-Infrastructure/AWS/bst-admin/.terraform.lock.hcl
+Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/.terraform.lock.hcl
+Terraform/B2B-Serverless-Infrastructure/AWS/bst-frontend/.terraform.lock.hcl
+Terraform/B2B-Serverless-Infrastructure/AWS/bst-admin/.terraform/
+Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/.terraform/
+Terraform/B2B-Serverless-Infrastructure/AWS/bst-frontend/.terraform/
+Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/S3Bucket_files/
+Terraform/B2B-Serverless-Infrastructure/AWS/bst-admin/Key for user.txt
+Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/Key for user.txt
+Terraform/B2B-Serverless-Infrastructure/AWS/bst-frontend/Key for user.txt
+
 #####################################################
 #                ANSIBLE                            #
 #####################################################
