@@ -12,18 +12,6 @@ Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.terraform/providers/regi
 Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.tfstate
 Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.terraform/terraform.tfstate
 Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.tfstate.backup
-Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/S3Bucket_files/email-export-lambda.zip
-
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-admin/.terraform.lock.hcl
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-admin/.terraform/*
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-admin/Key for user.txt
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/.terraform.lock.hcl
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/.terraform/*
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/Key for user.txt
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/S3Bucket_files/lambda-mach.zip
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-frontend/.terraform.lock.hcl
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-frontend/.terraform/*
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-frontend/Key for user.txt
 
 Terraform/B2B-Serverless-Infrastructure/AWS/bst-admin/.terraform.lock.hcl
 Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/.terraform.lock.hcl
