@@ -1,0 +1,2 @@
+[windows_server]
+windows2019    ansible_host=18.119.113.204 

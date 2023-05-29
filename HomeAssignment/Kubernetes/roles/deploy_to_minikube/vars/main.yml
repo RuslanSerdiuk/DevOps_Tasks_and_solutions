@@ -1,0 +1,4 @@
+---
+# vars file for deploy_mongo_primary_node
+redis_image: redis:latest
+redis_port: 6379
