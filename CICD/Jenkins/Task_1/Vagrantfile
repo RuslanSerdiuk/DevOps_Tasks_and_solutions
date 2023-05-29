@@ -1,0 +1,29 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+PROJECT_NAME = "Jenkins"
+PREFIX = "T30"
+Vagrant.configure("2") do |config|
+
+  # Linux
+  
+    config.vm.define "#{PROJECT_NAME}_Linux" do |conf| 
+    conf.vm.box = "ubuntu/focal64"
+    conf.vm.hostname = "EPAMKHAW-NAT-#{PROJECT_NAME}.local"
+   # conf.vm.network "private_network", ip: "172.16.14.3", netmask: "255.255.255.0", virtualbox__intnet: "net-2"
+    config.vm.network "public_network", bridge: "Intel(R) Ethernet Connection (7) I219-LM"
+
+    conf.vm.provider "virtualbox" do |vb|
+      vb.name = "LINUX"
+      vb.gui = true
+      vb.memory = 4096
+      vb.cpus = 4
+      # vb.customize ["modifyvm", :id, "--groups", "/#{PROJECT_NAME}"]
+    end
+    
+    conf.vm.provision "shell", path: "./Jenkins/up_jenkins.sh"
+    conf.vm.provision "Up_Jenkins", type: "shell", inline: <<-SHELL
+
+    SHELL
+  end
+end
