@@ -1,0 +1,43 @@
+pipeline {
+    agent { label "ubuntu" }
+    stages {
+        stage("Deploy on QA") {
+            agent { label "windows"}
+            steps {
+                script {
+                    if (env.environment == "qa" && env.agent == "windows") {
+                        powershell "docker rm $env.environment -f"
+                        powershell "docker pull ruslanserdiuk/petclinic:$env.version"
+                        powershell "docker run -d --name $env.environment -p $env.port:8080 ruslanserdiuk/petclinic:$env.version"
+                    }
+                }
+            }
+        }
+        stage("Deploy on Dev"){
+            agent { label "ubuntu"}
+            steps {
+                script {
+                    if (env.environment == "dev" && env.agent == "ubuntu") {
+                        sh "docker rm $env.environment -f"
+                        sh "docker pull ruslanserdiuk/petclinic:$env.version"
+                        sh "docker run -d --name $env.environment -p $env.port:8080 ruslanserdiuk/petclinic:$env.version"
+                    }
+                }
+            }
+        }
+        stage("Healthcheck") {
+            steps{
+                script {
+                    if (env.environment == "dev") {
+                        sleep time: 40, unit: 'SECONDS'
+                        sh "curl http://10.23.12.16:$env.port/"
+                    }
+                    if (env.environment == "qa") {
+                        sleep time: 25, unit: 'SECONDS'
+                        sh "curl http://10.23.7.17:$env.port/"
+                    }
+                }
+            }
+        }
+    }
+}

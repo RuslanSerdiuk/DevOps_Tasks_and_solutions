@@ -1,0 +1,44 @@
+pipeline {
+    agent {
+        label 'ec2-agent'
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('DockerHub')
+        ECR_CREDENTIALS = credentials('ecr-creds')
+    }
+    stages {
+        stage('Checkout') {
+            steps{
+                git branch: "Jenkins-Setup-Configure", credentialsId: 'github-creds-jenkins-task', url: 'https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions.git'
+                }
+        }
+        stage('Build') {
+            steps {
+                sh 'sudo docker build -f ./CICD/Build-Deploy-Lambda/Dockerfile -t ruslan.serdiuk/lambda:latest ./CICD/Build-Deploy-Lambda/'
+            }
+        }
+        stage('Login + Tag') {
+            steps {
+                sh 'aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 384461882996.dkr.ecr.us-east-2.amazonaws.com'
+                sh 'docker tag ruslan.serdiuk/lambda  384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest'
+            }
+        }
+        stage('Push') {
+            steps {
+                sh 'docker push 384461882996.dkr.ecr.us-east-2.amazonaws.com/ruslan.serdiuk:version-$BUILD_NUMBER-latest'
+            }
+        }
+    }
+    post {
+        always {
+        sh 'docker logout'
+        emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
+        build job: 'cdp-lambda-deploy', parameters: [
+                                            [$class: 'StringParameterValue', name: 'ImageTag', value: "$BUILD_NUMBER"]
+                                        ]
+        }
+    }
+}

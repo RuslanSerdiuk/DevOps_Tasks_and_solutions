@@ -1,0 +1,7 @@
+---
+- name: Installing IIS, creating a new website, and deploying a sample web application
+  hosts: windows_server
+  gather_facts: false
+
+  roles:
+    - windows_servers

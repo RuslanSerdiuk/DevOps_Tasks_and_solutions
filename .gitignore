@@ -13,13 +13,6 @@ Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.tfstate
 Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.terraform/terraform.tfstate
 Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.tfstate.backup
 
-Terraform/B2B-Serverless-Infrastructure/.terraform.lock.hcl
-Terraform/B2B-Serverless-Infrastructure/.terraform/
-Terraform/B2B-Serverless-Infrastructure/.tfstate
-Terraform/B2B-Serverless-Infrastructure/.tfstate.backup
-Terraform/B2B-Serverless-Infrastructure/Key for user.txt
-Terraform/B2B-Serverless-Infrastructure/S3Bucket_files
-
 Terraform/B2B-Serverless-Infrastructure/AWS/bst-admin/.terraform.lock.hcl
 Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/.terraform.lock.hcl
 Terraform/B2B-Serverless-Infrastructure/AWS/bst-frontend/.terraform.lock.hcl
@@ -56,6 +49,4 @@ AWS/CodePipeline-CodeDeploy/policy.json
 #####################################################
 #                KUBERNETES                         #
 #####################################################
-
-Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/S3Bucket_files/email-export-lambda.zip
-
+Kubernetes/NGINXIngress-FlaskApp-MongoDB/.vagrant/*

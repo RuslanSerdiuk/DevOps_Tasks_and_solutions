@@ -1,0 +1,6 @@
+---
+# vars file for deploy_mongo_primary_node
+namespace: monitoring
+chart_name: prometheus-community/
+release_name: prometheus
+values_file: /path/to/prometheus-values.yaml
