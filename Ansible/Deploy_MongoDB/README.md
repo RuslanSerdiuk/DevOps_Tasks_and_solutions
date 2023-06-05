@@ -27,7 +27,7 @@
 
      roles: **dbOwner**
 
-### My solution is implemented using a combination of Terraform and Ansible in AWS. If you only need Ansible, go right [here](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/Ansible_DeployMongoDB/Ansible/Deploy_MongoDB/ansible).
+### My solution is implemented using a combination of Terraform and Ansible in AWS. If you only need Ansible, go right [here](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Ansible/Deploy_MongoDB/ansible).
 
 #### I just took the Ansible code and posted it to demonstrate working in AWS using Terraform
 
@@ -74,7 +74,7 @@ mongo -u testing --authenticationDatabase testing -p 13531
 ```
 
 
-## _[Dynamic Inventory file:](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Ansible_DeployMongoDB/Ansible/Deploy_MongoDB/ansible/aws_ec2.yaml)_
+## _[Dynamic Inventory file:](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Ansible/Deploy_MongoDB/ansible/aws_ec2.yaml)_
 ```
 plugin: aws_ec2
 regions:
@@ -95,7 +95,7 @@ keyed_groups:
     key: instance_type
 ```
 
-## _[Ansible.cnf:](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Ansible_DeployMongoDB/Ansible/Deploy_MongoDB/ansible/ansible.cfg)_
+## _[Ansible.cnf:](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Ansible/Deploy_MongoDB/ansible/ansible.cfg)_
 ```
 [defaults]
 host_key_checking  = false
@@ -103,7 +103,7 @@ inventory          = ./hosts.txt
 interpreter_python = auto_silent
 ```
 
-## _[Playbook_primary_node](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/Ansible_DeployMongoDB/Ansible/Deploy_MongoDB/ansible/roles/deploy_mongo_primary_node)_
+## _[Playbook_primary_node](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Ansible/Deploy_MongoDB/ansible/roles/deploy_mongo_primary_node)_
 ```
 - name: Import the public key used by the package management system
   ansible.builtin.apt_key:
@@ -224,7 +224,7 @@ interpreter_python = auto_silent
     roles: "dbOwner"
 ```
 
-## _[Playbook_secondary_node](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/Ansible_DeployMongoDB/Ansible/Deploy_MongoDB/ansible/roles/deploy_mongo_secondary_node)_
+## _[Playbook_secondary_node](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Ansible/Deploy_MongoDB/ansible/roles/deploy_mongo_secondary_node)_
 ```
 - name: Import the public key used by the package management system
   ansible.builtin.apt_key:

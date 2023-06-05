@@ -22,13 +22,13 @@ Will be a plus:
 :grey_exclamation: **I was decided to create and write my own modules.**
 
 #### All my modules:
-- [vpc](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/vpc/main.tf)
-- [security groups](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/security_group/main.tf)
-- [S3](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/S3/main.tf)
-- [RDS](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/RDS/main.tf)
-- [ASG](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/ASG/main.tf)
-- [Route53](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/Route53/main.tf)
-- [EC2](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/module/EC2/main.tf)
+- [vpc](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Terraform/Simple_Application/module/vpc/main.tf)
+- [security groups](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Terraform/Simple_Application/module/security_group/main.tf)
+- [S3](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Terraform/Simple_Application/module/S3/main.tf)
+- [RDS](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Terraform/Simple_Application/module/RDS/main.tf)
+- [ASG](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Terraform/Simple_Application/module/ASG/main.tf)
+- [Route53](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Terraform/Simple_Application/module/Route53/main.tf)
+- [EC2](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Terraform/Simple_Application/module/EC2/main.tf)
 
 :exclamation: **I put each module in a separate folder and access it with "source" in the root module.**
 
@@ -255,4 +255,4 @@ module "ec2" {
 + _https://www.youtube.com/watch?v=lC4948SizsU_
 
 
-### _Also you can check main.tf [HERE](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Terraform/Terraform/Simple_Application/main.tf)_
+### _Also you can check main.tf [HERE](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Terraform/Simple_Application/main.tf)_
