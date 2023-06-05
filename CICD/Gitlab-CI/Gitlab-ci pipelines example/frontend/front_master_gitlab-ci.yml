@@ -1,0 +1,424 @@
+image: node:18.14.0
+
+
+stages:
+  - test
+  - build
+  - deploy-dev
+  - deploy-qa
+  - deploy-secret
+  - deploy-demo
+  - deploy-prod
+
+
+.pipeline-rules: 
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      when: on_success
+    - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
+      when: manual
+
+
+lint:
+  stage: test
+  script:
+    - npm install
+    - CI=false npm run lint
+
+
+#################################################################
+#                             BUILD                             #
+#################################################################
+####################### Build EPAM Cloud ########################
+build-epam-cloud-dev:
+  stage: build
+  script:
+    - echo REACT_APP_BST_API_URL=$EPAM_REACT_APP_BST_API_URL >> .env
+    - echo REACT_APP_DEFAULT_CURRENCY=$REACT_APP_DEFAULT_CURRENCY >> .env
+    - echo REACT_APP_CTP_PROJECT_KEY=$REACT_APP_CTP_PROJECT_KEY >> .env
+    - echo REACT_APP_BST_ADMIN_URL=$EPAM_REACT_APP_BST_ADMIN_URL >> .env
+    - npm install
+    - CI=false npm run build # CI=false disabled treating warnings as errors
+    - mv build build-epam-cloud-dev
+  artifacts:
+    paths:
+      - build-epam-cloud-dev/
+    expire_in: 30 mins
+
+
+########################### Build AWS ###########################
+build-aws-dev:
+  stage: build
+  dependencies: []
+  variables:
+    API_HOST: "$AWS_BACKEND_URL_DEV"
+    NEXT_PAGE_URL: "$AWS_FRONTEND_ENDPOINT_DEV"
+  script:
+    - echo REACT_APP_BST_API_URL=$AWS_REACT_APP_BST_API_URL_DEV >> .env
+    - echo REACT_APP_DEFAULT_CURRENCY=$REACT_APP_DEFAULT_CURRENCY >> .env
+    - echo REACT_APP_CTP_PROJECT_KEY=$REACT_APP_CTP_PROJECT_KEY >> .env
+    - echo REACT_APP_BST_ADMIN_URL=$AWS_REACT_APP_BST_ADMIN_URL_DEV >> .env
+    - npm install
+    - CI=false npm run build
+    - mv build build-aws-dev
+    - echo "Build Superadmin /setup page"
+    - cd setup
+    - npm install
+    - node ./build.js --help
+    - node ./build.js -a $API_HOST -n $NEXT_PAGE_URL
+    - cd dist
+    - mv index.html setup.html
+    - mv setup.html /builds/epmc-mach/bst-frontend/build-aws-dev
+    - cd ../..
+    - echo "Build Superadmin /signup page"
+    - cd signup
+    - npm install
+    - node ./build.js --help
+    - node ./build.js -a $API_HOST -n $NEXT_PAGE_URL
+    - cd dist
+    - mv index.html signup.html
+    - mv signup.html /builds/epmc-mach/bst-frontend/build-aws-dev
+    - cd ../..
+  artifacts:
+    paths:
+      - build-aws-dev/
+    expire_in: 30 mins
+
+
+build-aws-qa:
+  stage: build
+  dependencies: []
+  needs: ["lint"]
+  variables:
+    API_HOST: "$AWS_BACKEND_URL_QA"
+    NEXT_PAGE_URL: "$AWS_FRONTEND_ENDPOINT_QA"
+  script:
+    - echo REACT_APP_BST_API_URL=$AWS_REACT_APP_BST_API_URL_QA >> .env
+    - echo REACT_APP_DEFAULT_CURRENCY=$REACT_APP_DEFAULT_CURRENCY >> .env
+    - echo REACT_APP_CTP_PROJECT_KEY=$REACT_APP_CTP_PROJECT_KEY >> .env
+    - echo REACT_APP_BST_ADMIN_URL=$AWS_REACT_APP_BST_ADMIN_URL_QA >> .env
+    - npm install
+    - CI=false npm run build
+    - mv build build-aws-qa
+    - echo "Build Superadmin /setup page"
+    - cd setup
+    - npm install
+    - node ./build.js --help
+    - node ./build.js -a $API_HOST -n $NEXT_PAGE_URL
+    - cd dist
+    - mv index.html setup.html
+    - mv setup.html /builds/epmc-mach/bst-frontend/build-aws-qa
+    - cd ../..
+    - echo "Build Superadmin /signup page"
+    - cd signup
+    - npm install
+    - node ./build.js --help
+    - node ./build.js -a $API_HOST -n $NEXT_PAGE_URL
+    - cd dist
+    - mv index.html signup.html
+    - mv signup.html /builds/epmc-mach/bst-frontend/build-aws-qa
+    - cd ../..
+  artifacts:
+    paths:
+      - build-aws-qa/
+    expire_in: 30 mins
+
+
+build-aws-secret:
+  stage: build
+  dependencies: []
+  needs: ["lint"]
+  variables:
+    API_HOST: "$AWS_BACKEND_URL_SECRET"
+    NEXT_PAGE_URL: "$AWS_FRONTEND_ENDPOINT_SECRET"
+  script:
+    - echo REACT_APP_BST_API_URL=$AWS_REACT_APP_BST_API_URL_SECRET >> .env
+    - echo REACT_APP_DEFAULT_CURRENCY=$REACT_APP_DEFAULT_CURRENCY >> .env
+    - echo REACT_APP_CTP_PROJECT_KEY=$REACT_APP_CTP_PROJECT_KEY >> .env
+    - echo REACT_APP_BST_ADMIN_URL=$AWS_REACT_APP_BST_ADMIN_URL_SECRET >> .env
+    - npm install
+    - CI=false npm run build
+    - mv build build-aws-secret
+    - echo "Build Superadmin /setup page"
+    - cd setup
+    - npm install
+    - node ./build.js --help
+    - node ./build.js -a $API_HOST -n $NEXT_PAGE_URL
+    - cd dist
+    - mv index.html setup.html
+    - mv setup.html /builds/epmc-mach/bst-frontend/build-aws-secret
+    - cd ../..
+    - echo "Build Superadmin /signup page"
+    - cd signup
+    - npm install
+    - node ./build.js --help
+    - node ./build.js -a $API_HOST -n $NEXT_PAGE_URL
+    - cd dist
+    - mv index.html signup.html
+    - mv signup.html /builds/epmc-mach/bst-frontend/build-aws-secret
+    - cd ../..
+  artifacts:
+    paths:
+      - build-aws-secret/
+    expire_in: 30 mins
+
+
+build-aws-demo:
+  stage: build
+  dependencies: []
+  needs: ["lint"]
+  variables:
+    API_HOST: "$AWS_BACKEND_URL_DEMO"
+    NEXT_PAGE_URL: "$AWS_FRONTEND_ENDPOINT_DEMO"
+  script:
+    - echo REACT_APP_BST_API_URL=$AWS_REACT_APP_BST_API_URL_DEMO >> .env
+    - echo REACT_APP_DEFAULT_CURRENCY=$REACT_APP_DEFAULT_CURRENCY >> .env
+    - echo REACT_APP_CTP_PROJECT_KEY=$REACT_APP_CTP_PROJECT_KEY >> .env
+    - echo REACT_APP_BST_ADMIN_URL=$AWS_REACT_APP_BST_ADMIN_URL_DEMO >> .env
+    - npm install
+    - CI=false npm run build
+    - mv build build-aws-demo
+    - echo "Build Superadmin /setup page"
+    - cd setup
+    - npm install
+    - node ./build.js --help
+    - node ./build.js -a $API_HOST -n $NEXT_PAGE_URL
+    - cd dist
+    - mv index.html setup.html
+    - mv setup.html /builds/epmc-mach/bst-frontend/build-aws-demo
+    - cd ../..
+    - echo "Build Superadmin /signup page"
+    - cd signup
+    - npm install
+    - node ./build.js --help
+    - node ./build.js -a $API_HOST -n $NEXT_PAGE_URL
+    - cd dist
+    - mv index.html signup.html
+    - mv signup.html /builds/epmc-mach/bst-frontend/build-aws-demo
+    - cd ../..
+  artifacts:
+    paths:
+      - build-aws-demo/
+    expire_in: 30 mins
+
+
+build-aws-prod:
+  stage: build
+  dependencies: []
+  needs: ["lint"]
+  variables:
+    API_HOST: "$AWS_BACKEND_URL_PROD"
+    NEXT_PAGE_URL: "$AWS_FRONTEND_ENDPOINT_PROD"
+  script:
+    - echo REACT_APP_BST_API_URL=$AWS_REACT_APP_BST_API_URL_PROD >> .env
+    - echo REACT_APP_DEFAULT_CURRENCY=$REACT_APP_DEFAULT_CURRENCY >> .env
+    - echo REACT_APP_CTP_PROJECT_KEY=$REACT_APP_CTP_PROJECT_KEY >> .env
+    - echo REACT_APP_BST_ADMIN_URL=$AWS_REACT_APP_BST_ADMIN_URL_PROD >> .env
+    - npm install
+    - CI=false npm run build
+    - mv build build-aws-prod
+    - echo "Build Superadmin /setup page"
+    - cd setup
+    - npm install
+    - node ./build.js --help
+    - node ./build.js -a $API_HOST -n $NEXT_PAGE_URL
+    - cd dist
+    - mv index.html setup.html
+    - mv setup.html /builds/epmc-mach/bst-frontend/build-aws-prod
+    - cd ../..
+    - echo "Build Superadmin /signup page"
+    - cd signup
+    - npm install
+    - node ./build.js --help
+    - node ./build.js -a $API_HOST -n $NEXT_PAGE_URL
+    - cd dist
+    - mv index.html signup.html
+    - mv signup.html /builds/epmc-mach/bst-frontend/build-aws-prod
+    - cd ../..
+  artifacts:
+    paths:
+      - build-aws-prod/
+    expire_in: 30 mins
+
+
+########################## Build AZURE ##########################
+build-azure-dev:
+  stage: build
+  dependencies: []
+  variables:
+    API_HOST: "$AZURE_BACKEND_URL_DEV"
+    NEXT_PAGE_URL: "$AZURE_FRONTEND_ENDPOINT_DEV"
+  script:
+    - echo REACT_APP_BST_API_URL=$AZURE_REACT_APP_BST_API_URL_DEV >> .env
+    - echo REACT_APP_DEFAULT_CURRENCY=$REACT_APP_DEFAULT_CURRENCY >> .env
+    - echo REACT_APP_CTP_PROJECT_KEY=$REACT_APP_CTP_PROJECT_KEY >> .env
+    - echo REACT_APP_BST_ADMIN_URL=$AZURE_REACT_APP_BST_ADMIN_URL_DEV >> .env
+    - npm install
+    - CI=false npm run build
+    - mv build build-azure-dev
+    - echo "Build Superadmin /setup page"
+    - cd setup
+    - npm install
+    - node ./build.js --help
+    - node ./build.js -a $API_HOST -n $NEXT_PAGE_URL
+    - cd dist
+    - mv index.html setup.html
+    - mv setup.html /builds/epmc-mach/bst-frontend/build-azure-dev
+    - cd ../..
+    - echo "Build Superadmin /signup page"
+    - cd signup
+    - npm install
+    - node ./build.js --help
+    - node ./build.js -a $API_HOST -n $NEXT_PAGE_URL
+    - cd dist
+    - mv index.html signup.html
+    - mv signup.html /builds/epmc-mach/bst-frontend/build-azure-dev
+    - cd ../..
+  artifacts:
+    paths:
+      - build-azure-dev/
+    expire_in: 30 mins
+
+
+#################################################################
+#                            DEPLOY                             #
+#################################################################
+####################### Deploy EPAM Cloud #######################
+deploy-to-epam-cloud:
+  stage: deploy-dev
+  dependencies:
+    - build-epam-cloud-dev
+  needs: ["build-epam-cloud-dev", "lint"]
+  extends: .pipeline-rules
+  tags:
+    - deploy-build-to-server
+  script:
+    - echo "Running deploy to epam's instance"
+    - rm -rIf /var/www/html/bst-frontend/{,.[!.],..?}* # remove all including hidden files
+    - cp -rv build-epam-cloud-dev/* /var/www/html/bst-frontend/
+    - echo "Deployment was successful to epam's instance ✅"
+    - echo $EPAM_FRONTEND_ENDPOINT
+  environment:
+    name: dev/job1
+    url: $EPAM_FRONTEND_ENDPOINT
+
+
+########################## Deploy AWS ###########################
+deploy-aws-dev:
+  stage: deploy-dev
+  dependencies:
+    - build-aws-dev
+  needs: ["build-aws-dev", "lint"]
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  extends: .pipeline-rules
+  script:
+    - echo "Running deploy to aws"
+    # Sync build with S3 bucket and Invalidate cache
+    - aws s3 sync ./build-aws-dev s3://$AWS_S3_BUCKET_DEV/
+    - aws cloudfront create-invalidation --distribution-id $AWS_DISTRIBUTION_ID_DEV --paths "/*" --no-cli-pager
+    - echo "Deployment to DEV env on AWS was successful ✅"
+    - echo $AWS_FRONTEND_ENDPOINT_DEV
+  environment:
+    name: dev/job2
+    url: $AWS_FRONTEND_ENDPOINT_DEV
+
+
+deploy-aws-qa:
+  stage: deploy-qa
+  dependencies:
+    - build-aws-qa
+  needs: ["build-aws-qa", "lint"]
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  when: manual
+  script:
+    - echo "Running deploy to aws"
+    # Sync build with S3 bucket and Invalidate cache
+    - aws s3 sync ./build-aws-qa s3://$AWS_S3_BUCKET_QA/
+    - aws cloudfront create-invalidation --distribution-id $AWS_DISTRIBUTION_ID_QA --paths "/*" --no-cli-pager
+    - echo "Deployment to QA env on AWS was successful ✅"
+    - echo $AWS_FRONTEND_ENDPOINT_QA
+  environment:
+    name: qa
+    url: $AWS_FRONTEND_ENDPOINT_QA
+
+
+deploy-aws-secret:
+  stage: deploy-secret
+  dependencies:
+    - build-aws-secret
+  needs: ["build-aws-secret", "lint"]
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  when: manual
+  script:
+    - echo "Running deploy to aws"
+    # Sync build with S3 bucket and Invalidate cache
+    - aws s3 sync ./build-aws-secret s3://$AWS_S3_BUCKET_SECRET/
+    - aws cloudfront create-invalidation --distribution-id $AWS_DISTRIBUTION_ID_SECRET --paths "/*" --no-cli-pager
+    - echo "Deployment to SECRET env on AWS was successful ✅"
+    - echo $AWS_FRONTEND_ENDPOINT_SECRET
+  environment:
+    name: secret
+    url: $AWS_FRONTEND_ENDPOINT_SECRET
+
+
+deploy-aws-demo:
+  stage: deploy-demo
+  dependencies:
+    - build-aws-demo
+  needs: ["build-aws-demo", "lint"]
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  when: manual
+  script:
+    - echo "Running deploy to aws"
+    # Sync build with S3 bucket and Invalidate cache
+    - aws s3 sync ./build-aws-demo s3://$AWS_S3_BUCKET_DEMO/
+    - aws cloudfront create-invalidation --distribution-id $AWS_DISTRIBUTION_ID_DEMO --paths "/*" --no-cli-pager
+    - echo "Deployment to DEMO env on AWS was successful ✅"
+    - echo $AWS_FRONTEND_ENDPOINT_DEMO
+  environment:
+    name: demo
+    url: $AWS_FRONTEND_ENDPOINT_DEMO
+
+
+deploy-aws-prod:
+  stage: deploy-prod
+  dependencies:
+    - build-aws-prod
+  needs: ["build-aws-prod", "lint"]
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  when: manual
+  script:
+    - echo "Running deploy to aws"
+    # Sync build with S3 bucket and Invalidate cache
+    - aws s3 sync ./build-aws-prod s3://$AWS_S3_BUCKET_PROD/
+    - aws cloudfront create-invalidation --distribution-id $AWS_DISTRIBUTION_ID_PROD --paths "/*" --no-cli-pager
+    - echo "Deployment to PROD env on AWS was successful ✅"
+    - echo $AWS_FRONTEND_ENDPOINT_PROD
+  environment:
+    name: prod
+    url: $AWS_FRONTEND_ENDPOINT_PROD
+
+
+######################### Deploy AZURE ##########################
+deploy-azure-dev:
+  stage: deploy-dev
+  dependencies:
+    - build-azure-dev
+  needs: ["build-azure-dev", "lint"]
+  extends: .pipeline-rules
+  image:
+      name: mcr.microsoft.com/azure-cli
+      entrypoint: [""]
+  script:
+    - echo "Running deploy to azure"
+    # Sync build with S3 bucket and Invalidate cache
+    - az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+    - az storage blob upload-batch --source ./build-azure-dev --destination '$web' --account-name $AZURE_STORAGE_DEV --auth-mode login --overwrite
+    - az cdn endpoint purge --resource-group $AZURE_RESOURCE_GROUP --profile-name $AZURE_FRONTEND_CDN_PROFILE --name $AZURE_CDN_ENDPOINT_NAME --content-paths "/*"
+    - echo "Deployment to DEV env on AZURE was successful ✅"
+    - echo $AZURE_FRONTEND_ENDPOINT_DEV
+  environment:
+    name: dev/job3
+    url: $AZURE_FRONTEND_ENDPOINT_DEV
