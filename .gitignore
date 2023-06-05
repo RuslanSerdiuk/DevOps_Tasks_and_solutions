@@ -13,16 +13,26 @@ Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.tfstate
 Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.terraform/terraform.tfstate
 Terraform/\[AWS\]-GlueJob-DynamoDBtoSnowflakeMigration/.tfstate.backup
 
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-admin/.terraform.lock.hcl
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/.terraform.lock.hcl
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-frontend/.terraform.lock.hcl
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-admin/.terraform/
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/.terraform/
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-frontend/.terraform/
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/S3Bucket_files/
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-admin/Key for user.txt
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-backend/Key for user.txt
-Terraform/B2B-Serverless-Infrastructure/AWS/bst-frontend/Key for user.txt
+Terraform/Serverless Lambda - Static CDN/AWS/bst-admin/.terraform.lock.hcl
+Terraform/Serverless Lambda - Static CDN/AWS/bst-backend/.terraform.lock.hcl
+Terraform/Serverless Lambda - Static CDN/AWS/bst-frontend/.terraform.lock.hcl
+Terraform/Serverless Lambda - Static CDN/AWS/bst-admin/.terraform/
+Terraform/Serverless Lambda - Static CDN/AWS/bst-backend/.terraform/
+Terraform/Serverless Lambda - Static CDN/AWS/bst-frontend/.terraform/
+Terraform/Serverless Lambda - Static CDN/AWS/bst-backend/S3Bucket_files/
+Terraform/Serverless Lambda - Static CDN/AWS/bst-admin/Key for user.txt
+Terraform/Serverless Lambda - Static CDN/AWS/bst-backend/Key for user.txt
+Terraform/Serverless Lambda - Static CDN/AWS/bst-frontend/Key for user.txt
+
+Terraform/Serverless Lambda - Static CDN/AZURE/azure-terraform-statefiles/.terraform.lock.hcl
+Terraform/Serverless Lambda - Static CDN/AZURE/azure-terraform-statefiles/.terraform/
+Terraform/Serverless Lambda - Static CDN/AZURE/azure-terraform-statefiles/Key for user.txt
+Terraform/Serverless Lambda - Static CDN/AZURE/azure-terraform-statefiles/terraform.tfstate.d
+Terraform/Serverless Lambda - Static CDN/AZURE/bst-backend/.terraform.lock.hcl
+Terraform/Serverless Lambda - Static CDN/AZURE/bst-backend/.terraform/
+Terraform/Serverless Lambda - Static CDN/AZURE/bst-backend/S3Bucket_files/
+Terraform/Serverless Lambda - Static CDN/AZURE/bst-backend/Key for user.txt
+Terraform/Serverless Lambda - Static CDN/AZURE/bst-backend/serverless.zip
 
 #####################################################
 #                ANSIBLE                            #
@@ -50,3 +60,4 @@ AWS/CodePipeline-CodeDeploy/policy.json
 #                KUBERNETES                         #
 #####################################################
 Kubernetes/NGINXIngress-FlaskApp-MongoDB/.vagrant/*
+
