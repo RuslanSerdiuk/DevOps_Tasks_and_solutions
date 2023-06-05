@@ -34,4 +34,4 @@
 
 [Creating and configuring a user for AWS CLI for your client](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/AWS/AWS_CLI) - How to securely give a client access to a server in your AWS infrastructure
 
-[CodePipeline - Build and Deploy Lambda](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/AWS/AWS/CodePipeline-CodeDeploy) - Create CodePipeline (manually) / Write **buildspec.yaml** for CodeBuild / Add versioning for images / Push to ecr / Deploying lambda using CloudFormation Stack with parameters and template file / Configure API Gateway (GET&POST requests).
+[CodePipeline - Build and Deploy Lambda](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/AWS/CodePipeline-CodeDeploy) - Create CodePipeline (manually) / Write **buildspec.yaml** for CodeBuild / Add versioning for images / Push to ecr / Deploying lambda using CloudFormation Stack with parameters and template file / Configure API Gateway (GET&POST requests).

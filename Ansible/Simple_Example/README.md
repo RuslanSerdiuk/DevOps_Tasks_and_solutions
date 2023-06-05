@@ -10,7 +10,7 @@
   - Deploys the project code https://github.com/FaztWeb/php-mysql-crud
 - Use jinja-templates for configure apache and mysql connection
 
-### My solution is implemented using a combination of Terraform and Ansible in AWS. If you only need Ansible, go right [here]().
+### My solution is implemented using a combination of Terraform and Ansible in AWS. If you only need Ansible, go right [here](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Ansible/Simple_Example/ansible).
 
 #### I just took the Ansible code and posted it to demonstrate working in AWS using Terraform
 
@@ -36,7 +36,7 @@ Your need:
    - check public DNS name of App server
 
 
-## _[Dynamic Inventory file:](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m9-Ansible-Task-01/Module-09_Ansible/Task-01/ansible/aws_ec2.yaml)_
+## _[Dynamic Inventory file:](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Ansible/Simple_Example/ansible/aws_ec2.yaml)_
 ```
 plugin: aws_ec2
 regions:
@@ -57,7 +57,7 @@ keyed_groups:
     key: instance_type
 ```
 
-## _[Ansible.cnf:](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/blob/m9-Ansible-Task-01/Module-09_Ansible/Task-01/ansible/ansible.cfg)_
+## _[Ansible.cnf:](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Ansible/Simple_Example/ansible/ansible.cfg)_
 ```
 [defaults]
 host_key_checking  = false
@@ -65,7 +65,7 @@ inventory          = ./hosts.txt
 interpreter_python = auto_silent
 ```
 
-## _[Playbook_app](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/tree/m9-Ansible-Task-01/Module-09_Ansible/Task-01/ansible/roles/deploy_app)_
+## _[Playbook_app](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Ansible/Simple_Example/ansible/playbook_app.yml)_
 ```
 ---
 - name: Install Apache
@@ -76,7 +76,7 @@ interpreter_python = auto_silent
     - deploy_app
 ```
 
-## _[Playbook_db](https://git.epam.com/ruslan_serdiuk/devops-21q4-22q1-serdiuk-ruslan/-/tree/m9-Ansible-Task-01/Module-09_Ansible/Task-01/ansible/roles/deploy_db)_
+## _[Playbook_db](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Ansible/Simple_Example/ansible/playbook_db.yml)_
 ```
 ---
 - name: Install MySql

@@ -1,17 +1,17 @@
 # :computer: Examples of Some Useful Solutions :wrench:
 
-### [DOCUMENTATION](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/Documentation/Documentation/Materials/Automation-Tools/Ansible.pdf) :metal:
+### [DOCUMENTATION](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/blob/main/Documentation/Materials/Automation-Tools/Ansible.pdf) :metal:
 
 
 
 
-#### [Simple Application](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/Terraform/Terraform/Simple_Application) - an example of how to deploy a simple application to AWS and the infrastructure for it using Terraform
-#### [Glue-Job: DynamoDB to Snowflake Migration]() - Deploy Glue-Job + trigger for it / S3 Bucket for python script / Deploy secret-manager + lambda / Create several Environments!
+#### [Simple Application](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Simple_Application) - an example of how to deploy a simple application to AWS and the infrastructure for it using Terraform
+#### [Glue-Job: DynamoDB to Snowflake Migration](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/%5BAWS%5D-GlueJob-DynamoDBtoSnowflakeMigration) - Deploy Glue-Job + trigger for it / S3 Bucket for python script / Deploy secret-manager + lambda / Create several Environments!
+#### [Serverless Lambda - Static CDN](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Serverless%Lambda%-%Static%CDN/AWS) - Creating infrastructure for serverless backend and static frontend.
 
 
 
-
-#### Local state:
+### Local state for AWS:
 ```
 terraform {
   backend "local" {
@@ -29,7 +29,7 @@ provider "aws" {
 
 
 
-#### Remote state:
+### Remote state for AWS:
 ```
 terraform {
   backend "s3" {
@@ -53,8 +53,35 @@ provider "aws" {
 
 
 
+### Remote state for AZURE Cloud:
+```
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "epmc-mach-resources"
+    storage_account_name = "machterraformstatelock"
+    container_name       = "terraform-state-files"
+    key                  = "terraform-infrastructure/AZURE/dev/bst-backend.tfstate"
+  }
+}
 
-#### Create DynamoDB and S3 for remote state:
+
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=3.0.0"
+    }
+  }
+}
+
+# Configure the Microsoft Azure Provider
+provider "azurerm" {
+  features {}
+}
+```
+
+
+#### Create DynamoDB and S3 for AWS remote state:
 ```
 ####################################################################
 #        Create a DynamoDB Table for locking the state file        #
