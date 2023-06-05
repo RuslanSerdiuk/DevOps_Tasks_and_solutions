@@ -15,11 +15,19 @@ upload_directory = "S3Bucket_files/"
 ############################
 # Lambdas                  #
 ############################
+
+###### Backend Lambda ######
 function_name   = "serverless-mach-bst-backend"
-role_for_lambda = "arn:aws:iam::384461882996:role/b2b-project"
+role_for_lambda = "arn:aws:iam::863151058727:role/cdk-hnb659fds-cfn-exec-role-863151058727-eu-central-1"
 lambda_handler = "dist/lambda.handler"
 
-s3_key_file   = "lambda-mach.zip"
+s3_key_file   = "serverless-backend/bst-backend.zip"
+
+#### API Trigger Lambda ####
+api_call_function_name   = "serverless-mach-bst-api-call"
+api_call_lambda_handler  = "LambdaTriggerAPI.lambda_handler"
+
+api_call_s3_key_file     = "serverless-backend/LambdaTriggerAPI.zip"
 
 ############################
 # API Gateway              #
