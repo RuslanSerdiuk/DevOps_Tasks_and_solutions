@@ -1,0 +1,246 @@
+image: node:18.14.0
+
+
+stages:
+  - build
+  - test
+  - deploy-dev
+  - deploy-qa
+  - deploy-secret
+  - deploy-demo
+  - deploy-prod
+
+
+.pipeline-rules:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      when: on_success
+    - if: $CI_COMMIT_REF_NAME != $CI_DEFAULT_BRANCH
+      when: manual
+
+
+#################################################################
+#                             BUILD                             #
+#################################################################
+build:
+  stage: build
+  before_script:
+    - apt-get update
+    - apt-get install zip -y
+    - echo "GIT_TAGS"=$(git tag --contains $CI_COMMIT_SHA) >> .env
+    - echo GIT_BRANCH=$CI_COMMIT_REF_NAME >> .env
+    - echo GIT_COMMIT=$CI_COMMIT_SHA >> .env
+  script:
+    - echo $CI_COMMIT_BRANCH
+    - npm i
+    - npm run build
+    - rm -R node_modules
+    - npm i --only=production --ignore-scripts
+    - cd dist
+    - ls -la
+    - cd ..
+    - zip -9 -r -q $CI_PROJECT_NAME.zip dist node_modules
+    - mv node_modules dist
+    - cd dist
+    - zip -9 -r -q $CI_PROJECT_NAME-gcp-build.zip .
+    - mv $CI_PROJECT_NAME-gcp-build.zip /builds/epmc-mach/bst-backend
+    - cd ..
+    - echo $CI_ENVIRONMENT_NAME
+  artifacts:
+    paths:
+      - dist/node_modules
+      - $CI_PROJECT_NAME.zip
+      - .env
+      - $CI_PROJECT_NAME-gcp-build.zip
+    expire_in: 20 min
+
+
+#################################################################
+#                             TEST                              #
+#################################################################
+lint:
+  stage: test
+  needs: ["build"]
+  before_script:
+    - npm install @typescript-eslint/eslint-plugin@latest --save-dev
+  script:
+    - npm run lint
+
+
+unit-tests:
+  stage: test
+  needs: ["build"]
+  script:
+    - echo "skip unit tests"
+
+
+#################################################################
+#                            DEPLOY                             #
+#################################################################
+####################### Deploy EPAM Cloud #######################
+deploy-epam-cloud-dev:
+  stage: deploy-dev
+  needs: ["build", "lint", "unit-tests"]
+  dependencies: [] # skip downloading artifacts
+  extends: .pipeline-rules
+  tags:
+    - deploy-build-to-server
+  before_script:
+    - echo "GIT_TAGS"=$(git tag --contains $CI_COMMIT_SHA) >> .env
+    - echo GIT_BRANCH=$CI_COMMIT_REF_NAME >> .env
+    - echo GIT_COMMIT=$CI_COMMIT_SHA >> .env
+  script:
+    - echo "Deploying to server"
+    - rm -rIf /var/www/html/bst-backend/{,.[!.],..?}* # remove all including hidden files
+    - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@git.epam.com/epmc-mach/bst-backend.git /var/www/html/bst-backend/
+    - cp .env /var/www/html/bst-backend/
+    - cd /var/www/html/bst-backend/
+    - git checkout ${CI_COMMIT_SHA}
+    - npm i
+    - npm run build
+    - echo "Deployed"
+    - echo $EPAM_LAMBDA_ENDPOINT
+  environment:
+    name: dev/job0
+    url: $EPAM_LAMBDA_ENDPOINT
+
+
+########################## Deploy AWS ###########################
+deploy-aws-dev:
+  stage: deploy-dev
+  needs: ["build", "lint", "unit-tests"]
+  extends: .pipeline-rules
+  image:
+    name: amazon/aws-cli
+    entrypoint: [""]
+  script:
+    - cd dist
+    - ls -la
+    - cd ..
+    - aws s3 cp $CI_PROJECT_NAME.zip s3://$AWS_S3_BUCKET_DEV/serverless-backend/
+    - aws lambda update-function-code --function-name $AWS_LAMBDA_DEV_NAME --s3-bucket $AWS_S3_BUCKET_DEV --s3-key serverless-backend/$CI_PROJECT_NAME.zip
+    - sleep 10
+    - echo "Waiting for backend code updates..."
+    - aws lambda update-function-configuration --function-name $AWS_LAMBDA_DEV_NAME --environment Variables="{NODE_ENV=$NODE_ENV,APP_NAME='',APP_FALLBACK_LANGUAGE=$APP_FALLBACK_LANGUAGE,APP_HEADER_LANGUAGE='',FRONTEND_DOMAIN='',AUTH_JWT_SECRET=$AUTH_JWT_SECRET,AUTH_JWT_TOKEN_EXPIRES_IN=$AUTH_JWT_TOKEN_EXPIRES_IN,CTP_CLIENT_ID=$CTP_CLIENT_ID,CTP_PROJECT_KEY=$CTP_PROJECT_KEY,CTP_CLIENT_SECRET=$CTP_CLIENT_SECRET,CTP_AUTH_URL=$CTP_AUTH_URL,CTP_API_URL=$CTP_API_URL,CTP_SCOPES=$CTP_SCOPES,ENCRYPTION_KEY=$ENCRYPTION_KEY,TOKEN_ENCRYPTION_ENABLED=$TOKEN_ENCRYPTION_ENABLED,GIT_COMMIT=$CI_COMMIT_SHA,GIT_BRANCH=$CI_COMMIT_REF_NAME,GIT_TAGS=''}"
+    - echo $AWS_LAMBDA_ENDPOINT_DEV
+  environment:
+    name: dev/job1
+    url: $AWS_LAMBDA_ENDPOINT_DEV
+
+
+deploy-aws-qa:
+  stage: deploy-qa
+  needs: ["build", "lint", "unit-tests"]
+  image:
+      name: amazon/aws-cli
+      entrypoint: [""]
+  when: manual
+  script:
+    - aws s3 cp $CI_PROJECT_NAME.zip s3://$AWS_S3_BUCKET_QA/serverless-backend/
+    - aws lambda update-function-code --function-name $AWS_LAMBDA_QA_NAME --s3-bucket $AWS_S3_BUCKET_QA --s3-key serverless-backend/$CI_PROJECT_NAME.zip
+    - sleep 30
+    - aws lambda update-function-configuration --function-name $AWS_LAMBDA_QA_NAME --environment Variables="{NODE_ENV=$NODE_ENV,APP_NAME='',APP_FALLBACK_LANGUAGE=$APP_FALLBACK_LANGUAGE,APP_HEADER_LANGUAGE='',FRONTEND_DOMAIN='',AUTH_JWT_SECRET=$AUTH_JWT_SECRET,AUTH_JWT_TOKEN_EXPIRES_IN=$AUTH_JWT_TOKEN_EXPIRES_IN,CTP_CLIENT_ID=$CTP_CLIENT_ID_QA,CTP_PROJECT_KEY=$CTP_PROJECT_KEY_QA,CTP_CLIENT_SECRET=$CTP_CLIENT_SECRET_QA,CTP_AUTH_URL=$CTP_AUTH_URL_QA,CTP_API_URL=$CTP_API_URL_QA,CTP_SCOPES=$CTP_SCOPES_QA,ENCRYPTION_KEY=$ENCRYPTION_KEY,TOKEN_ENCRYPTION_ENABLED=$TOKEN_ENCRYPTION_ENABLED,GIT_COMMIT=$CI_COMMIT_SHA,GIT_BRANCH=$CI_COMMIT_REF_NAME,GIT_TAGS=''}"
+    - echo $AWS_LAMBDA_ENDPOINT_QA
+  environment:
+    name: qa
+    url: $AWS_LAMBDA_ENDPOINT_QA
+
+
+deploy-aws-secret:
+  stage: deploy-secret
+  needs: ["build", "lint", "unit-tests"]
+  image:
+      name: amazon/aws-cli
+      entrypoint: [""]
+  when: manual
+  script:
+    - aws s3 cp $CI_PROJECT_NAME.zip s3://$AWS_S3_BUCKET_SECRET/serverless-backend/
+    - aws lambda update-function-code --function-name $AWS_LAMBDA_SECRET_NAME --s3-bucket $AWS_S3_BUCKET_SECRET --s3-key serverless-backend/$CI_PROJECT_NAME.zip
+    - sleep 30
+    - aws lambda update-function-configuration --function-name $AWS_LAMBDA_SECRET_NAME --environment Variables="{NODE_ENV=$NODE_ENV,APP_NAME='',APP_FALLBACK_LANGUAGE=$APP_FALLBACK_LANGUAGE,APP_HEADER_LANGUAGE='',FRONTEND_DOMAIN='',AUTH_JWT_SECRET=$AUTH_JWT_SECRET,AUTH_JWT_TOKEN_EXPIRES_IN=$AUTH_JWT_TOKEN_EXPIRES_IN,CTP_CLIENT_ID=$CTP_CLIENT_ID_QA,CTP_PROJECT_KEY=$CTP_PROJECT_KEY_QA,CTP_CLIENT_SECRET=$CTP_CLIENT_SECRET_QA,CTP_AUTH_URL=$CTP_AUTH_URL_QA,CTP_API_URL=$CTP_API_URL_QA,CTP_SCOPES=$CTP_SCOPES_QA,ENCRYPTION_KEY=$ENCRYPTION_KEY,TOKEN_ENCRYPTION_ENABLED=$TOKEN_ENCRYPTION_ENABLED,GIT_COMMIT=$CI_COMMIT_SHA,GIT_BRANCH=$CI_COMMIT_REF_NAME,GIT_TAGS=''}"
+    - echo $AWS_LAMBDA_ENDPOINT_SECRET
+  environment:
+    name: secret
+    url: $AWS_LAMBDA_ENDPOINT_SECRET
+
+
+deploy-aws-demo:
+  stage: deploy-demo
+  needs: ["build", "lint", "unit-tests"]
+  image:
+      name: amazon/aws-cli
+      entrypoint: [""]
+  when: manual
+  script:
+    - aws s3 cp $CI_PROJECT_NAME.zip s3://$AWS_S3_BUCKET_DEMO/serverless-backend/
+    - aws lambda update-function-code --function-name $AWS_LAMBDA_DEMO_NAME --s3-bucket $AWS_S3_BUCKET_DEMO --s3-key serverless-backend/$CI_PROJECT_NAME.zip
+    - sleep 30
+    - aws lambda update-function-configuration --function-name $AWS_LAMBDA_DEMO_NAME --environment Variables="{NODE_ENV=$NODE_ENV,APP_NAME='',APP_FALLBACK_LANGUAGE=$APP_FALLBACK_LANGUAGE,APP_HEADER_LANGUAGE='',FRONTEND_DOMAIN='',AUTH_JWT_SECRET=$AUTH_JWT_SECRET,AUTH_JWT_TOKEN_EXPIRES_IN=$AUTH_JWT_TOKEN_EXPIRES_IN,CTP_CLIENT_ID=$CTP_CLIENT_ID_QA,CTP_PROJECT_KEY=$CTP_PROJECT_KEY_QA,CTP_CLIENT_SECRET=$CTP_CLIENT_SECRET_QA,CTP_AUTH_URL=$CTP_AUTH_URL_QA,CTP_API_URL=$CTP_API_URL_QA,CTP_SCOPES=$CTP_SCOPES_QA,ENCRYPTION_KEY=$ENCRYPTION_KEY,TOKEN_ENCRYPTION_ENABLED=$TOKEN_ENCRYPTION_ENABLED,GIT_COMMIT=$CI_COMMIT_SHA,GIT_BRANCH=$CI_COMMIT_REF_NAME,GIT_TAGS=''}"
+    - echo $AWS_LAMBDA_ENDPOINT_DEMO
+  environment:
+    name: demo
+    url: $AWS_LAMBDA_ENDPOINT_DEMO
+
+
+deploy-aws-prod:
+  stage: deploy-prod
+  needs: ["build", "lint", "unit-tests"]
+  image:
+      name: amazon/aws-cli
+      entrypoint: [""]
+  when: manual
+  script:
+    - aws s3 cp $CI_PROJECT_NAME.zip s3://$AWS_S3_BUCKET_PROD/serverless-backend/
+    - aws lambda update-function-code --function-name $AWS_LAMBDA_PROD_NAME --s3-bucket $AWS_S3_BUCKET_PROD --s3-key serverless-backend/$CI_PROJECT_NAME.zip
+    - sleep 30
+    - aws lambda update-function-configuration --function-name $AWS_LAMBDA_PROD_NAME --environment Variables="{NODE_ENV=$NODE_ENV,APP_NAME='',APP_FALLBACK_LANGUAGE=$APP_FALLBACK_LANGUAGE,APP_HEADER_LANGUAGE='',FRONTEND_DOMAIN='',AUTH_JWT_SECRET=$AUTH_JWT_SECRET,AUTH_JWT_TOKEN_EXPIRES_IN=$AUTH_JWT_TOKEN_EXPIRES_IN,CTP_CLIENT_ID=$CTP_CLIENT_ID,CTP_PROJECT_KEY=$CTP_PROJECT_KEY,CTP_CLIENT_SECRET=$CTP_CLIENT_SECRET,CTP_AUTH_URL=$CTP_AUTH_URL,CTP_API_URL=$CTP_API_URL,CTP_SCOPES=$CTP_SCOPES,ENCRYPTION_KEY=$ENCRYPTION_KEY,TOKEN_ENCRYPTION_ENABLED=$TOKEN_ENCRYPTION_ENABLED,GIT_COMMIT=$CI_COMMIT_SHA,GIT_BRANCH=$CI_COMMIT_REF_NAME,GIT_TAGS=''}"
+    - echo $AWS_LAMBDA_ENDPOINT_PROD
+  environment:
+    name: prod
+    url: $AWS_LAMBDA_ENDPOINT_PROD
+
+
+######################### Deploy AZURE ##########################
+deploy-azure-dev:
+  stage: deploy-dev
+  needs: ["build", "lint", "unit-tests"]
+  extends: .pipeline-rules
+  image:
+    name: mcr.microsoft.com/azure-cli
+    entrypoint: [""]
+  script:
+    - az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
+    - az functionapp deployment source config-zip -g DefaultResourceGroup-WEU -n bst-backend-pd --src $CI_PROJECT_NAME.zip
+    - sleep 10
+    - az functionapp config appsettings set --name bst-backend-pd --resource-group DefaultResourceGroup-WEU --settings GIT_COMMIT=$CI_COMMIT_SHA NODE_ENV=$NODE_ENV APP_NAME='' APP_FALLBACK_LANGUAGE=$APP_FALLBACK_LANGUAGE APP_HEADER_LANGUAGE='' FRONTEND_DOMAIN='' AUTH_JWT_SECRET=$AUTH_JWT_SECRET AUTH_JWT_TOKEN_EXPIRES_IN=$AUTH_JWT_TOKEN_EXPIRES_IN CTP_CLIENT_ID=$CTP_CLIENT_ID CTP_PROJECT_KEY=$CTP_PROJECT_KEY CTP_CLIENT_SECRET=$CTP_CLIENT_SECRET CTP_AUTH_URL=$CTP_AUTH_URL CTP_API_URL=$CTP_API_URL CTP_SCOPES=$CTP_SCOPES ENCRYPTION_KEY=$ENCRYPTION_KEY TOKEN_ENCRYPTION_ENABLED=$TOKEN_ENCRYPTION_ENABLED GIT_BRANCH=$CI_COMMIT_REF_NAME GIT_TAGS=''
+    - echo $AZURE_LAMBDA_ENDPOINT_DEV
+
+  environment:
+    name: dev/job2
+    url: $AZURE_LAMBDA_ENDPOINT_DEV
+
+
+########################## Deploy GCP ###########################
+deploy-gcp-dev:
+  stage: deploy-dev
+  needs: ["build", "lint", "unit-tests"]
+  extends: .pipeline-rules
+  image:
+    name: google/cloud-sdk:latest
+    entrypoint: [""]
+  before_script:
+    - apt-get update
+    - apt-get install zip -y
+  script:
+    - echo "Deploying Lambda function to GCP"
+    - echo "$GCP_SERVICE_ACCOUNT_KEY" > /tmp/gcp_key.json
+    - gcloud auth activate-service-account --key-file=/tmp/gcp_key.json
+    - gcloud config set project $GCP_PROJECT_ID
+    - gcloud storage cp $CI_PROJECT_NAME-gcp-build.zip gs://bst-backend/prod
+    - gcloud functions deploy $GCP_LAMBDA_DEV_NAME --region=$GCP_LAMBDA_REGION --runtime=nodejs18 --memory=1024 --timeout=6 --source=$GCP_BACKEND_DEPLOY_SOURCE_PROD --entry-point=$GCP_LAMBDA_ENTRYPOINT --trigger-http --set-env-vars NODE_ENV=$NODE_ENV,APP_NAME='',APP_FALLBACK_LANGUAGE=$APP_FALLBACK_LANGUAGE,APP_HEADER_LANGUAGE='',FRONTEND_DOMAIN='',AUTH_JWT_SECRET=$AUTH_JWT_SECRET,AUTH_JWT_TOKEN_EXPIRES_IN=$AUTH_JWT_TOKEN_EXPIRES_IN,CTP_CLIENT_ID=$CTP_CLIENT_ID,CTP_PROJECT_KEY=$CTP_PROJECT_KEY,CTP_CLIENT_SECRET=$CTP_CLIENT_SECRET,CTP_AUTH_URL=$CTP_AUTH_URL,CTP_API_URL=$CTP_API_URL,CTP_SCOPES=$CTP_SCOPES,ENCRYPTION_KEY=$ENCRYPTION_KEY,TOKEN_ENCRYPTION_ENABLED=$TOKEN_ENCRYPTION_ENABLED,GIT_COMMIT=$GIT_COMMIT,GIT_BRANCH=$GIT_BRANCH,GIT_TAGS=''
+    - echo $GCP_LAMBDA_ENDPOINT_DEV
+  environment:
+    name: dev/job3
+    url: $GCP_LAMBDA_ENDPOINT_DEV

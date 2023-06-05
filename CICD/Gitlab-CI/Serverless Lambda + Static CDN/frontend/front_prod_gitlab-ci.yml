@@ -1,0 +1,63 @@
+image: node:18.14.0
+
+
+stages:
+  - test
+  - build-aws-prod
+  - deploy-aws-prod
+
+
+.pipeline-rules: 
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "release.2" # execute only on default (master) branch
+      when: on_success
+    - if: $CI_COMMIT_REF_NAME != "release.2" # execute only not on default branch by manual
+      when: manual
+
+
+lint:
+  stage: test
+  script:
+    - npm install
+    - CI=false npm run lint
+
+
+#------------------- build -------------------
+build-aws-prod:
+  stage: build-aws-prod
+  dependencies: []
+  needs: ["lint"]
+  script:
+    - echo REACT_APP_BST_API_URL=$AWS_REACT_APP_BST_API_URL_PROD >> .env
+    - echo REACT_APP_DEFAULT_CURRENCY=$REACT_APP_DEFAULT_CURRENCY >> .env
+    - echo REACT_APP_CTP_PROJECT_KEY=$REACT_APP_CTP_PROJECT_KEY >> .env
+    - echo REACT_APP_BST_ADMIN_URL=$AWS_REACT_APP_BST_ADMIN_URL_PROD >> .env
+    - npm install
+    - CI=false npm run build
+    - mv build build-aws-prod
+  artifacts:
+    paths:
+      - build-aws-prod/
+    expire_in: 30 mins
+
+
+#------------------- deploy -------------------
+deploy-aws-prod:
+  stage: deploy-aws-prod
+  dependencies:
+    - build-aws-prod
+  needs: ["build-aws-prod", "lint"]
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  extends: .pipeline-rules
+  script:
+    - echo "Running deploy to aws"
+    # Sync build with S3 bucket and Invalidate cache
+    - aws s3 sync ./build-aws-prod s3://$AWS_S3_BUCKET_PROD/
+    - aws cloudfront create-invalidation --distribution-id $AWS_DISTRIBUTION_ID_PROD --paths "/*" --no-cli-pager
+    - echo "Deployment to PROD env on aws was successful ✅"
+    - echo $AWS_FRONTEND_ENDPOINT_PROD
+  environment:
+    name: prod
+    url: $AWS_FRONTEND_ENDPOINT_PROD

@@ -1,0 +1,74 @@
+image: node:18.14.0
+
+
+stages:
+  - test
+  - build
+  - deploy-aws-prod
+
+
+.pipeline-rules: 
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "release.2" # execute only on release branch
+      when: on_success
+    - if: $CI_COMMIT_REF_NAME != "release.2" # execute only not on release branch by manual
+      when: manual
+
+
+lint:
+  stage: test
+  before_script:
+    - npm install @typescript-eslint/eslint-plugin@latest --save-dev
+  script:
+    - npm run lint
+
+
+unit-tests:
+  stage: test
+  script:
+    - echo "skip unit tests"
+
+
+build:
+  stage: build
+  needs: ["lint", "unit-tests"]
+  before_script:
+    - apt-get update
+    - apt-get install zip -y
+    - echo "GIT_TAGS"=$(git tag --contains $CI_COMMIT_SHA) >> .env
+    - echo GIT_BRANCH=$CI_COMMIT_REF_NAME >> .env
+    - echo GIT_COMMIT=$CI_COMMIT_SHA >> .env
+  script:
+    - echo $CI_COMMIT_BRANCH
+    - npm i
+    - npm run build
+    - rm -R node_modules
+    - npm i --only=production --ignore-scripts
+    - zip -9 -r -q $CI_PROJECT_NAME.zip dist node_modules
+    - du -sh $CI_PROJECT_NAME.zip
+  artifacts:
+    paths:
+      - node_modules
+      - $CI_PROJECT_NAME.zip
+      - .env
+    expire_in: 20 min
+
+
+deploy-aws-lambda-prod:
+  stage: deploy-aws-prod
+  needs: ["build", "lint", "unit-tests"]
+  image:
+      name: amazon/aws-cli
+      entrypoint: [""]
+  extends: .pipeline-rules
+  script:
+    - aws s3 cp $CI_PROJECT_NAME.zip s3://$AWS_S3_BUCKET_PROD/serverless-backend/
+    - aws lambda update-function-code --function-name $AWS_LAMBDA_PROD_NAME --s3-bucket $AWS_S3_BUCKET_PROD --s3-key serverless-backend/$CI_PROJECT_NAME.zip
+    - sleep 30
+    - aws lambda update-function-configuration --function-name $AWS_LAMBDA_PROD_NAME --environment Variables="{NODE_ENV=$NODE_ENV,APP_NAME='',APP_FALLBACK_LANGUAGE=$APP_FALLBACK_LANGUAGE,APP_HEADER_LANGUAGE='',FRONTEND_DOMAIN='',AUTH_JWT_SECRET=$AUTH_JWT_SECRET,AUTH_JWT_TOKEN_EXPIRES_IN=$AUTH_JWT_TOKEN_EXPIRES_IN,CTP_CLIENT_ID=$CTP_CLIENT_ID,CTP_PROJECT_KEY=$CTP_PROJECT_KEY,CTP_CLIENT_SECRET=$CTP_CLIENT_SECRET,CTP_AUTH_URL=$CTP_AUTH_URL,CTP_API_URL=$CTP_API_URL,CTP_SCOPES=$CTP_SCOPES,ENCRYPTION_KEY=$ENCRYPTION_KEY,TOKEN_ENCRYPTION_ENABLED=$TOKEN_ENCRYPTION_ENABLED,GIT_COMMIT=$CI_COMMIT_SHA,GIT_BRANCH=$CI_COMMIT_REF_NAME,GIT_TAGS=''}"
+    - echo $AWS_LAMBDA_ENDPOINT_PROD
+  environment:
+    name: prod
+    url: $AWS_LAMBDA_ENDPOINT_PROD
