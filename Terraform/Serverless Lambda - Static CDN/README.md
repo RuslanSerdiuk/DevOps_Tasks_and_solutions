@@ -1,4 +1,4 @@
-# MACH Infrastructure
+# Project Infrastructure
 
 The current infrastructure is located in 3 cloud providers - AWS, Azure, GCP
 

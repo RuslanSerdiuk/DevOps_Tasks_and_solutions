@@ -7,7 +7,7 @@
 
 #### [Simple Application](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Simple_Application) - an example of how to deploy a simple application to AWS and the infrastructure for it using Terraform
 #### [Glue-Job: DynamoDB to Snowflake Migration](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/%5BAWS%5D-GlueJob-DynamoDBtoSnowflakeMigration) - Deploy Glue-Job + trigger for it / S3 Bucket for python script / Deploy secret-manager + lambda / Create several Environments!
-#### [Serverless Lambda - Static CDN](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Serverless%Lambda%-%Static%CDN/AWS) - Creating infrastructure for serverless backend and static frontend.
+#### [Serverless Lambda - Static CDN](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN) - Creating infrastructure for serverless backend and static frontend.
 
 
 
