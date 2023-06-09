@@ -3,7 +3,7 @@ terraform {
     resource_group_name  = "epmc-mach-resources"
     storage_account_name = "machterraformstatelock"
     container_name       = "terraform-state-files"
-    key                  = "terraform-infrastructure/AZURE/mach-bst-backend/bst-backend.tfstate"
+    key                  = "terraform-infrastructure/AZURE/mach-bst-frontend/bst-frontend.tfstate"
   }
 }
 

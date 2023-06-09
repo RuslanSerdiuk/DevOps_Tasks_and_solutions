@@ -5,10 +5,17 @@ The current infrastructure is located in 3 cloud providers - AWS, Azure, GCP
 > Do not make any changes to `bst-terraform-statefiles` :bangbang:
 
 ## AWS
-- [bst-admin](https://git.epam.com/epmc-mach/bst-infrastructure/-/tree/master/AWS/bst-admin) - infrastructure for admin frontend.
-- [bst-backend](https://git.epam.com/epmc-mach/bst-infrastructure/-/tree/master/AWS/bst-backend) - infrastructure for backend.
-- [bst-frontend](https://git.epam.com/epmc-mach/bst-infrastructure/-/tree/master/AWS/bst-frontend) - infrastructure for frontend.
-- [bst-terraform-statefiles](https://git.epam.com/epmc-mach/bst-infrastructure/-/tree/master/AWS/bst-terraform-statefiles) - infrastructure for terraform state files.
+- [bst-admin](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AWS/bst-admin) - infrastructure for admin frontend.
+- [bst-backend](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AWS/bst-backend) - infrastructure for backend.
+- [bst-frontend](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AWS/bst-frontend) - infrastructure for frontend.
+- [bst-terraform-statefiles](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AWS/bst-terraform-statefiles) - infrastructure for terraform state files.
+
+## AZURE
+- [bst-admin](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AZURE/bst-admin) - infrastructure for admin frontend.
+- [bst-backend](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AZURE/bst-backend) - infrastructure for backend.
+- [bst-frontend](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AZURE/bst-frontend) - infrastructure for frontend.
+- [bst-terraform-statefiles](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AZURE/bst-terraform-statefiles) - infrastructure for terraform state files.
+
 
 ## Workflow:
 1. clone this repo
