@@ -15,15 +15,12 @@ rg_location     = "West Europe"
 storage_account_name   = "machbackend"
 account_tier           = "Standard"
 
-storage_container_name = "bst-backend"
-
 ############################
 # Lambdas                  #
 ############################
-service_plan_name         = "serverless-app-service-plan"
-application_insights_name = "bst-backend-app-insights"
-os_type                   = "Linux"
+service_plan_name         = "mach-bst-backend"
+application_insights_name = "mach-bst-backend"
+os_type                   = "Windows"
 
-function_name             = "serverless-mach-bst-backend"
-storage_with_package      = "https://machbackend.blob.core.windows.net/bst-backend/myfunctionapp.zip"
-
+function_name             = "mach-bst-backend"
+storage_with_package      = "1"

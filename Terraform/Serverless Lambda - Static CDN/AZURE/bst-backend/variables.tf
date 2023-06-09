@@ -43,10 +43,6 @@ variable "account_tier" {
 
 }
 
-variable "storage_container_name" {
-  
-}
-
 variable "service_plan_name" {
 
 }
@@ -98,3 +94,16 @@ variable "TOKEN_ENCRYPTION_ENABLED" {}
 variable "GIT_COMMIT" {}
 variable "GIT_BRANCH" {}
 variable "GIT_TAGS" {}
+
+variable "MAIL_CLIENT_PORT" {}
+variable "MAIL_DEFAULT_EMAIL" {}
+variable "MAIL_DEFAULT_NAME" {}
+variable "MAIL_HOST" {}
+variable "MAIL_IGNORE_TLS" {}
+variable "MAIL_PASSWORD" {
+  sensitive = true
+}
+variable "MAIL_PORT" {}
+variable "MAIL_REQUIRE_TLS" {}
+variable "MAIL_SECURE" {}
+variable "MAIL_USER" {}
