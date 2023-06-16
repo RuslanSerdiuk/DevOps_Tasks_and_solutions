@@ -10,31 +10,24 @@ The current infrastructure is located in 3 cloud providers - AWS, Azure, GCP
 - [bst-frontend](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AWS/bst-frontend) - infrastructure for frontend.
 - [bst-terraform-statefiles](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AWS/bst-terraform-statefiles) - infrastructure for terraform state files.
 
-## AZURE
-- [bst-admin](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AZURE/bst-admin) - infrastructure for admin frontend.
-- [bst-backend](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AZURE/bst-backend) - infrastructure for backend.
-- [bst-frontend](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AZURE/bst-frontend) - infrastructure for frontend.
-- [bst-terraform-statefiles](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AZURE/bst-terraform-statefiles) - infrastructure for terraform state files.
-
-
-## Workflow:
+### Workflow:
 1. clone this repo
-2. Go to the directory you need (`bst-admin`, `bst-backend`, `bst-frontend` or `bst-terraform-statefiles`:warning:)
+2. Go to the directory you need **AWS/**(`bst-admin`, `bst-backend`, `bst-frontend` or `bst-terraform-statefiles`:warning:)
 3. Run these commands to make changes to the infrastructure:
-    ```
-    terraform init
+   ```
+   export TF_VAR_aws_access_key_id="your_access_key_id"
+   export TF_VAR_aws_secret_access_key="your_secret_access_key"
+   export TF_VAR_aws_session_token="your_session_token"
+   export TF_VAR_region="eu-central-1" 
+   
+   terraform init
     
-    export TF_VAR_aws_access_key_id="your_access_key_id"
-    export TF_VAR_aws_secret_access_key="your_secret_access_key"
-    export TF_VAR_aws_session_token="your_session_token"
-    export TF_VAR_region="eu-central-1"
+   terraform workspace list
+   terraform workspace select dev | prod | qa | secret | demo
     
-    terraform workspace list
-    terraform workspace select dev | prod
-    
-    terraform plan -var-file="env/dev.tfvars"
-    terraform apply -var-file="env/dev.tfvars"
-    ```
+   terraform plan -var-file="env/dev.tfvars"
+   terraform apply -var-file="env/dev.tfvars"
+   ```
 
 4. For backend:
     ```
@@ -62,9 +55,52 @@ The current infrastructure is located in 3 cloud providers - AWS, Azure, GCP
 
 #### If state file has been locked: `terraform force-unlock <ID_of_the_statefile>`
 
-## Azure
-In progress...
+
+
+## AZURE
+- [bst-admin](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AZURE/bst-admin) - infrastructure for admin frontend.
+- [bst-backend](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AZURE/bst-backend) - infrastructure for backend.
+- [bst-frontend](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AZURE/bst-frontend) - infrastructure for frontend.
+- [bst-terraform-statefiles](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/AZURE/bst-terraform-statefiles) - infrastructure for terraform state files.
+
+
+### Workflow:
+1. clone this repo
+2. Go to the directory you need **AZURE/**(`bst-admin`, `bst-backend`, `bst-frontend` or `bst-terraform-statefiles`:warning:)
+3. Run these commands to make changes to the infrastructure:
+    ```
+    terraform init
+    
+    terraform workspace list
+    terraform workspace select dev | prod | qa | secret | demo
+    
+    terraform plan -var-file="env/dev.tfvars"
+    terraform apply -var-file="env/dev.tfvars"
+    ```
+4. The backend uses the same code as the AWS part.
+
+
+
 
 ## GCP
-In progress...
+- [bst-admin](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/GCP/bst-admin) - infrastructure for admin frontend.
+- [bst-backend](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/GCP/bst-backend) - infrastructure for backend.
+- [bst-frontend](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/GCP/bst-frontend) - infrastructure for frontend.
+- [bst-terraform-statefiles](https://github.com/RuslanSerdiuk/DevOps_Tasks_and_solutions/tree/main/Terraform/Serverless%20Lambda%20-%20Static%20CDN/GCP/gcp-terraform-statefiles) - infrastructure for terraform state files.
+
+### Workflow:
+1. clone this repo
+2. Go to the directory you need **GCP/**(`bst-admin`, `bst-backend`, `bst-frontend` or `bst-terraform-statefiles`:warning:)
+3. Place the **gcp-key.json** file in the directory with the terraform code.
+4. And run these commands to make changes to the infrastructure:
+    ```
+    terraform init
+    
+    terraform workspace list
+    terraform workspace select dev | prod | qa | secret | demo
+    
+    terraform plan -var-file="env/dev.tfvars"
+    terraform apply -var-file="env/dev.tfvars"
+    ```
+5. The backend uses the same code as the AWS part.
 
