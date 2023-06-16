@@ -1,0 +1,9 @@
+.terraform
+.tfstate
+.tfstate.backup
+.terraform.lock.hcl
+.terraform.lock.info
+terraform.tfstate.d
+Key for user.txt
+Key for user.txt.bak
+gcp-key.json
