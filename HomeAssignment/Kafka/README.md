@@ -108,7 +108,7 @@ To start, create a directory in /home/kafka called Downloads to store your downl
     ```
 4. Enter the following unit definition into the file:
     ```
-    [Unit]
+   [Unit]
     Requires=zookeeper.service
     After=zookeeper.service
     
@@ -143,7 +143,7 @@ To start, create a directory in /home/kafka called Downloads to store your downl
 ### _Create a topic called `NeoGames`_
 1. To begin, create a topic named `NeoGames`:
    ```
-   ~/kafka/bin/kafka-topics.sh --create --bootstrap-server localhost:2181 --replication-factor 1 --partitions 1 --topic NeoGames
+   ~/kafka/bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic NeoGames
    ```
 2. Now publish the string "Welcome! This is second message" to the NeoGames topic:
    ```
