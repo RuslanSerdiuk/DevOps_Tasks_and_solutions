@@ -245,13 +245,13 @@ To start, create a directory in /home/kafka called Downloads to store your downl
 
 3. Execute the partition reassignment using the following command:
    ```
-   bin/kafka-reassign-partitions.sh --bootstrap-server localhost:2181 --reassignment-json-file ~/kafka_second_broker/reassignment.json --execute
+   bin/kafka-reassign-partitions.sh --bootstrap-server localhost:9092 --reassignment-json-file ~/kafka_second_broker/reassignment.json --execute
    ```
    <img src ='img/Kafka_partition_reassignment.jpg'>
 
 4. Also you can check the status of the partition reassignment using the following command:
 ```
-bin/kafka-reassign-partitions.sh --bootstrap-server localhost:2181 --reassignment-json-file ~/kafka_second_broker/reassignment.json --verify
+bin/kafka-reassign-partitions.sh --bootstrap-server localhost:9092 --reassignment-json-file ~/kafka_second_broker/reassignment.json --verify
 ```
 
 
