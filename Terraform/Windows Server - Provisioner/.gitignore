@@ -1,0 +1,7 @@
+/.terraform
+key_for_bastion.sh
+/.terraform.lock.hcl
+/terraform.tfstate.backup
+Key.txt
+windows_server.tfstate
+windows_server.tfstate.backup
