@@ -51,6 +51,20 @@ shutdown -r -t 10;
 EOF
 }
 
+# Expand the volume in the operating system
+data "template_file" "windows_expend_disk_size" {
+  template = <<EOF
+<powershell>
+# Rename Machine
+Rename-Computer -NewName "${var.windows_instance_name}" -Force;
+# Install IIS
+Install-WindowsFeature -name Web-Server -IncludeManagementTools;
+# Restart machine
+shutdown -r -t 10;
+</powershell>
+EOF
+}
+
 # Create EC2 Instance
 resource "aws_instance" "windows_server" {
   ami = data.aws_ami.windows-2019.id
@@ -77,7 +91,7 @@ resource "aws_instance" "windows_server" {
     encrypted             = true
     delete_on_termination = true
   }
-  
+
   tags = {
     "Name"                    = var.finance_product
     "Role"                    = "${var.backend_role}-${var.name_env}"
@@ -96,4 +110,23 @@ resource "aws_eip" "windows-eip" {
 resource "aws_eip_association" "windows-eip-association" {
   instance_id   = aws_instance.windows_server.id
   allocation_id = aws_eip.windows-eip.id
+}
+
+
+resource "null_resource" "remote-provisioner" {
+
+  provisioner "remote-exec" {
+    connection {
+      type     = "winrm"
+      user     = "Administrator"
+      password = "uqUK5C)VD(OTc@nqp5=%ePkDkOusSI*F"
+      host     = "10.11.1.73"
+      insecure = true
+    }
+    inline = [
+      "echo hello",
+      "powershell.exe Write-Host hello",
+      "powershell.exe New-Item C:/tmp/hello.txt -type file"
+    ]
+  }
 }

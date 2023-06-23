@@ -1,7 +1,7 @@
 ############################
 # Tags                     #
 ############################
-backend_role          = "terraform_windows"
+backend_role          = "terraform-windows"
 finance_product       = "neogames"
 finance_env           = "prod"
 name_env              = "pd"
