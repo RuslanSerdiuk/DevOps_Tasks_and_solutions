@@ -1,0 +1,1 @@
+{"hostname": "PERF-GW1", "data": {"changed": False, "filtered_updates": {}, "msg": "Failed to search for updates: Exception from HRESULT: 0x80072EE2", "updates": {}, "failed": True}}
